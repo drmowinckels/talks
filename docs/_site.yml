@@ -1,0 +1,29 @@
+name: "docs"
+title: "Athanasia M. Mowinckel's talks"
+description: |
+  A website collection of Athanasia M. Mowinckel's talks
+output_dir: "_site"  
+theme: drmowinckel.css
+#highlight: theme/uio_highlight.theme
+highlight_downlit: false
+favicon: theme/uio_dots.png
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: https://drmowinckels.io/aboutme/
+      
+    - text: "Talk slides"
+      menu:
+        - text: "Norment ggseg 27.11.2020"
+          href: slides/2020.11.27-norment-ggseg/
+
+    - icon: fa fa-globe
+      href: https://drmowinckels.io/blog/
+    - icon: fab fa-github
+      href: https://github.com/athanasiamo
+    - icon: fab fa-twitter
+      href: https://twitter.com/DrMowinckels
+      
+output: distill::distill_article

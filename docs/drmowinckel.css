@@ -1,0 +1,71 @@
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #2e3d3d;
+  --header-color:    #2e3d3d;
+  --body-color:      #78888b;
+  --aside-color:     #78888b;
+  --fig-cap-color:   #78888b;
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    Cormorant Garamond, serif;
+  --mono-font:       Cormorant Garamond, serif;
+  --body-font:       Lato, sans-serif;
+  --navbar-font:     Cormorant Garamond, serif;  /* websites + blogs only */
+  --bkgd-color: #fffefd;
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   #2e3d3d;
+  --body-size:       0.8rem;
+  --body-color:      #78888b;
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   #2e3d3d;
+  --text-size:       0.8em;
+  --text-color:      #78888b;
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #2e3d3d;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+.distill-site-footer {
+  padding: 20px;
+  color: #fff !important;
+  font-size: 15px;
+  border: none;
+  background-size: 5%;
+  background-position: center ;
+  background-repeat: no-repeat;
+  background-color: #2e3d3d !important;
+  background-image:  url("https://raw.githubusercontent.com/Athanasiamo/DrMowinckels/master/static/img/logo.svg");
+}
+
