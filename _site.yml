@@ -2,7 +2,7 @@ name: "talks"
 title: "Athanasia M. Mowinckel's talks"
 description: |
   A website collection of Athanasia M. Mowinckel's talks
-output_dir: "docs"  
+output_dir: "."  
 theme: drmowinckel.css
 #highlight: theme/uio_highlight.theme
 highlight_downlit: false 
@@ -19,7 +19,7 @@ navbar:
     - text: "Talk slides"
       menu:
         - text: "Norment ggseg 27.11.2020"
-          href: slides/2020.11.27-norment-ggseg/
+          href: slides/2020.11.27-norment-ggseg/index.html  
 
     - icon: fa fa-globe
       href: https://drmowinckels.io/blog/
