@@ -1,12 +1,14 @@
-name: "docs"
+name: "talks"
 title: "Athanasia M. Mowinckel's talks"
 description: |
   A website collection of Athanasia M. Mowinckel's talks
-output_dir: "_site"  
+output_dir: "docs"  
 theme: drmowinckel.css
 #highlight: theme/uio_highlight.theme
-highlight_downlit: false
-favicon: theme/uio_dots.png
+highlight_downlit: false 
+creative_commons: CC BY
+exclude: ["README.Rmd", "README.md"]
+# favicon: theme/uio_dots.png
 navbar:
   right:
     - text: "Home"

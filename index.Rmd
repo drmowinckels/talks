@@ -15,4 +15,4 @@ knitr::opts_chunk$set(echo = FALSE)
 
 You will find most talk slides under the navbar option "Talk slides".
 This will be added to as more materials become available.
-
+ 
