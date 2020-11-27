@@ -42,6 +42,18 @@ navbar:
           href: https://athanasiamo.github.io/LME_introduction_workshop/
         - text: "Tidyverse quick intro"
           href: https://athanasiamo.github.io/tidyquintro/
+    
+    - text: "Videos"
+      menu:
+        - text: "R-tutorials"
+        - text: "11.05.2020 - Reports to impress yous boss"
+          href: https://www.youtube.com/watch?v=Xn5AmUf7gDQ&t
+        - text: "---"
+        - text: "Oslo PsychScience - Pecha Kucha"
+        - text: "01.05.2018 - Healthy minds from 0-100: Optimising the use of European brain imaging cohorts"
+          href: https://www.youtube.com/watch?v=hYRtnxx0DUw
+        - text: "18.12.2014 - Why Study ADHD"
+          href: https://www.youtube.com/watch?v=sAwh5x6r0IE
 
 
     - icon: fa fa-globe
