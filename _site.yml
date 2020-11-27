@@ -16,10 +16,26 @@ navbar:
     - text: "About"
       href: https://drmowinckels.io/aboutme/
       
-    - text: "Talk slides"
+    - text: "Talks"
       menu:
-        - text: "Norment ggseg 27.11.2020"
+        - text: "---"
+        - text: "ggseg"
+        - text: "27.11.2020 - NORMENT Early Reaserchers"
           href: slides/2020.11.27-norment-ggseg/index.html  
+        - text: "10.11.2020 - NHS-R Conf"
+          href: https://athanasiamo.github.io/nhsr-2020/#1 
+        - text: "---"
+        - text: "Psychology Conferences"
+        - text: "Mixed models for longitudinal Lifespan research"
+          href: https://athanasiamo.github.io/CPH_presentation/
+        
+    - text: "Workshops"
+      menu:
+        - text: "Linear mixed models"
+          href: https://athanasiamo.github.io/LME_introduction_workshop/
+        - text: "Tidyverse quick intro"
+          href: https://athanasiamo.github.io/tidyquintro/
+
 
     - icon: fa fa-globe
       href: https://drmowinckels.io/blog/
