@@ -18,7 +18,6 @@ navbar:
       
     - text: "Talks"
       menu:
-        - text: "---"
         - text: "ggseg"
         - text: "27.11.2020 - NORMENT Early Reaserchers"
           href: slides/2020.11.27-norment-ggseg/index.html  
@@ -26,9 +25,17 @@ navbar:
           href: https://athanasiamo.github.io/nhsr-2020/#1 
         - text: "---"
         - text: "Psychology Conferences"
-        - text: "Mixed models for longitudinal Lifespan research"
+        - text: "20.01.2020 - Mixed models for longitudinal Lifespan research"
           href: https://athanasiamo.github.io/CPH_presentation/
-        
+        - text: "---"
+        - text: "R-Ladies"
+        - text: "11.05.2020 - Reports to impress yous boss"
+          href: https://rladies.github.io/meetup-presentations_oslo/2020-05-11-rmarkdown_like_a_boss/presentation.html#1
+        - text: "30.09.2019 - Data tidying"
+          href: https://rladies.github.io/meetup-presentations_oslo/2019-09-30-data_tidying_Mo/data_tidying-Mo.html#1
+        - text: "23.04.2018 - Adding external images to plots"
+          href: https://rladies.github.io/meetup-presentations_oslo/2018-04-23-external-images-to-plots/AddingExternalImages.html#1
+          
     - text: "Workshops"
       menu:
         - text: "Linear mixed models"
