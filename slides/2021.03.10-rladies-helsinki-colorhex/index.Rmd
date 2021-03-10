@@ -1,0 +1,430 @@
+---
+title: "Make something random"
+subtitle: "- learn something useful  -"
+author: "Athanasia Mo Mowinckel"
+date: "10.03.2021"
+output:
+  xaringan::moon_reader:
+    css: [default, rladies, rladies-fonts]
+    lib_dir: libs
+    nature:
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+background-image: url('img/david-tip-u_yzZGO1WeY-unsplash.jpg')
+background-size: cover
+
+```{r setup, include=FALSE}
+# Here you can place global options for the entire document.
+# Mostly used for knitr settings, but can also load data etc.
+# Whatever happens here will not show in the presentation.
+knitr::opts_chunk$set(
+  echo = FALSE,
+  out.width = "100%",
+  fig.retina = 3
+)
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE
+)
+
+library(knitr)
+library(dplyr)
+library(kableExtra)
+```
+
+```{css}
+.title-slide{
+  background-image: url('img/kelly-mccrimmon-qDot1fgsmfI-unsplash.jpg');
+  background-size: auto 100%;
+  background-position: -170% 50%;
+}
+``` 
+
+???
+we have busy work lives, where we constantly have expectations and deadlines and a muriad of external forces pushing us to accomplish something. 
+This is not unnatural for work, but it does not actually create great learning environments.
+And what is life and work if we dont get the opportunity to learn and grow?
+So what does help us learn?
+
+
+---
+class: middle, center
+```{r, out.width="33%"}
+include_graphics(c(
+  "https://drmowinckels.io/blog/2018-12-13-christmas-tree-in-ggplot/index_files/figure-html/featured-1.gif",
+  "https://drmowinckels.io/blog/2019-12-11-do-you-wanna-build-a-snowman/index_files/figure-html/featured-1.gif",
+  "https://drmowinckels.io/blog/2020-12-31-new-year-s-wishes/index.en_files/figure-html/featured-1.png"))
+```
+
+???
+Every year on my blog, so far, I have a post where I make a Christmas card in ggplot2. 
+This is a stupid, frivolous thing I do and really enjoy.
+It was inspired by a post I cannot find now, about a stats professor making this an end-of-term assignment to his students, after learning about visualisations in class. 
+They would get one hour to create a christmas tree as a plot, in any tool they'd like. 
+
+---
+background-image: url('img/felipe-simo-wCPkbjb_LJo-unsplash.jpg')
+background-size: 50%
+background-position: 0
+background-color: black
+
+??? 
+Dont ask why you should do it
+
+---
+background-image: url('img/felipe-simo-wCPkbjb_LJo-unsplash.jpg'), url('img/matthew-feeney-S5FHvNkBHOI-unsplash.jpg')
+background-size: 50%, cover
+background-position: 0, 100%
+
+???
+just do it!
+
+---
+background-image: url('img/jonathan-kemper-9tamF4J0vLk-unsplash.jpg')
+background-size: cover
+class: bottom, center, inverse
+
+
+## problem solving
+
+--
+
+## clear goal
+
+--
+
+## internally motivated
+
+--
+
+## no pressure to succeed
+
+
+---
+background-image: url('https://www.goodnet.org/photos/620x0/30712_hd.jpg')
+background-size: cover
+class: bottom, left
+
+[See Simone Giertz TED talk](https://www.goodnet.org/photos/620x0/30712_hd.jpg)
+
+???
+And this process is very reminiscent of Simone Giertz process of making useless things.
+While making something useless or frivolous, you learning something in a way that reduces external pressures (or even internal ones). 
+Purposefully making something useless or stupid can really help your learning experience. 
+
+---
+class: middle, center
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">here you go <a href="https://twitter.com/thomasp85?ref_src=twsrc%5Etfw">@thomasp85</a> , I made your plot horrible. <a href="https://t.co/4Y1qxC7b6Y">pic.twitter.com/4Y1qxC7b6Y</a></p>&mdash; Athanasia Mowinckel (@DrMowinckels) <a href="https://twitter.com/DrMowinckels/status/1233408612221030400?ref_src=twsrc%5Etfw">February 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+???
+This relieving of pressure also works for teaching.
+Learners will become completely paralyzed if you ask them to make a 'pretty' plot.
+Who descides what's pretty and how do you get that?
+Ask them instead to make the plot ugly! 
+and then they can start exploring how to do that.
+
+---
+class: inverse, middle, center
+
+# Make something random - Learn something useful
+
+---
+background-image: url('https://drmowinckels.io/blog/2020-12-31-new-year-s-wishes/index.en_files/figure-html/featured-1.png')
+background-size: contain
+background-color: black
+
+???
+As I was making my yearly ggplot christmas card, I was deciding on the color scheme to use.
+This is always a source of difficulty for me. 
+What colours to choose?!
+
+---
+background-image: url('img/color-hex.png')
+background-size: contain
+
+???
+I have a trusty site I use a lot.
+[color-hex](https://www.color-hex.com/)
+Take a little walk-about on the site.
+
+---
+background-image: url('img/alessandro-bianchi-_kdTyfnUFAc-unsplash.jpg')
+background-size: contain
+background-color: black
+background-position: 0
+class: inverse, right, middle
+
+# What if I had a package 
+# that helped me get these colours?
+
+--
+
+just for me  
+
+--
+
+I'll make it public if I want  
+
+--
+
+I can learn about httr
+
+--
+
+I can learn API testing with vcr
+
+---
+background-image: url('img/jon-tyson-r9T0LZv8xWQ-unsplash.jpg')
+background-size: auto 100%
+background-position: 0
+
+.pull-left[]
+
+.pull-right[
+```{r echo = TRUE}
+randcol <- function(){
+  sample(1:255, 1)
+}
+
+#' Generate random HEX colour
+#'
+#' @return character hex value
+#' @export
+#'
+#' @examples
+#' get_random_color()
+get_random_color <- function(){
+  grDevices::rgb(randcol(),
+                 randcol(),
+                 randcol(),
+                 maxColorValue = 255)
+}
+
+colour <- get_random_color()
+colour
+```
+]
+
+---
+background-image: url('img/jon-tyson-r9T0LZv8xWQ-unsplash.jpg')
+background-size: auto 100%
+background-position: 0
+
+.pull-left[]
+
+.pull-right[
+```{r echo = TRUE}
+#' Validate Hex
+#'
+#' validate if string is hexidecimal
+#' color code
+#'
+#' @param x hexidecimal character
+#' @return logical
+#'
+#' @export
+is_hex <- function(x){
+  grepl("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", x)
+}
+
+is_hex(colour)
+```
+]
+
+
+---
+
+.pull-left[
+```{r echo = TRUE}
+colour_url <- function(){
+  "https://www.color-hex.com/"
+}
+
+get_bkg_color <- function(x){
+  x <- strsplit(x, "background-color:")
+  x <- sapply(x, function(x) x[2])
+
+  x <- gsub(';|\\\">|</div>| ', '', x)
+  fix_hex(x)
+}
+
+fix_hex <- function(x){
+  indx <- ifelse(nchar(x) == 4, TRUE, FALSE)
+
+  x[indx] <-  paste0(x[indx], gsub("#", "", x[indx]))
+  x
+}
+```
+
+]
+
+.pull-right[
+```{r echo = TRUE}
+
+#' Get popular colour
+#'
+#' www.color-hex.com has a list of colours
+#' that have been liked by the most users.
+#' This function will retrieve all of these.
+#'
+#' @return character vector of hex colours
+#' @export
+#'
+#' @examples
+#' get_popular_colors()
+get_popular_colors <- function(){
+  url <- paste0(colour_url(), "popular-colors.php")
+  resp <- xml2::read_html(url)
+
+  cols <- rvest::html_nodes(resp,
+                            xpath = '//*[@class="colordva"]')
+  cols <- as.character(cols)
+  get_bkg_color(cols)
+}
+
+pop <- get_popular_colors()
+```
+]
+
+---
+
+```{r echo = TRUE, fig.height=7, fig.width=14}
+scales::show_col(pop)
+```
+
+---
+background-image: url("https://crop.kaleva.fi/_VavMJQMnsMU8V3_7JkJ49Hx6Q8=/2600x2600/smart/https%3A//lorien-media-prod.s3.amazonaws.com/images/archive/2021/02/10/2021.02.10.08.03.46_neo-4509522.jpg")
+background-size: contain
+
+---
+
+.pull-left[
+```{r echo = TRUE, eval = FALSE}
+remotes::install_github("Athanasiamo/colorhex")
+```
+
+```{r echo = TRUE}
+colour
+
+library(colorhex)
+colour_info <- get_color(colour)
+colour_info
+```
+]
+
+.pull-right[
+```{r echo = TRUE}
+plot(colour_info)
+```
+]
+
+---
+
+.pull-left[
+```{r pop-pals, echo = TRUE, eval = FALSE}
+pop_palettes <- get_popular_palettes()
+pop_palettes <- pop_palettes[1:10,]
+plot(pop_palettes)
+```
+]
+
+.pull-right[
+```{r pop-pals-out, ref.label='pop-pals'}
+```
+]
+
+---
+
+.pull-left[
+```{r pop-pals-gg1, echo = TRUE, eval = FALSE}
+library(ggplot2)
+ggplot(mtcars, aes(mpg)) +
+  geom_density(aes(fill = disp, group = disp)) +
+  scale_fill_palettehex_c(pop_palettes)
+```
+]
+
+.pull-right[
+```{r pop-pals-gg1-out, ref.label='pop-pals-gg1', warning=FALSE, message=FALSE}
+```
+]
+
+---
+
+.pull-left[
+```{r pop-pals-gg2, echo = TRUE, eval = FALSE}
+ ggplot(mtcars, aes(mpg, disp, colour = factor(cyl))) +
+    geom_point() +
+    scale_color_palettehex_d(pop_palettes, 3)
+```
+]
+
+.pull-right[
+```{r pop-pals-gg2-out, ref.label='pop-pals-gg2', warning=FALSE, message=FALSE}
+```
+]
+
+
+---
+background-image: url("https://usethis.r-lib.org/reference/figures/logo.png")
+background-size: contain
+background-position: 95%
+
+# Don't do everything alone
+
+.pull-left[
+```{r echo = TRUE, eval = FALSE}
+library(usethis)
+use_r()
+use_data()
+use_[x]_licence()
+use_package()
+use_git()
+use_github()
+use_github("pkgdown")
+use_github_action_check_standard()
+use_github_links()
+use_cran_badge()
+use_lifecycle_badge("experimental")
+```
+]
+
+---
+background-image: url('img/kelly-sikkema-Kl1gC0ve620-unsplash.jpg')
+background-size: cover
+class: inverse
+
+# What did I learn?
+
+--
+
+- httr / xml2
+
+--
+
+- S3 methods and classes
+
+--
+
+- not so much API testing!
+
+
+---
+background-image: url('https://raw.githubusercontent.com/Athanasiamo/DrMowinckels/master/static/img/logo.svg')
+background-size: auto 80%
+background-position: 95%
+
+# [`r fontawesome::fa("globe")` drmowinckels.io](https://drmowinckels.io/)
+# [`r fontawesome::fa("twitter")` @DrMowinckels](https://twitter.com/DrMowinckels)
+# [`r fontawesome::fa("github")` Athanasiamo](https://github.com/Athanasiamo)
+
+---
+background-image: url('https://pappaspocket.fi/wp-content/uploads/2019/05/SillaSipuliFB.jpg')
+background-size: contain
