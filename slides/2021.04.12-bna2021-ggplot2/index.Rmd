@@ -1,0 +1,628 @@
+---
+title: "R for visualisation"
+subtitle: "- the ggplot2 way  -"
+author: "Athanasia Monika Mowinckel"
+date: "12.04.2021"
+output:
+  xaringan::moon_reader:
+    css: [lcbc-uio.css, lcbc-uio-fonts.css, default]
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  message = FALSE, 
+  error = FALSE, 
+  warning = FALSE,
+  fig.retina = 3
+)
+
+# These are the defaults
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
+library(knitr)
+library(ggplot2)
+load("data/df_long.RData")
+```
+
+class: middle
+
+.pull-left[
+```{r echo = FALSE, out.height="600px", out.width="auto"}
+knitr::include_graphics("https://www.sv.uio.no/psi/personer/vit/athanasm/athanasia.mowinckel.2.small.png")
+```
+]
+
+.pull-right[
+## Athanasia Monika Mowinckel
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor  
+- Currently doing quite some R-package development & other in-house research software development  
+
+**Find me**
+
+- Twitter: [DrMowinckels](https://twitter.com/DrMowinckels)    
+- GitHub: [Athanasiamo](https://github.com/Athanasiamo)  
+- Website/Blog: [DrMowinckels.io](https://drmowinckels.io/)
+
+]
+
+---
+background-image: url(https://www.lifebrain.uio.no/vrtx/decorating/resources/images/logo.png), url(https://www.lifebrain.uio.no/web-banner_rev.jpg), url(https://www.lifebrain.uio.no/vrtx/decorating/resources/images/eu-flag.jpg)
+background-position: 50% 10%, 60% 100%, 90% 10% 
+background-size: 50%, 100%, 10%
+
+---
+
+layout: true
+
+<div class="my-sidebar"></div> 
+
+---
+## Graphics systems in R
+
+- ### base R
+- ### [plotly](https://plotly.com/r/)
+- ### [r2d3](https://rstudio.github.io/r2d3/)
+- ### [lattice](http://lattice.r-forge.r-project.org/Vignettes/src/lattice-intro/lattice-intro.pdf)
+
+---
+class: dark, bottom, center
+background-image: url(img/ggplot2.png)
+background-size: 30%
+background-position: 50% 40%
+name: ggplot
+
+# Grammar of graphics
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## Overview
+
+.pull-left[
+### Components
+
+- `ggplot()`  - initiate a plot, call once  
+- `geom_x()`  - add "geometry", call several times  
+- `scale_x()` - scale aesthetics, call several times  
+- `coord_x()` - alter coordinate system or "zoom" in/out, call once  
+- `theme_x()` - alter general plot aesthetics, call maximum twice
+- `labs()`    - alter labels (some overlap with `scale_x`), call once
+- `facet_x()` - create grids of subplots, call once
+]
+
+.pull-right[
+### Key concepts
+
+- **Mapping** 
+- Using variables from data  
+- Always inside an `aes()`
+
+
+- **Setting**
+- Setting a single value for all data
+- Never inside an `aes()`
+
+]
+
+---
+background-image: url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 15%
+background-position: 75% 5%
+## Base-r `plot()`
+
+.pull-left[
+**Pros**
+- versatile (can plot data, model outputs etc.)  
+- quick  
+- no extra dependencies (works out of the box)  
+
+**Cons**
+- not very pretty  
+- is not stored as an R 'object'  
+- somewhat tricky to customise  
+]
+
+.pull-right[
+```{r base-plot}
+plot(df_long$age.category, df_long$ffa)
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build0", eval = FALSE}
+ggplot(data = df_long)
+```
+]
+
+.pull-right[
+```{r "build0-rend", echo = FALSE, ref.label="build0"}
+```
+]
+
+???
+These next slides I will run through really fast.
+Don't worry about catching the code, we will be going through it
+together shortly.
+I just want to leaf through the process of constructing a complex plot,
+before we start doing it step by step together. 
+So don't worry that its going fast, I promise to get you on board more slowly soon.
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build1", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa))
+```
+]
+
+.pull-right[
+```{r "build1-rend", echo = FALSE, ref.label="build1"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build2", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category,
+                     y = ffa)) +
+  geom_boxplot() #<<
+```
+]
+
+.pull-right[
+```{r "build2-rend", echo = FALSE, ref.label="build2"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build3", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_boxplot(aes(fill = age.category))#<<
+```
+]
+
+.pull-right[
+```{r "build3-rend", echo = FALSE, ref.label="build3"}
+```
+]
+
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build4", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_boxplot(aes(fill = age.category)) +
+  scale_fill_brewer(palette = "Dark2")#<<
+```
+]
+
+.pull-right[
+```{r "build4-rend", echo = FALSE, ref.label="build4"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build5", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_boxplot(aes(fill = age.category)) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light()#<<
+```
+]
+
+.pull-right[
+```{r "build5-rend", echo = FALSE, ref.label="build5"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build6", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_boxplot(aes(fill = age.category)) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(#<<
+    title = "FFA activation across age categories",#<<
+    subtitle = "distributions of repeated participant measurements",#<<
+    x = "Age category",#<<
+    y = "FFA activation", #<<
+    fill = "Age category")#<<
+```
+]
+
+.pull-right[
+```{r "build6-rend", echo = FALSE, ref.label="build6"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build7", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_boxplot(aes(fill = age.category)) +
+  geom_violin(aes(fill = age.category)) + #<<
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category")
+```
+]
+
+.pull-right[
+```{r "build7-rend", echo = FALSE, ref.label="build7"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build8", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa)) +
+  geom_violin(aes(fill = age.category)) + #<<
+  geom_boxplot(aes(fill = age.category)) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category")
+```
+]
+
+.pull-right[
+```{r "build8-rend", echo = FALSE, ref.label="build8"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build9", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa,
+                     fill = age.category)) + #<<
+  geom_violin(alpha = .5) + #<<
+  geom_boxplot(alpha = .5, width = .2) + #<<
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category")
+```
+]
+
+.pull-right[
+```{r "build9-rend", echo = FALSE, ref.label="build9"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build10", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa,
+                     fill = age.category)) + 
+  geom_jitter(alpha = .2, width = .2) + #<<
+  geom_violin(alpha = .5) + 
+  geom_boxplot(alpha = .5, width = .2) + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category")
+```
+]
+
+.pull-right[
+```{r "build10-rend", echo = FALSE, ref.label="build10"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+## general build-up
+
+.pull-left[
+```{r "build11", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa,
+                     fill = age.category)) + 
+  geom_dotplot(binaxis = "y",     #<<
+               stackdir='center', #<<
+               dotsize = 0.5,     #<<
+               alpha = .6,        #<<
+               binwidth = .2) +   #<<
+  geom_violin(alpha = .5) + 
+  geom_boxplot(alpha = .5, width = .2) + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category")
+```
+]
+
+.pull-right[
+```{r "build11-rend", echo = FALSE, ref.label="build11"}
+```
+]
+
+---
+background-image: url(img/ggplot2.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## general build-up
+
+.pull-left[
+```{r "build12", eval = FALSE}
+ggplot(data = df_long,
+       mapping = aes(x = age.category, 
+                     y = ffa,
+                     fill = age.category)) + 
+  geom_dotplot(binaxis = "y",     
+               stackdir='center', 
+               dotsize = 0.5,     
+               binwidth = .2,     
+               alpha = .6) +      
+  geom_violin(alpha = .5) + 
+  geom_boxplot(alpha = .5, width = .2) + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  labs(
+    title = "FFA activation across age categories",
+    subtitle = "distributions of repeated participant measurements",
+    x = "Age category",
+    y = "FFA activation", 
+    fill = "Age category") +
+  facet_wrap(~face.emotion)#<<
+```
+]
+
+.pull-right[
+```{r "build12-rend", echo = FALSE, ref.label="build12"}
+```
+]
+
+---
+class: dark, middle, center
+
+## Go to RStudio 
+### live coding
+
+---
+class: dark, middle, center
+
+## Bonus stuff 
+### shame-less promotion
+
+---
+
+background-image: url(img/ggseg.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## ggseg - brain atlas plotting
+
+
+```{r "ggseg1", eval = FALSE}
+library(ggseg)
+ggplot() + geom_brain(atlas = dk, position = position_brain(hemi ~ side))
+```
+<center>
+```{r "ggseg1-rend", echo = FALSE, ref.label="ggseg1"}
+```
+<center>
+
+---
+
+background-image: url(img/ggseg.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## ggseg - brain atlas plotting
+
+.pull-left[
+```{r "ggseg2", eval = FALSE}
+test_data <- dplyr::tribble(
+  ~region, ~activation,
+  "banksts", .5,
+  "precentral", 1,
+  "precuneus", 1.5,
+  "lingual", .2
+)
+
+ggplot(test_data) + 
+  geom_brain(
+    aes(fill = activation), #<<
+    atlas = dk,
+    position = position_brain(hemi ~ side)
+  )
+```
+]
+
+.pull-right[
+```{r "ggseg2-rend", echo = FALSE, ref.label="ggseg2"}
+```
+]
+
+---
+
+background-image: url(img/ggseg.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## ggseg - brain atlas plotting
+
+.pull-left[
+```{r "ggseg3", eval = FALSE}
+test_data <- dplyr::tribble(
+  ~region, ~activation,
+  "bankssts", .5,
+  "precentral", 1,
+  "precuneus", 1.5,
+  "lingual", .2
+)
+
+ggplot(test_data) + 
+  geom_brain(
+    aes(fill = activation), #<<
+    atlas = dk,
+    position = position_brain(hemi ~ side)
+  ) +
+  scale_fill_viridis_c(na.value = "grey20") +
+  theme_brain2()
+```
+]
+
+.pull-right[
+```{r "ggseg3-rend", echo = FALSE, ref.label="ggseg3"}
+```
+]
+
+---
+background-image: url(img/ggseg.png), url(https://www.bna.org.uk/media/resources/images/BNA2021_online_website_sm.png)
+background-size: 8%, 15%
+background-position: 95% 5%, 75% 5%
+
+## ggseg - brain atlas plotting
+
+.pull-left[
+```{r "ggseg4", eval = FALSE}
+ggseg_p <- ggplot(test_data) + 
+  geom_brain(
+    aes(fill = activation),
+    atlas = dk,
+    position = position_brain(hemi ~ side),
+    show.legend = FALSE
+  ) +
+  theme_brain2()
+
+bar_p <- ggplot(test_data, 
+                aes(x = region, 
+                    y = activation, 
+                    fill = activation)) +
+  geom_bar(stat = "identity") +
+  theme_light()
+
+library(patchwork) #<<
+ggseg_p / bar_p  & #<<
+  scale_fill_viridis_c(na.value = "grey20") & #<<
+  plot_annotation( #<<
+    title = "Brain activation strength",  #<<
+    subtitle = "Desikan-Killiany atlas", #<<
+  ) #<<
+```
+]
+
+.pull-right[
+```{r "ggseg4-rend", echo = FALSE, ref.label="ggseg4"}
+```
+]
