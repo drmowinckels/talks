@@ -19,12 +19,16 @@ navbar:
     - text: "Talks"
       menu:
         - text: "ggseg"
+        - text: "20.04.2021 - Princeton Psych. Dept."
+          href: slides/2021.04.20-princeton-ggseg
         - text: "27.11.2020 - NORMENT Early Reaserchers"
           href: slides/2020.11.27-norment-ggseg/index.html  
         - text: "10.11.2020 - NHS-R Conf"
           href: https://athanasiamo.github.io/nhsr-2020/#1 
         - text: "---"
-        - text: "Psychology Conferences"
+        - text: "Psychology Talks"
+        - text: "19.04.2021 - MRI introduction"
+          href: slides/2021.04.19-princeton-mri-overview
         - text: "20.01.2020 - Mixed models for longitudinal Lifespan research"
           href: https://athanasiamo.github.io/CPH_presentation/
         - text: "---"
