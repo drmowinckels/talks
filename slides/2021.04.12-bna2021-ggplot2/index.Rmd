@@ -32,7 +32,8 @@ xaringanExtra::use_extra_styles(
 
 library(knitr)
 library(ggplot2)
-load("data/df_long.RData")
+source(here::here('slides/2021.04.12-bna2021-ggplot2/scripts/simulate_data.R'))
+df_long <- simulate_data(out_dir = "slides/2021.04.12-bna2021-ggplot2/data")
 ```
 
 class: middle
@@ -435,7 +436,7 @@ ggplot(data = df_long,
                stackdir='center', #<<
                dotsize = 0.5,     #<<
                alpha = .6,        #<<
-               binwidth = .2) +   #<<
+               binwidth = .045) +   #<<
   geom_violin(alpha = .5) + 
   geom_boxplot(alpha = .5, width = .2) + 
   scale_fill_brewer(palette = "Dark2") +
@@ -470,7 +471,7 @@ ggplot(data = df_long,
   geom_dotplot(binaxis = "y",     
                stackdir='center', 
                dotsize = 0.5,     
-               binwidth = .2,     
+               binwidth = .045,     
                alpha = .6) +      
   geom_violin(alpha = .5) + 
   geom_boxplot(alpha = .5, width = .2) + 

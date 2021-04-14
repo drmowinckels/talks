@@ -6,7 +6,7 @@
     <meta name="author" content="Athanasia Monika Mowinckel" />
     <script src="libs/header-attrs-2.7/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/xaringanExtra-extra-styles-0.2.4/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="lcbc-uio.css" type="text/css" />
     <link rel="stylesheet" href="lcbc-uio-fonts.css" type="text/css" />
   </head>
@@ -426,7 +426,7 @@ ggplot(data = df_long,
 *              stackdir='center',
 *              dotsize = 0.5,
 *              alpha = .6,
-*              binwidth = .2) +
+*              binwidth = .045) +
   geom_violin(alpha = .5) + 
   geom_boxplot(alpha = .5, width = .2) + 
   scale_fill_brewer(palette = "Dark2") +
@@ -461,7 +461,7 @@ ggplot(data = df_long,
   geom_dotplot(binaxis = "y",     
                stackdir='center', 
                dotsize = 0.5,     
-               binwidth = .2,     
+               binwidth = .045,     
                alpha = .6) +      
   geom_violin(alpha = .5) + 
   geom_boxplot(alpha = .5, width = .2) + 

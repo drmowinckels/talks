@@ -6,10 +6,10 @@
 
 # Create function to simulate data.
 # Alter default argument values to customise the simulated data more
-simulate_data <- function(Nparticipant =  20,
+simulate_data <- function(Nparticipant =  50,
                           Nface = 8,
                           Nwave = 6,
-                          Ntrial = 5,
+                          Ntrial = 50,
                           face.emotion = c('Happy','Sad'),
                           min.age = 10,
                           seed = 1234,
@@ -72,4 +72,4 @@ simulate_data <- function(Nparticipant =  20,
   return(df_long)
 }
 
-df_long <- simulate_data(out_dir = "slides/2021.04.12-bna2021-ggplot2/data")
+
