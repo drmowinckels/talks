@@ -1,6 +1,6 @@
 ---
-title: "Visualizing brain data"
-subtitle: "- the ggseg-suite of R-packages  -"
+title: "MRI"
+subtitle: "- a quick introduction  -"
 author: "Athanasia Monika Mowinckel"
 date: "19.04.2021"
 output:
