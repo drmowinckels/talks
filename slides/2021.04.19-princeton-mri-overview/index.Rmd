@@ -150,13 +150,15 @@ Its on these varying shades of grey that we do our analyses.
 ---
 class: dark
 background-image: url("img/slices.png"), url("img/slices2.png")
-background-position: 15% 85%, 95%
-background-size: 30%, 60%
+background-position: 20% 85%, 95%
+background-size: 30%, 50%
 
 
-.left-column[
-- _slices_
-- collection of slices form a _volume_
+.pull-left[
+## Jargon
+- cubic pixels are called _voxels_
+- a plane of _voxels_ form a _slice_
+- collection of _slices_ form a _volume_
 ]
 
 ???
@@ -278,7 +280,7 @@ background-size:  50% auto
 
 - The level of diffusion in different directions
 
-- Related to the microstructure of the brain’s white matter (WM)
+- Related to the microstructure of the brain’s white matter (WM), and structural connectivity
 
 - Making it possible to quantify characteristics of specific fiber tracts connecting brain structures
 ]
@@ -415,9 +417,9 @@ background-position: 95%
 .pull-left[
 - Oxygenated and deoxygenated haemoglobin have different effects on the magnetic field in the MRI.
 
-- Oxygenated haemoglobin has similar magnetic prperties as brain tissue, and the magnetic field becomes _more_ homogenous
+- Oxygenated haemoglobin has similar magnetic properties as brain tissue, and the magnetic field becomes _more_ homogenous
 
-- Deoxygenated heamoglobin has different magnetic properties than brain tissue, and the magnetic field becomes _less_ homogenous
+- Deoxygenated haemoglobin has different magnetic properties than brain tissue, and the magnetic field becomes _less_ homogenous
 ]
 
 
@@ -461,6 +463,9 @@ The metabolic rate of oxygen consumption (CMRO2)
 
 .pull-left[
 **Task**
+
+- Task dependent activation
+
 - Task dependent functional connectivity
 
 - Regions important for specific cognitive functions
@@ -504,6 +509,8 @@ $1\mathrm{e}{+05}\times1\mathrm{e}{+05}$ comparisons per volume
 ![](img/slices3.png)
 ]
 
+--
+
 .pull-right[
 **Region of Interest**  
 $35\times35$ comparisons per volume
@@ -516,6 +523,17 @@ plot(dk, show.legend = FALSE,
   theme_brain2()
 ```
 ]
+
+???
+multiple comparisons issues on whole-brain data
+atlas data reduces this
+makes it possible to run more familiar models in programs like R, SPSS etc.
+
+---
+class: title-slide, middle, right
+
+# Some tips
+## if you decide to<br>work with MRI data
 
 ---
 class: dark
