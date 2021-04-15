@@ -200,6 +200,12 @@ In functional Magnetic Resonance Imaging (fMRI) we tune the scanner so that it i
 Since the differences of interest are dynamic, we collect as many volumes as possible during a given period of time (typically one volume every 2 seconds).
 
 ---
+class: title-slide, middle, right
+
+# Structural MRI
+## Investigating the brain tissue
+
+---
 class: dark
 background-image: url("img/mprage.png")
 background-position: right
@@ -366,6 +372,12 @@ background-position: 95%
   - [Tracula (FreeSurfer)](https://surfer.nmr.mgh.harvard.edu/fswiki/Tracula)
   
   - [Nipype (python)](https://nipype.readthedocs.io/en/latest/examples.html)
+
+---
+class: title-slide, middle, right
+
+# Functional MRI
+## Investigating brain activation patterns
 
 ---
 class: dark
