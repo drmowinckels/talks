@@ -1,0 +1,7 @@
+base
+knitr
+dplyr
+kableExtra
+ggseg
+ggplot2
+gganimate

@@ -25,16 +25,16 @@ output:
 # Mostly used for knitr settings, but can also load data etc.
 # Whatever happens here will not show in the presentation.
 knitr::opts_chunk$set(echo = TRUE,
-                    out.width = "100%",
-                    fig.retina = 3)
+                      out.width = "100%",
+                      fig.retina = 3)
 
 xaringanExtra::use_extra_styles(
   hover_code_line = TRUE
 )
 
-library(knitr)
+library(ggseg)
+library(ggplot2)
 library(dplyr)
-library(kableExtra)
 ```
 
 background-image: url("https://drmowinckels.io/about/profile.png")
@@ -65,7 +65,7 @@ background-position: 50% 10%, bottom center, 90% 10%
 ---
 
 layout: true
-    
+
 <div class="my-sidebar"></div> 
 
 ---
@@ -79,9 +79,9 @@ class: middle, left
 ### Outline
 - What is MRI 
 - Modalities
-  - T1 anat
-  - DTI
-  - Functional
+- T1 anat
+- DTI
+- Functional
 
 ???
 We'll be doing a very quick introduction to MRI. 
@@ -97,11 +97,11 @@ background-size: auto 100%
 
 .pull-left[
 - Uses strong magnetic fields  
-  - in clinical settings usually between 0.5T and 3T
-  - human research is also done on up to 7T
+- in clinical settings usually between 0.5T and 3T
+- human research is also done on up to 7T
 - Measures density of hydrogen nuclei  
-  - the magnetic field is changed exciting the nuclei by radio pulses 
-  - images are created by measuring the rate of which excited nuclei return to the equilibrium state
+- the magnetic field is changed exciting the nuclei by radio pulses 
+- images are created by measuring the rate of which excited nuclei return to the equilibrium state
 ]
 
 ---
@@ -113,8 +113,7 @@ background-size: 75%
 
 ???
 (a) Hydrogen Nuclei Behave as Tiny Bar Magnets Aligned with the Spin Axes of the Nuclei. (b) Spinning Protons with Random Nuclear Magnetic Axes in the Absence of an External Magnetic Field.
-The difference between the numbers of protons with high and low energy level produces the bulk magnetization ‘M’, which provides signal measured by NMR devices (Figure 3‑10). The bulk (Macroscopic) magnetization ‘M’ is defined as the net magnetic moment per unit volume
- 
+
 ---
 background-image: url("https://secureservercdn.net/198.71.233.138/1x9.a09.myftpupload.com/wp-content/uploads/2014/11/3-10-line-up-nuclear-spins-in-external-magnetic-field.png")
 background-size: 85%
@@ -123,10 +122,9 @@ background-size: 85%
 
 ???
 Line Up Nuclear Spins in an External Magnetic Field
+B0 applied will align protons in specific directions. After the protons are exposed to the static external magnetic field ( B0 ), they are said to be polarized. 
 
-M is measurable and is proportional to the number of protons, the magnitude B0 of the applied magnetic field, and the inverse of the absolute temperature.
-
-After the protons are exposed to the static external magnetic field ( B0 ), they are said to be polarized. 
+When a radio pulse is applied to this, many protons will have their directionality altered. We measure the time it takes for the protons to come back to their relaxed state, i.e. aligned with the magnetic field B0. 
 
 ---
 background-image: url("img/mri_voxel1.png"), url("img/mri_voxel2.png")
@@ -217,7 +215,7 @@ background-size:  auto 100%
 **MPRAGE / MEMPRAGE**
 - Great resolution  
 - Grey matter  
-- Often combined with T2 during analyses to create better contrast between grey and white matter
+- Often combined with T2 during analyses to create better contrast between grey matter and CSF
 
 .footnote[Image: [Siemens](https://www.siemens.com/global/en.html)]
 ]
@@ -268,9 +266,10 @@ background-size:  auto 100%
 
 **Commonly used software**
 - [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurfer)  
-- [SPM (MATLAB)](https://www.fil.ion.ucl.ac.uk/spm/)  
-- [nipy (python)](https://nipy.org/nipy/index.html)
 
+- [SPM (MATLAB)](https://www.fil.ion.ucl.ac.uk/spm/)  
+
+- [FSL](https://fsl.fmrib.ox.ac.uk/fslcourse/lectures/practicals/seg_struc/index.html)
 ]
 
 ---
@@ -313,11 +312,11 @@ background-position: 100%
 
 .pull-left[
 **Diffusivity**
-  > water in extracellular space  
+> water in extracellular space  
 
-  > - *Mean diffusivity*
-  > - *Radial diffusivity*
-  > - *Axial diffusivity*
+> - *Mean diffusivity*
+> - *Radial diffusivity*
+> - *Axial diffusivity*
 
 
 .footnote[Image: [Do Tromp, (2016)](https://thewinnower.com/papers/3524-dti-scalars-fa-md-ad-rd-how-do-they-relate-to-brain-structure)]
@@ -327,12 +326,12 @@ background-position: 100%
 ???
 - Mean diffusivity
 - Radial diffusivity
-   - decreases with axonal damage
-   - increases during maturation
+- decreases with axonal damage
+- increases during maturation
 - Axial diffusivity
-   - changes with demyalination
-   - changes in axonal diameter or density also impacts it
-   
+- changes with demyalination
+- changes in axonal diameter or density also impacts it
+
 ---
 class: dark
 background-image: url("https://1.bp.blogspot.com/-Dyl5V0rBV2U/VQnVvNvmHGI/AAAAAAAACwc/SfqfEf0We_4/s1600/scalars.png")
@@ -342,13 +341,13 @@ background-position: 100%
 
 .pull-left[
 **Fractional anisotropy**
-  > often thought as "white matter integrity"
-  
-  > is a fractal combination of all three $\lambda$'s
-  
-  $$ FA = \sqrt{\frac{1}{2}}\frac{\sqrt{(\lambda_1 - \lambda_2)^2 + (\lambda_2 - \lambda_3)^2 + (\lambda_3 - \lambda_1)^2}}{\sqrt{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}} $$
-  
-  .footnote[Image: [Do Tromp, (2016)](https://thewinnower.com/papers/3524-dti-scalars-fa-md-ad-rd-how-do-they-relate-to-brain-structure)]
+> often thought as "white matter integrity"
+
+> is a fractal combination of all three $\lambda$'s
+
+$$ FA = \sqrt{\frac{1}{2}}\frac{\sqrt{(\lambda_1 - \lambda_2)^2 + (\lambda_2 - \lambda_3)^2 + (\lambda_3 - \lambda_1)^2}}{\sqrt{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}} $$
+
+.footnote[Image: [Do Tromp, (2016)](https://thewinnower.com/papers/3524-dti-scalars-fa-md-ad-rd-how-do-they-relate-to-brain-structure)]
 ]
 
 ???
@@ -367,11 +366,11 @@ background-position: 95%
 
 **Commonly used software**
 
-  - [TBSS (FSL)](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/TBSS) 
-  
-  - [Tracula (FreeSurfer)](https://surfer.nmr.mgh.harvard.edu/fswiki/Tracula)
-  
-  - [Nipype (python)](https://nipype.readthedocs.io/en/latest/examples.html)
+- [TBSS (FSL)](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/TBSS) 
+
+- [Tracula (FreeSurfer)](https://surfer.nmr.mgh.harvard.edu/fswiki/Tracula)
+
+- [Nipype (python)](https://nipype.readthedocs.io/en/latest/examples.html)
 
 ---
 class: title-slide, middle, right
@@ -440,9 +439,6 @@ The premise for fMRI is that where the neural tissue consumes oxygen that is whe
 So when we can detect the change from oxy to deoxy hb, that is where the neural activity occurs. 
 
 ---
-background-image: url("https://www.biorxiv.org/content/biorxiv/early/2019/03/09/573006/F1.large.jpg?width=800&height=600&carousel=1")
-background-position: 98%
-background-size: 50%
 # Functional
 
 **Heamodynamic response function**
@@ -453,16 +449,35 @@ background-size: 50%
 - Our models need to account for this when running analyses
 
 - Three major ways or modelling it:
-  - Double gamma HRF
-  - Canonical HRF
-  - Dynamic HRF
-  
+- Double gamma HRF
+- Canonical HRF
+- Dynamic HRF
+
 .footnote[[Schaper 2019](https://doi.org/10.1101/573006)]
-  
+
 ]
 
-???
+.pull-right[
+```{r , echo = FALSE, cache = TRUE}
+tibble(x = seq(1, 14, length.out = 100)) %>% 
+  mutate(
+    y = dgamma(x, shape = 8, rate = 1.7)
+  ) %>% 
+  
+  ggplot(aes(x, y)) +
+  geom_vline(aes(xintercept = 1, 
+                 color = "neural activity"),
+             size = 2) +
+  geom_line() +
+  theme_minimal() +
+  theme(legend.position = "top", legend.text = element_text(size = 18)) +
+  labs(x = "Time (ms)", color = "") +
+  scale_color_manual(values = "yellowgreen")
+```
+]
 
+
+???
 Depends on:
 The cerebral blood flow (CBF)
 The cerebral blood volume (CBV)
@@ -505,11 +520,9 @@ background-position: 100%
 
 - [FreeSurfer](http://www.freesurfer.net/)
 
-- [Nipype (python)](https://miykael.github.io/nipype-beginner-s-guide/firstLevel.html)
-
 - [SPM (Matlab)](https://www.fil.ion.ucl.ac.uk/spm/)
 
-
+- [AFNI](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/main_toc.html)
 
 ---
 
@@ -528,8 +541,6 @@ $1\mathrm{e}{+05}\times1\mathrm{e}{+05}$ comparisons per volume
 $35\times35$ comparisons per volume
 
 ```{r echo = FALSE, message=FALSE}
-library(ggseg)
-library(ggplot2)
 plot(dk, show.legend = FALSE,
      position = position_brain(hemi ~ side)) +
   theme_brain2()
@@ -565,14 +576,29 @@ background-size: 50%
 .footnote[[BIDS](https://bids.neuroimaging.io/)]
 
 ---
-background-image: url("https://neuroconductor.org/sites/default/files/img/neuro_logo1.png")
-background-position: 90%
-# For R users
-
-https://neuroconductor.org/
+class: dark
+# Wrapper pipelines
 
 .pull-left[
+## R  
+
+- [Neuroconductor](https://neuroconductor.org/)
 - R packages for running MRI analyses from R
+
+.center[
+<img src="https://neuroconductor.org/sites/default/files/img/neuro_logo1.png" alt="Neuroconductor" width="50%"/>
+]
+]
+
+.pull-left[
+## python  
+
+- [nipy](https://nipy.org/)
+- python libraries to run MRI analyses from python
+
+.center[
+<img src="https://nipy.org/img/nipy.svg" alt="Neuroconductor" width="50%"/>
+]
 ]
 
 ---
@@ -583,7 +609,7 @@ class: dark
 - [DartBrains](https://dartbrains.org/content/intro.html) 
 
 - [BIDS tutorials](https://github.com/bids-standard/bids-starter-kit/wiki/Tutorials)
-  - [BIDS apps](http://bids-apps.neuroimaging.io)
+- [BIDS apps](http://bids-apps.neuroimaging.io)
 
 - [Andy's Brain book](https://andysbrainbook.readthedocs.io/en/latest/index.html)
 
