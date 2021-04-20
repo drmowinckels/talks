@@ -5,7 +5,12 @@ author: "Athanasia Monika Mowinckel"
 date: "27.11.2020"
 output:
   xaringan::moon_reader:
-    css: [lcbc-uio.css, lcbc-uio-fonts.css, default]
+    css: 
+      - lcbc-uio.css
+      - default
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     lib_dir: libs
     nature:
       titleSlideClass: [middle, right]
@@ -32,39 +37,37 @@ library(dplyr)
 library(kableExtra)
 ```
 
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
 class: middle
 
 .pull-left[
-```{r echo = FALSE, out.height="600px", out.width="auto"}
-knitr::include_graphics("https://www.sv.uio.no/psi/personer/vit/athanasm/athanasia.mowinckel.2.small.png")
-```
-]
-
-.pull-right[
 ## Athanasia Monika Mowinckel
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i>](https://twitter.com/DrMowinckels) 
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i>](https://github.com/Athanasiamo)
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i>](https://drmowinckels.io/)
 
 - Staff scientist  
 - PhD in cognitive psychology  
 - Software Carpentry Instructor  
-- Currently doing quite some R-package development & other in-house research software development  
-
-**Find me**
-    - Twitter: [DrMowinckels](https://twitter.com/DrMowinckels)    
-    - GitHub: [Athanasiamo](https://github.com/Athanasiamo)  
-    - Website/Blog: [DrMowinckels.io](https://drmowinckels.io/)
 
 ]
 
+
 ---
 background-image: url(https://www.lifebrain.uio.no/vrtx/decorating/resources/images/logo.png), url(https://www.lifebrain.uio.no/web-banner_rev.jpg), url(https://www.lifebrain.uio.no/vrtx/decorating/resources/images/eu-flag.jpg)
-background-position: 50% 10%, 50% 80%, 90% 10% 
+background-size: 50%, 100% auto, 10%
+background-position: 50% 10%, bottom center, 90% 10% 
 
 ---
 
 layout: true
-    
-<div class="my-sidebar"></div> 
 
+<div class="my-sidebar"></div> 
 
 ---
 class: dark, center, middle
@@ -659,7 +662,7 @@ class: title-slide, middle, right
 
 ---
 class: center, inverse
-background-image: url(https://www.sv.uio.no/psi/english/people/aca/didacvp/didacvp.jpg), url(https://www.sv.uio.no/psi/personer/vit/athanasm/athanasia.mowinckel.2.small.png)
+background-image: url(https://www.sv.uio.no/psi/english/people/aca/didacvp/didacvp.jpg), url(https://drmowinckels.io/about/profile.png)
 background-position: 41% 70%, 59% 70%
 background-size: 15%
 
