@@ -1299,7 +1299,6 @@ class: middle, center, dark
 
 layout: false
 
----
 
 background-image: url("https://drmowinckels.io/about/profile.png")
 background-position: right bottom
