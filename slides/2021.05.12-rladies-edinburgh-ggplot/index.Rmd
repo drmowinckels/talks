@@ -1,0 +1,1320 @@
+---
+title: "Zhoozh up your ggplots!"
+subtitle: "- customizing your plots  -"
+author: "Athanasia Monika Mowinckel"
+date: "12.05.2021"
+output:
+  xaringan::moon_reader:
+    css: 
+      - lcbc-uio.css
+      - default
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+      output: 
+      beforeInit: "https://platform.twitter.com/widgets.js"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(extrafont)
+# extrafont::font_import()
+loadfonts(device = "postscript")
+source('full_script.R')
+
+# Here you can place global options for the entire document.
+# Mostly used for knitr settings, but can also load data etc.
+# Whatever happens here will not show in the presentation.
+opts_chunk$set(echo = TRUE,
+               out.width = "100%",
+               fig.retina = 3,
+               fig.height = 4)
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE
+)
+
+```
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor  
+
+]
+
+
+---
+
+layout: true
+
+<div class="my-sidebar"></div> 
+
+---
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">It&#39;s pretty clear that people are having a lot of trouble customising plots. It would be useful to see what the common problems are, and I like trying to see if I can explain a concept in a single tweet, so respond to this with your specific problems/questions. <a href="https://t.co/2A12rja6ln">https://t.co/2A12rja6ln</a></p>&mdash; Lisa DeBruine 🏳️‍🌈 (@LisaDeBruine) <a href="https://twitter.com/LisaDeBruine/status/1390597095632117760?ref_src=twsrc%5Etfw">May 7, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+```{r, echo = FALSE, fig.alt="Barchart of movies that pass the Bechdel tests per genre and decade. In a default ggplot2 style."}
+ggplot() + 
+  
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = abs(n))
+  ) +
+  geom_hline(
+    data = bechdel_bd_mean,
+    aes(yintercept = pc_new)
+  ) + 
+  
+  facet_wrap(
+    ~ genre, 
+    ncol = 5, 
+    scales = "free"
+  ) 
+```
+
+---
+class: dark
+
+```{r, echo = FALSE, fig.alt="Barchart of movies that pass the Bechdel tests per genre and decade. In a customised ggplot2 style, with black backgorund, muted colours, and fonts for the genre's that look like movie fonts for that genre."}
+full_plot() 
+```
+
+---
+class: dark, middle, center
+
+# Where do we start?
+
+---
+class: middle, center
+
+```{r, echo = FALSE, fig.alt="Logo of the tidy tuesday R for datascience initiative"}
+include_graphics("https://github.com/rfordatascience/tidytuesday/raw/master/static/tt_logo.png")
+```
+
+
+---
+background-image: url("https://camo.githubusercontent.com/b517fc5f8c00b5e8993701f1436dc6e3c97197fe04f8809b57ca0879fa0622d7/68747470733a2f2f6669766574686972747965696768742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30342f3437373039323030372e6a7067")
+background-position: 0 100%
+background-size: 100%
+# Tidy Tuesday week 11 2021
+## [Bechdel Test Data](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-09)
+
+1. It has to have at least two [named] women in it  
+2. Who talk to each other  
+3. About something besides a man
+
+---
+class: middle, center, dark
+
+## Disclaimer
+Customizing ggplots require quite some code. 
+This can be hard to present on slides.
+The slides show a little the progression from start to finish.
+
+## The final script can be seen rendered [here](full_script.html) 
+
+---
+
+## Loading in the data
+
+```{r "data", eval = FALSE}
+
+# Want to bin years into decades.
+bin_breaks <- 10
+
+# As shown in the repo README
+tuesdata <- tidytuesdayR::tt_load(2021, week = 11)
+
+# Grab Bechel data and imdb data,
+# join them, and in years into decades.
+bechdel <- tuesdata$raw_bechdel %>% 
+  as_tibble() %>% 
+  right_join(tuesdata$movies) %>% 
+  mutate(
+    y = ifelse(binary == "PASS", 1L, 0L),
+    year_bin = cut(year, 
+                   breaks = seq(1970, 2020, bin_breaks),
+                   labels = seq(1970, 2020 - bin_breaks, bin_breaks),
+                   include.lowest = TRUE)
+  )
+```
+
+
+```{r data-output, ref.label="data", include = FALSE}
+```
+
+
+???
+I'm not going to focus too much on the data munging part of this, as the focus is on customising ggplots. 
+The code is here, for those interested in that, but we won't spend much time on this.
+We get the tidy tuesday data for 2021 week 11, and right join the bechdel data with the imd data, and create
+to variables. One binary variable of 1s and 0s for passing of failing the bechdel test, and another that
+bins the years into decades.
+
+---
+
+```{r}
+bechdel_bd <- bechdel %>% 
+  separate_rows(genre, sep = ",") %>%
+  mutate(genre = str_trim(genre)) %>% 
+  filter(genre != "Documentary", !is.na(genre)) %>%  #<<
+  group_by(genre, year_bin, binary) %>% 
+  tally() %>% 
+  mutate(
+    N = sum(n),
+    pc = n/N,
+    pc = ifelse(binary == "FAIL", pc*-1, pc), #<<
+    n = ifelse(binary == "FAIL", n*-1, n), #<<
+    year_bin_num = as.numeric(year_bin)
+  ) %>% 
+  ungroup()
+```
+
+???
+A little more data munging before we can continue. 
+We are here making another data set, where we have data by decades and genre, with the number of
+movies that pass or fail for each decade and genre. Another thing happening here is that both for 
+the number of movies and percent, the ones that fail have their scale flipped to be below 1.
+This is to create a bar chart that has a mirrored effect. Also, we are making a dummy variable
+for the binned years, which is just the numeric representation of the bin factor. We'll see
+why that's important later.
+
+---
+
+## Creating the first plot
+
+.pull-left[
+
+```{r "plot1", eval = FALSE}
+
+ggplot() + 
+  
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = abs(n))
+  ) +
+  facet_wrap(~genre)
+```
+]
+
+.pull-right[
+```{r plot1-output, ref.label="plot1", echo = FALSE}
+```
+]
+
+???
+so this is the first plot we have. Its a pretty standard stacked bar chart with the number of observations for pass and fail on top of each other, and with one subplot per genre. It's an ok place to start, but there are things to improve!
+Stacked bars are actually quite hard to interpret, at least to compare between genres and years. We are acutally
+using `abs()` here on the n, so we remove the flipping of the negative results. 
+
+---
+
+## Mirroring the results
+
+.pull-left[
+
+```{r "plot2", eval = FALSE}
+
+ggplot() + 
+  
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = n)  #<<
+  ) +
+  facet_wrap(~genre)
+```
+]
+
+.pull-right[
+```{r plot2-output, ref.label="plot2", echo = FALSE}
+```
+]
+
+???
+Now we're getting the mirrores effect, so its starting to get better. But still, the number of movies in each genre is making it hard to compare. Lets rather use the `pc` column, percent. This should make comparisons easier.
+
+
+---
+
+## Switching to percent
+
+.pull-left[
+
+```{r plot3, eval = FALSE}
+
+ggplot() + 
+  
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  #<<
+  ) +
+  facet_wrap(~genre)
+```
+]
+
+.pull-right[
+```{r plot3-output, ref.label="plot3", echo = FALSE}
+```
+]
+
+???
+ok, what are we looking at here? Now all bars should be the same length as a whole, with a colour divide where the change from pass to fail occurs. Movies in years where there is more of the bar on the left side mean the majority fail the test, and if the largest part of the bar is on the right side, the majority pass the test.
+
+---
+
+## Flipping the coordinates
+
+.pull-left[
+
+```{r plot4, eval = FALSE}
+
+ggplot() + 
+  
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip() #<<
+```
+]
+
+.pull-right[
+```{r plot4-output, ref.label="plot4", echo = FALSE}
+```
+]
+
+???
+
+Now we are starting to have a basis that I like. The bars are easier to read, so are the axis labels. So let's start adapting the theme a little, so that things look a little cleaner.
+
+
+---
+
+## Scaling the axis
+
+.pull-left[
+
+```{r plot5, eval = FALSE}
+ggplot() + 
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::percent
+  ) 
+```
+]
+
+.pull-right[
+```{r plot5-output, ref.label="plot5", echo = FALSE}
+```
+]
+
+???
+we can use the percent function from the scales package to create nice axis labels for the percent axis.
+But its still displaying the negative values, which is a little confusing. We only flipped the scale so we could get this mirroring effect, there is not real negative percentage.
+
+---
+
+## Scaling the axis
+
+.pull-left[
+
+```{r plot6, eval = FALSE}
+abs_percent <- function(x){
+  scales::percent(abs(x))
+}
+
+p <- ggplot() + 
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = abs_percent
+  ) 
+p
+```
+]
+
+.pull-right[
+```{r plot6-output, ref.label="plot6", echo = FALSE}
+```
+]
+
+???
+Now its no longer negative as we've applied our own function that first takes the absolute value before it runs the function from the scales package. We've also saved this plot to the object `p` so we can continue working on it without having to run the entire code every time.
+
+---
+
+## Moving the legend
+
+.pull-left[
+
+```{r plot7, eval = FALSE}
+p +
+  theme(
+    legend.position = "bottom" #<<
+  )
+```
+]
+
+.pull-right[
+```{r plot7-output, ref.label="plot7", echo = FALSE}
+```
+]
+
+
+
+---
+
+## Subplot spacing
+
+.pull-left[
+
+```{r plot8, eval = FALSE}
+p +
+  theme(
+    panel.spacing = unit(.6, "cm"),#<<
+    legend.position = "bottom"
+  )
+```
+]
+
+.pull-right[
+```{r plot8-output, ref.label="plot8", echo = FALSE}
+```
+]
+
+---
+
+## Theme colours
+
+.pull-left[
+
+```{r plot9, eval = FALSE}
+p +
+  theme(
+    plot.background = element_rect(fill = "black"), #<<
+    panel.background = element_blank(),#<<
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),#<<
+    legend.box.background = element_blank(),#<<
+    legend.key = element_blank(),#<<
+    legend.position = "bottom"
+  )
+```
+]
+
+.pull-right[
+```{r plot9-output, ref.label="plot9", echo = FALSE}
+```
+]
+
+---
+
+## Theme text colours
+
+.pull-left[
+
+```{r plot10, eval = FALSE}
+p +
+  theme(
+    plot.background = element_rect(
+      fill = "black"
+    ), 
+    panel.background = element_blank(),
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(#<<
+      colour = "grey70",#<<
+      family = "Helvetica Neue",#<<
+    ),#<<
+    axis.text = element_text(#<<
+      colour = "grey70",#<<
+      family = "Helvetica Neue",#<<
+    )#<<
+  )
+```
+]
+
+.pull-right[
+```{r plot10-output, ref.label="plot10", echo = FALSE}
+```
+]
+
+
+---
+
+## Theme grid
+
+.pull-left[
+
+```{r plot11, eval = FALSE}
+p <- p +
+  theme(
+    plot.background = element_rect(
+      fill = "black"
+    ), 
+    panel.background = element_blank(),
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue",
+    ),
+    axis.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue",
+    ),
+    panel.grid = element_blank()#<<
+  )
+p
+```
+]
+
+.pull-right[
+```{r plot11-output, ref.label="plot11", echo = FALSE}
+```
+]
+
+---
+
+## Theme grid
+
+.pull-left[
+
+```{r plot12, eval = FALSE}
+p <- p +
+  theme(
+    plot.background = element_rect(
+      fill = "black"
+    ), 
+    panel.background = element_blank(),
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue",
+    ),
+    axis.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue",
+    ),
+    panel.grid = element_blank()#<<
+  )
+p
+```
+]
+
+.pull-right[
+```{r plot12-output, ref.label="plot12", echo = FALSE}
+```
+]
+
+
+---
+
+## Subplot panel strips
+
+.pull-left[
+
+```{r plot13, eval = FALSE}
+p +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_text(      
+      colour = "grey70",
+      family = "Helvetica Neue"
+    ),
+  )
+
+```
+]
+
+.pull-right[
+```{r plot13-output, ref.label="plot13", echo = FALSE}
+```
+]
+
+???
+We're getting pretty close to something really cool. But lets get crazy! What if we want to replace the font in the panel titles with fonts that quit the genre og movie? Oh, that's going to be pretty cool! It could also be messy, but its a fun thing to do.
+To do that, we first need to remove the strip text from the theme. why? Because there is no way to alter the fonts for each panel in the theme. The theme applies to all. So we have to remove it, and add it through a geom in stead.
+
+---
+
+## Subplot panel strips
+
+.pull-left[
+
+```{r plot14, eval = FALSE}
+p <- p +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_blank()
+  )
+p
+```
+]
+
+.pull-right[
+```{r plot14-output, ref.label="plot14", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## saving the theme
+
+
+```{r theme1}
+theme_bechdel <- function(){
+  theme(
+    plot.background = element_rect(
+      fill = "black"
+    ), 
+    panel.background = element_blank(),
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue"
+    ),
+    axis.text = element_text(
+      size = base_fontsize,
+      colour = "grey70",
+      family = "Helvetica Neue"
+    ),
+    panel.grid = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_blank()
+  )
+}
+```
+
+???
+
+
+---
+
+## Adding panel text
+
+.pull-left[
+
+```{r plot15, eval = FALSE}
+p +
+  geom_text(
+    data = bechdel_bd,
+    colour = "grey90",
+    aes(label = genre,
+        y = 0, 
+        x = Inf)
+  )
+```
+]
+
+.pull-right[
+```{r plot15-output, ref.label="plot15", echo = FALSE}
+```
+]
+
+???
+This is _not_ what we are expecting. The text is cropped, and a little coarse, and things are just not adding up as expected. There are several reasons for this. First, we have placed the text at `Inf` which places it at the very top of the plot, with half of it outside the plot area. By default, ggplot "clips" anything beyond the plot space off. This is not wanted in our case, so we need to fix it. Also, the text is coarse, because we have many lines of text right on top of each other, since we are giving it the decade data. We should have a simple data set with only one line per genre for this geom. We also might have the idea to add some indicator of the mean pc of movies that pass or fail in a genre across all the years. We can add that information in the same data set and add it later.
+
+---
+
+## Creating a second data set
+
+```{r data-mean, eval = FALSE}
+bechdel_bd_mean <- bechdel_bd %>% 
+  group_by(genre, year_bin) %>%
+  summarise(
+    N = unique(N),
+    pass = sum(ifelse(binary == "PASS", n, 0))
+  ) %>% 
+  summarise(
+    pass = sum(pass),
+    n_full = sum(abs(N))
+  ) %>% 
+  mutate(
+    pc_mean = pass/n_full,
+    pc_pass = scales::percent(pc_mean, 1),
+    pc_pass = case_when(
+      pc_mean > .55 ~ "More pass than fail",
+      pc_mean < .45 ~ "More fail than pass",
+      TRUE ~ "About equal amounts"
+    ),
+    pc_pass = factor(
+      pc_pass, 
+      levels = c("More fail than pass",
+                 "More pass than fail",
+                 "About equal amounts"))
+  )
+```
+
+---
+
+## Using a second data set
+
+
+.pull-left[
+
+```{r plot16, eval = FALSE}
+p <- ggplot() + 
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip(clip = "off") + #<<
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  geom_text(
+    data = bechdel_bd_mean, #<<
+    colour = "grey90",
+    nudge_x = 2, #<<
+    aes(label = genre,
+        y = 0, 
+        x = "2020")  #<<
+  ) +
+  theme_bechdel()
+p
+```
+]
+
+.pull-right[
+```{r plot16-output, ref.label="plot16", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## Adapting the fill scale
+
+
+.pull-left[
+
+```{r plot18, eval = FALSE}
+palette <- c("#cfafd0", "#b0d0af")
+
+p +
+  scale_fill_discrete(type = palette)
+
+```
+]
+
+.pull-right[
+```{r plot18-output, ref.label="plot18", echo = FALSE}
+```
+]
+
+???
+
+
+---
+
+## Adding a vetical line for the mean
+
+
+.pull-left[
+
+```{r plot19, eval = FALSE}
+p +
+  geom_hline(
+    data = bechdel_bd_mean,
+    colour = "black",
+    aes(yintercept = pc_new)
+  ) +
+  scale_fill_discrete(type = palette)
+
+```
+]
+
+.pull-right[
+```{r plot19-output, ref.label="plot19", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## Rearranging geoms
+
+
+.pull-left[
+
+```{r plot20, eval = FALSE}
+p <- ggplot() + 
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  geom_hline(
+    data = bechdel_bd_mean,
+    colour = "black",
+    aes(yintercept = pc_new)
+  ) 
+p
+```
+]
+
+.pull-right[
+```{r plot20-output, ref.label="plot20", echo = FALSE}
+```
+]
+
+???
+
+
+---
+
+## Rearranging geoms
+
+
+.pull-left[
+
+```{r plot21, eval = FALSE}
+p +
+  geom_text(
+    data = bechdel_bd_mean, 
+    colour = "grey90",
+    nudge_x = 2, 
+    aes(label = genre,
+        y = 0, 
+        x = "2020")  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip(clip = "off")  +
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  scale_fill_discrete(type = palette) +
+  theme_bechdel()
+```
+]
+
+.pull-right[
+```{r plot21-output, ref.label="plot21", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## Dynamic fonts
+
+
+.pull-left[
+
+```{r fonts1, eval = FALSE}
+library(extrafont)
+# extrafont::font_import() # First time only
+loadfonts(device = "postscript")
+```
+]
+
+.pull-right[
+```{r fonts2}
+bechdel_bd_mean <- bechdel_bd_mean %>% 
+  mutate(
+    ff = case_when(
+      genre == "Romance"   ~ "Great Vibes",
+      genre == "Biography" ~ "Great Vibes",
+      genre == "History"   ~ "Great Vibes",
+      genre == "Comedy"    ~ "Comic Sans MS",
+      genre == "Animation" ~ "Pixel Coleco",
+      genre == "Sci-Fi"    ~ "Earth Orbiter",
+      genre == "Musical"   ~ "RitzFLFCond",
+      genre == "Western"   ~ "Carnivalee Freakshow",
+      genre == "Horror"    ~ "Zombie Holocaust",
+      genre == "Thriller"  ~ "Zombie Holocaust",
+      genre == "Sport"     ~ "OLD SPORT 01 COLLEGE NCV",
+      genre == "Adventure" ~ "Adventure",
+      genre == "Crime"     ~ "The Godfather",
+      genre == "War"       ~ "Angkatan Bersenjata",
+      genre == "Action"    ~ "Night Traveler Wide Italic",
+      genre == "Fantasy"   ~ "Ace Records",
+      TRUE  ~  "Helvetica Neue"
+    )
+  )
+```
+]
+
+???
+
+---
+
+## Using different fonts
+
+
+.pull-left[
+
+```{r plot22, eval = FALSE}
+p +
+  geom_text(
+    data = bechdel_bd_mean, 
+    colour = "grey90",
+    nudge_x = 2, 
+    aes(label = genre,
+        y = 0, 
+        x = "2020",
+        family = ff) #<<  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip(clip = "off")  +
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  scale_fill_discrete(type = palette) +
+  theme_bechdel()
+```
+]
+
+.pull-right[
+```{r plot22-output, ref.label="plot22", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## Dynamic font size
+
+
+```{r fonts3}
+base_fontsize <- 3
+
+bechdel_bd_mean <- bechdel_bd_mean %>% 
+  mutate(
+    fs = case_when(
+      ff == "Great Vibes"      ~ base_fontsize + 1.5,
+      ff == "The Godfather"    ~ base_fontsize + 2.5,
+      ff == "Zombie Holocaust" ~ base_fontsize + 1,
+      ff == "Carnivalee Freakshow" ~ base_fontsize + 1,
+      ff == "RitzFLFCond"      ~ base_fontsize + 1,
+      ff == "Ace Records"      ~ base_fontsize + 1,
+      ff == "Earth Orbiter"    ~ base_fontsize + 1,
+      TRUE ~ base_fontsize
+    )
+  )
+```
+
+
+???
+
+---
+
+## Using different fonts
+
+
+.pull-left[
+
+```{r plot23, eval = FALSE}
+p <- p +
+  geom_text(
+    data = bechdel_bd_mean, 
+    colour = "grey90",
+    nudge_x = 2, 
+    aes(label = genre,
+        y = 0, 
+        x = "2020",
+        family = ff,
+        size = I(fs)) #<<  
+  ) +
+  facet_wrap(~genre) +
+  coord_flip(clip = "off",
+             xlim = c(.7, 5.3))  + #<<
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  scale_fill_discrete(type = palette) +
+  theme_bechdel()
+p
+```
+]
+
+.pull-right[
+```{r plot23-output, ref.label="plot23", echo = FALSE}
+```
+]
+
+???
+
+
+---
+
+## Adding plot labels
+
+
+.pull-left[
+
+```{r plot24, eval = FALSE}
+p +
+  labs(
+    title = "Movies that pass or fail the Bechdel test\n\n",
+    subtitle = "By genre and decade",
+    x = "", 
+    y = "",
+    fill = "",
+    caption = stringr::str_wrap("Movies by genre that pass or fail the Bechdel test. Here displayed as the percent of movies that fail or pass for each decade between 1970 and 2020. The vertical line indicates the mean across all decades for each genre, and each genre's background colour indicates whether the genre has more movies that pass the Bechel test than fail (green), more that fail than pass (pink), or have roughly the same amount that pass or fail (grey) across the time span measured.", 100)
+  ) +
+  theme(
+    plot.title = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize * 4,
+      colour = "grey90"
+    ),
+    plot.subtitle = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize * 3,
+      vjust = 15,
+      face = "italic",
+      colour = "grey90"
+    ),
+    plot.caption = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize + 2,
+      colour = "grey90"
+    )
+  )
+```
+]
+
+.pull-right[
+```{r plot24-output, ref.label="plot24", echo = FALSE}
+```
+]
+
+???
+
+---
+
+## Adding dynamic background colour
+
+.pull-left[
+
+```{r plot25, eval = FALSE}
+p <- ggplot() + 
+  geom_rect(
+    data = bechdel_bd_mean,
+    alpha = .4,
+    aes(
+      xmin = -Inf, xmax = Inf,
+      ymin = -Inf, ymax = Inf,
+      fill = pc_pass
+    )
+  )  +
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  geom_hline(
+    data = bechdel_bd_mean,
+    colour = "black",
+    aes(yintercept = pc_new)
+  ) +
+  facet_wrap(~ genre)
+p
+```
+]
+
+.pull-right[
+```{r plot25-output, ref.label="plot25", echo = FALSE}
+```
+]
+
+---
+
+## Adding dynamic background colour
+
+```{r theme2, include = FALSE}
+theme_bechdel <- function(){
+  theme(
+    plot.background = element_rect(
+      fill = "black"
+    ), 
+    panel.background = element_blank(),
+    panel.spacing = unit(.6, "cm"),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue"
+    ),
+    axis.text = element_text(
+      colour = "grey70",
+      family = "Helvetica Neue",
+      size = base_fontsize
+    ),
+    panel.grid = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_blank(),
+    
+    plot.title = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize * 4,
+      colour = "grey90"
+    ),
+    plot.subtitle = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize * 3,
+      vjust = 15,
+      face = "italic",
+      colour = "grey90"
+    ),
+    plot.caption = element_text(
+      family = "Helvetica Neue",
+      size = base_fontsize + 2,
+      colour = "grey90"
+    )
+  )
+}
+```
+
+.pull-left[
+
+```{r plot26, eval = FALSE}
+p <- p +
+  geom_text(
+    data = bechdel_bd_mean, 
+    colour = "grey90",
+    nudge_x = 2, 
+    aes(label = genre,
+        y = 0, 
+        x = "2020",
+        family = ff,
+        size = I(fs)) 
+  ) +
+  theme_bechdel()
+p
+```
+]
+
+.pull-right[
+```{r plot26-output, ref.label="plot26", echo = FALSE}
+```
+]
+
+---
+
+## Adding dynamic background colour
+.pull-left[
+
+```{r plot27, eval = FALSE}
+p +
+  coord_flip(clip = "off",
+             xlim = c(.7, 5.3))  +
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  scale_fill_manual(
+    values = c(palette, "grey50","grey70", "white"),
+    breaks = c(levels(bechdel_bd_mean$pc_pass), "FAIL", "PASS")
+  ) 
+```
+]
+
+.pull-right[
+```{r plot27-output, ref.label="plot27", echo = FALSE}
+```
+]
+
+
+---
+
+
+.pull-left[
+## Putting all together
+```{r}
+p <- ggplot() + 
+  geom_rect(
+    data = bechdel_bd_mean,
+    alpha = .4,
+    aes(
+      xmin = -Inf, xmax = Inf,
+      ymin = -Inf, ymax = Inf,
+      fill = pc_pass
+    )
+  )  +
+  geom_bar(
+    data = bechdel_bd,
+    stat = "identity",
+    aes(fill = binary,
+        x = year_bin, 
+        y = pc)  
+  ) +
+  coord_flip(clip = "off",
+             xlim = c(.7, 5.3))  +
+  facet_wrap(~genre) 
+```
+]
+
+.pull-right[
+```{r }
+p <- p +
+  geom_text(
+    data = bechdel_bd_mean, 
+    colour = "grey90",
+    nudge_x = 2, 
+    aes(label = genre,
+        y = 0, 
+        x = "2020",
+        family = ff,
+        size = I(fs)) 
+  ) +
+  scale_y_continuous(
+    labels = abs_percent
+  ) +
+  scale_fill_manual(
+    values = c(palette, "grey50","grey70", "white"),
+    breaks = c(levels(bechdel_bd_mean$pc_pass), "FAIL", "PASS")
+  )   +
+  labs(
+    title = "Movies that pass or fail the Bechdel test\n\n",
+    subtitle = "By genre and decade",
+    x = "", 
+    y = "",
+    fill = "",
+    caption = stringr::str_wrap("Movies by genre that pass or fail the Bechdel test. Here displayed as the percent of movies that fail or pass for each decade between 1970 and 2020. The vertical line indicates the mean across all decades for each genre, and each genre's background colour indicates whether the genre has more movies that pass the Bechel test than fail (green), more that fail than pass (pink), or have roughly the same amount that pass or fail (grey) across the time span measured.", 100)
+  ) +
+  theme_bechdel()
+```
+]
+
+---
+
+## Customise legend
+.pull-left[
+
+```{r plot31, eval = FALSE}
+p +
+  guides(fill = guide_legend(ncol = 2)) +
+  theme(
+    legend.position = c(0.09, -0.15),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.key = element_blank(),
+    legend.key.size = unit(margins, "cm"),
+    legend.text = element_text(size = base_fontsize+2),
+  )
+```
+]
+
+.pull-right[
+```{r plot31-output, ref.label="plot31", echo = FALSE}
+```
+]
+
+---
+class: dark
+
+```{r plot31-output2, ref.label="plot31", echo = FALSE}
+```
+
+---
+class: middle, center, dark
+
+# The final script can be seen rendered [here](full_script.html) 
+
+---
+
+layout: false
+
+---
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor  
+
+]

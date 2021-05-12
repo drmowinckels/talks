@@ -33,8 +33,10 @@ navbar:
           href: https://athanasiamo.github.io/CPH_presentation/
         - text: "---"
         - text: "R-Ladies"
+        - text: "12.05.2021 - Zhoosh up your ggplots! - Edinburgh"
+          href: slides/2021.05.12-rladies-edinburgh-ggplot/
         - text: "10.03.2021 - Make something random - learn something useful - Helsinki"
-          href: slides/2021.03.10-rladies-helsinki-colorhex/index.html
+          href: slides/2021.03.10-rladies-helsinki-colorhex/
         - text: "11.05.2020 - Reports to impress yous boss"
           href: https://rladies.github.io/meetup-presentations_oslo/2020-05-11-rmarkdown_like_a_boss/presentation.html#1
         - text: "30.09.2019 - Data tidying"
