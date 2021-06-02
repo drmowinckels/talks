@@ -27,6 +27,8 @@ navbar:
           href: https://athanasiamo.github.io/nhsr-2020/#1 
         - text: "---"
         - text: "Psychology Talks"
+        - text: "03.06.2021 - nettskjemar R-package"
+          href: slides/2021.06.03-nettskjemar
         - text: "19.04.2021 - MRI introduction"
           href: slides/2021.04.19-princeton-mri-overview
         - text: "20.01.2020 - Mixed models for longitudinal Lifespan research"

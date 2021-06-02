@@ -1,0 +1,21 @@
+"form_id"	"element_no"	"question"	"question_order"	"question_codebook"	"question_mandatory"	"answer_order"	"answer_option"	"answer_codebook"	"answer_preselected"	"answer_correct"	"max_selected"
+205451	"3"	"What is the meaning of life, the universe and everything?"	1	"ncourse_01"	FALSE	"1"	"Food"	"food"	FALSE	FALSE	NA
+205451	"3"	"What is the meaning of life, the universe and everything?"	1	"ncourse_01"	FALSE	"2"	"42"	"42"	FALSE	FALSE	NA
+205451	"3"	"What is the meaning of life, the universe and everything?"	1	"ncourse_01"	FALSE	"3"	"A towel"	"towel"	FALSE	FALSE	NA
+205451	"3"	"What is the meaning of life, the universe and everything?"	1	"ncourse_01"	FALSE	"4"	"Coffee"	"coffee"	FALSE	FALSE	NA
+205451	"3"	"What should you have with you at all times?"	2	"ncourse_02"	TRUE	"1"	"Food"	"food"	FALSE	FALSE	NA
+205451	"3"	"What should you have with you at all times?"	2	"ncourse_02"	TRUE	"2"	"42"	"42"	FALSE	FALSE	NA
+205451	"3"	"What should you have with you at all times?"	2	"ncourse_02"	TRUE	"3"	"A towel"	"towel"	FALSE	FALSE	NA
+205451	"3"	"What should you have with you at all times?"	2	"ncourse_02"	TRUE	"4"	"Coffee"	"coffee"	FALSE	FALSE	NA
+205451	"4"	NA	NA	NA	FALSE	"1"	"Humans"	"humans"	FALSE	FALSE	2
+205451	"4"	NA	NA	NA	FALSE	"2"	"Mice"	"mice"	FALSE	FALSE	2
+205451	"4"	NA	NA	NA	FALSE	"3"	"Dolphins"	"dolphins"	FALSE	FALSE	2
+205451	"4"	NA	NA	NA	FALSE	"1"	"Humans"	"humans"	FALSE	FALSE	2
+205451	"4"	NA	NA	NA	FALSE	"2"	"Mice"	"mice"	FALSE	FALSE	2
+205451	"4"	NA	NA	NA	FALSE	"3"	"Dolphins"	"dolphins"	FALSE	FALSE	2
+205451	"5"	NA	NA	"ncourse_05"	FALSE	"1"	"A Song of Ice and Fire - George R. R. Martin"	"1"	FALSE	FALSE	NA
+205451	"5"	NA	NA	"ncourse_05"	FALSE	"2"	"A Short History of Nearly Everything - Bill Bryson"	"2"	FALSE	FALSE	NA
+205451	"5"	NA	NA	"ncourse_05"	FALSE	"3"	"Mythos - Stephen Fry"	"3"	FALSE	FALSE	NA
+205451	"5"	NA	NA	"ncourse_05"	FALSE	"4"	"A Hitchhiker&#39;s Guide to the Galaxy - Douglas Adams"	"4"	FALSE	FALSE	NA
+205451	"5"	NA	NA	"ncourse_05"	FALSE	"5"	"I have no idea - this all sounds crazy to me."	"5"	FALSE	FALSE	NA
+205451	"6"	NA	NA	"ncourse_06"	FALSE	NA	NA	NA	NA	NA	NA

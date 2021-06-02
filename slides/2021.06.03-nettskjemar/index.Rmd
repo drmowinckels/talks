@@ -1,0 +1,467 @@
+---
+title: "Using nettskjemar"
+subtitle: "- for transparent data flows -"
+author: "Athanasia Monika Mowinckel"
+date: "03.06.2021"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - lcbc-uio.css
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r include = FALSE}
+library(countdown)
+```
+
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+
+] 
+
+---
+
+layout: true
+
+<div class="my-sidebar"></div> 
+
+---
+
+# What is Nettskjema? 
+
+- self-service survey tool developed by UiO  
+
+--
+
+- can be used for simple questionnaires, sign up forms, and multiple choice  
+
+--
+
+- can be used for collecting sensitive data (connects to TSD) 
+
+--
+
+- a high degree of security and privacy  
+
+--
+
+- designed for accessibility
+
+
+.footnote[
+source: [Nettskjema UiO webpages](https://www.uio.no/english/services/it/adm-services/nettskjema/)
+]
+---
+
+# What do we use nettskjema for?
+
+- questionnaires sent to participants  
+
+--
+
+- "punching" data from in-person tests  
+
+--
+
+- test / mri logs  
+
+--
+
+- file uploader for collaborators directly to TSD  
+
+--
+
+- digital consent forms using ID-porten  
+
+--
+
+- automatic data upload from test-computers to TSD through the API  
+
+
+---
+
+# The nettskjema portal
+
+.pull-left[
+- where you can create new forms in an interactive builder  
+
+- where you can set settings for your form, like access rights, response types etc. 
+
+- where you can download responses, codebook and SPSS syntax for data conversion  
+]
+
+--
+
+.pull-right[
+- has a limitation of number of responses  it can download (~ 1500)
+
+- has limited meta-data to the forms  
+
+- if you have many forms active you want data from, data retrieval can be cumbersome  
+]
+
+---
+
+# The nettskjema API
+
+--
+
+.pull-left[
+### What is an API?
+
+- application programming interface, a way to programatically interact with a service or program
+
+- enables us to interact with nettskjema through programs like python, R, bash etc.
+
+- makes it possible to create automatic pipelines for data handling
+]
+
+--
+
+.pull-right[
+### What can we do?
+
+- pull information
+  - about forms (meta-data and codebooks)  
+  - response data
+
+- push information
+  - create forms automatically
+  - push data automatically to an existing form
+
+]
+
+---
+
+# What do we need?
+
+.pull-left[
+- an API user  
+  - a special instance of your uio username that you specifically grant access to your forms
+]
+
+--
+
+.pull-right[
+- an API access token
+  - which grants you secure access to the forms that you have provided api-user access to
+]
+
+---
+class: middle, center, dark
+
+# Live demo
+## open RStudio
+
+???
+```{r, eval = FALSE}
+library(nettskjemar)
+nettskjema_user_create()
+nettskjema_token2renviron("token", 
+                          "testapi")
+nettskjema_renviron_edit()
+nettskjema_token_expiry()
+```
+
+- use uio username for main API access user
+- the `nettskjema_token2renviron()` opens your user Rprofile, or creates it if it does not exist. It also makes sure this file is only readable by your user.
+- keep your token safe! This token enables access to forms the corresponding API user has access to. Treat it as a secure password.
+
+---
+class: center, dark
+
+# Exercise
+## Create an API user and add the access token to your Renviron
+## Check your IP address on [whatismyipaddress.com](https://whatismyipaddress.com/)
+
+---
+# How do we access the data?
+
+- we have now our user _and_ token
+
+- we need to give our API user access to the forms we want API access from
+
+???
+This process of having a separate API and uio user is cumbersome, but that is how the system is set up now.
+I know USIT are working on a potential other solution, but that is not available now. So we need to make sure
+our API user has access to all the forms we want it to have access to. 
+
+---
+class: middle, center, dark
+
+# Live demo
+## Go to [nettskjema.no](https://nettskjema.no/user/form/preview.html?id=205451#/)
+
+???
+Add inn all course users based on your cheat sheet.
+everyone should have access to this form, make note of the nettskjema ID in the url.
+
+---
+
+# Accessing the data
+
+```{r "get-data1"}
+library(nettskjemar)
+nettskjema_get_data(205451)
+```
+
+???
+data! Notice that we have the data according to the codebook. 
+Also, this workshop has exposed a bug in my package. The checkboxes are not returned in the fashion I wanted and first developed it to. I have made a note of this and will fix it in the next release. Untill then, I'll present you with the solution to working with this bug.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+```{r "get-data2"}
+library(tidyverse)
+nettskjema_get_data(205451) %>% 
+  unnest(ncourse_03)
+```
+
+???
+The checkbox type of "string" is incorrectly returned as a list columns. 
+This was not my intention. It should return as a string, where each element chosen 
+for the checkboxes are delimited with a `;` by default.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+```{r "get-data2-delim"}
+nettskjema_get_data(205451, checkbox_delim = "-") %>% 
+  unnest(ncourse_03)
+```
+
+???
+This default can be altered through an extra argument.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+```{r "get-data3"}
+nettskjema_get_data(205451, checkbox_type = "list") %>% 
+  unnest(ncourse_03)
+```
+
+???
+There is a checkbox type of "list", which correctly returns the values chosen as a list.
+When this type is unnested, you actually get more row per submission ID, because the number of chosen boxes for a participant gets expanded into several unique rows.
+
+
+---
+
+# Accessing the data
+
+.pull-left[
+### working with checkboxes
+
+```{r "get-data3-gg", eval = FALSE}
+nettskjema_get_data(205451, 
+                    checkbox_type = "list") %>% 
+  unnest(ncourse_03) %>% 
+  
+  ggplot(aes(x = ncourse_03)) + 
+  geom_bar()
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, ref.label="get-data3-gg"}
+
+```
+
+]
+
+
+???
+This can be convenient when, for instance making a histogram in ggplot2, which automatically counts the number of occurrences of a variable.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+```{r "get-data4"}
+nettskjema_get_data(205451, checkbox_type = "columns")
+```
+
+???
+The last checkbox type returns each answer option as its own binary column. 
+This is more similar to what the nettskjema portal does, and might be more familiar to many.
+What is great through the API is that we now have a choice in how we would prefer the data do be returned.
+
+---
+
+# Accessing the data
+### not using the codebook
+
+```{r "get-data5"}
+nettskjema_get_data(205451,
+                    use_codebook = FALSE)
+```
+
+---
+
+# Saving the data
+
+
+```{r "save-data1"}
+galaxy <- nettskjema_get_data(205451) %>% 
+  unnest(ncourse_03)
+write.table(galaxy, "data/data_2021_06_03.tsv", sep="\t", row.names = FALSE)
+```
+
+---
+class: center, dark
+
+# Exercise
+## Give your API user access to one of your own forms and access the data from this form
+
+```{r echo = FALSE}
+countdown(minutes = 10)
+```
+
+---
+
+# Accessing other form information
+### codebooks
+
+```{r}
+nettskjema_get_codebook(205451)
+```
+
+---
+
+# Accessing other form information
+### codebooks
+
+```{r}
+nettskjema_get_codebook(205451, as_is = TRUE)
+```
+
+
+---
+
+# Accessing other form information
+### codebooks
+
+```{r}
+nettskjema_get_codebook(205451, as_is = TRUE) %>% 
+  nettskjema_write_codebook("data/codebook_205451.json")
+
+nettskjema_get_codebook(205451) %>% 
+  nettskjema_write_codebook("data/codebook_205451.tsv")
+```
+
+
+---
+
+# Accessing other form information
+### meta-data
+
+```{r}
+meta <- nettskjema_get_meta(205451)
+meta
+```
+
+---
+
+# Accessing other form information
+### meta-data
+
+```{r}
+meta <- nettskjema_get_meta(205451, as_is = TRUE)
+meta
+```
+
+---
+
+# Accessing other form information
+### meta-data
+
+```{r}
+nettskjema_get_meta(205451, as_is = TRUE) %>% 
+  nettskjema_write_meta("data/meta_205451_raw.json")
+
+nettskjema_get_meta(205451) %>% 
+  nettskjema_write_meta("data/meta_205451.json")
+```
+
+---
+
+# Things to improve
+
+- the linear scale element is not yet supported  
+
+--
+
+- working within TSD, requires a whole new way of working!
+
+--
+
+- pushing data/forms to nettskjema
+
+--
+
+- bug fixes that I know of
+
+--
+
+- bugs I don't know of yet
+
+    - report bugs or unexpected behaviour to me [on github](https://github.com/LCBC-UiO/nettskjemar/issues)
+    
+    - if you have some experience in package development, I'm happy for help in documentation, improvements in functionality etc. 
+
+
+---
+
+layout: false
+
+---
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+
+] 

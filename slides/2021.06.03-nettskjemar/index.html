@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Using nettskjemar</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Athanasia Monika Mowinckel" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.3.5/countdown.js"></script>
+    <link rel="stylesheet" href="lcbc-uio.css" type="text/css" />
+    <link rel="stylesheet" href="lcbc-uio-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, right, title-slide
+
+# Using nettskjemar
+## - for transparent data flows -
+### Athanasia Monika Mowinckel
+### 03.06.2021
+
+---
+
+
+
+
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[&lt;i class="fa fa-twitter fa-2x" aria-hidden="true"&gt;&lt;/i&gt; @DrMowinckels](https://twitter.com/DrMowinckels)   
+[&lt;i class="fa fa-github fa-2x" aria-hidden="true"&gt;&lt;/i&gt; Athanasiamo](https://github.com/Athanasiamo)  
+[&lt;i class="fa fa-globe fa-2x" aria-hidden="true"&gt;&lt;/i&gt; drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+
+] 
+
+---
+
+layout: true
+
+&lt;div class="my-sidebar"&gt;&lt;/div&gt; 
+
+---
+
+# What is Nettskjema? 
+
+- self-service survey tool developed by UiO  
+
+--
+
+- can be used for simple questionnaires, sign up forms, and multiple choice  
+
+--
+
+- can be used for collecting sensitive data (connects to TSD) 
+
+--
+
+- a high degree of security and privacy  
+
+--
+
+- designed for accessibility
+
+
+.footnote[
+source: [Nettskjema UiO webpages](https://www.uio.no/english/services/it/adm-services/nettskjema/)
+]
+---
+
+# What do we use nettskjema for?
+
+- questionnaires sent to participants  
+
+--
+
+- "punching" data from in-person tests  
+
+--
+
+- test / mri logs  
+
+--
+
+- file uploader for collaborators directly to TSD  
+
+--
+
+- digital consent forms using ID-porten  
+
+--
+
+- automatic data upload from test-computers to TSD through the API  
+
+
+---
+
+# The nettskjema portal
+
+.pull-left[
+- where you can create new forms in an interactive builder  
+
+- where you can set settings for your form, like access rights, response types etc. 
+
+- where you can download responses, codebook and SPSS syntax for data conversion  
+]
+
+--
+
+.pull-right[
+- has a limitation of number of responses  it can download (~ 1500)
+
+- has limited meta-data to the forms  
+
+- if you have many forms active you want data from, data retrieval can be cumbersome  
+]
+
+---
+
+# The nettskjema API
+
+--
+
+.pull-left[
+### What is an API?
+
+- application programming interface, a way to programatically interact with a service or program
+
+- enables us to interact with nettskjema through programs like python, R, bash etc.
+
+- makes it possible to create automatic pipelines for data handling
+]
+
+--
+
+.pull-right[
+### What can we do?
+
+- pull information
+  - about forms (meta-data and codebooks)  
+  - response data
+
+- push information
+  - create forms automatically
+  - push data automatically to an existing form
+
+]
+
+---
+
+# What do we need?
+
+.pull-left[
+- an API user  
+  - a special instance of your uio username that you specifically grant access to your forms
+]
+
+--
+
+.pull-right[
+- an API access token
+  - which grants you secure access to the forms that you have provided api-user access to
+]
+
+---
+class: middle, center, dark
+
+# Live demo
+## open RStudio
+
+???
+
+```r
+library(nettskjemar)
+nettskjema_user_create()
+nettskjema_token2renviron("token", 
+                          "testapi")
+nettskjema_renviron_edit()
+nettskjema_token_expiry()
+```
+
+- use uio username for main API access user
+- the `nettskjema_token2renviron()` opens your user Rprofile, or creates it if it does not exist. It also makes sure this file is only readable by your user.
+- keep your token safe! This token enables access to forms the corresponding API user has access to. Treat it as a secure password.
+
+---
+class: center, dark
+
+# Exercise
+## Create an API user and add the access token to your Renviron
+## Check your IP address on [whatismyipaddress.com](https://whatismyipaddress.com/)
+
+---
+# How do we access the data?
+
+- we have now our user _and_ token
+
+- we need to give our API user access to the forms we want API access from
+
+???
+This process of having a separate API and uio user is cumbersome, but that is how the system is set up now.
+I know USIT are working on a potential other solution, but that is not available now. So we need to make sure
+our API user has access to all the forms we want it to have access to. 
+
+---
+class: middle, center, dark
+
+# Live demo
+## Go to [nettskjema.no](https://nettskjema.no/user/form/preview.html?id=205451#/)
+
+???
+Add inn all course users based on your cheat sheet.
+everyone should have access to this form, make note of the nettskjema ID in the url.
+
+---
+
+# Accessing the data
+
+
+```r
+library(nettskjemar)
+nettskjema_get_data(205451)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03 ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;list&gt;     &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     &lt;chr [1]&gt;  humans     2         
+## 2  205451 14353693      food       coffee     &lt;chr [1]&gt;  dolphins   5         
+## 3  205451 14353688      42         towel      &lt;chr [1]&gt;  dolphins   4         
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+???
+data! Notice that we have the data according to the codebook. 
+Also, this workshop has exposed a bug in my package. The checkboxes are not returned in the fashion I wanted and first developed it to. I have made a note of this and will fix it in the next release. Untill then, I'll present you with the solution to working with this bug.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+
+```r
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+```
+
+```
+## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1
+```
+
+```
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
+nettskjema_get_data(205451) %&gt;% 
+  unnest(ncourse_03)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     humans       humans     2         
+## 2  205451 14353693      food       coffee     humans       dolphins   5         
+## 3  205451 14353688      42         towel      dolphins;mi… dolphins   4         
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+???
+The checkbox type of "string" is incorrectly returned as a list columns. 
+This was not my intention. It should return as a string, where each element chosen 
+for the checkboxes are delimited with a `;` by default.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+
+```r
+nettskjema_get_data(205451, checkbox_delim = "-") %&gt;% 
+  unnest(ncourse_03)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     humans       humans     2         
+## 2  205451 14353693      food       coffee     humans       dolphins   5         
+## 3  205451 14353688      42         towel      dolphins-mi… dolphins   4         
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+???
+This default can be altered through an extra argument.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+
+```r
+nettskjema_get_data(205451, checkbox_type = "list") %&gt;% 
+  unnest(ncourse_03)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 4 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03 ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     humans     humans     2         
+## 2  205451 14353693      food       coffee     humans     dolphins   5         
+## 3  205451 14353688      42         towel      dolphins   dolphins   4         
+## 4  205451 14353688      42         towel      mice       dolphins   4         
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+???
+There is a checkbox type of "list", which correctly returns the values chosen as a list.
+When this type is unnested, you actually get more row per submission ID, because the number of chosen boxes for a participant gets expanded into several unique rows.
+
+
+---
+
+# Accessing the data
+
+.pull-left[
+### working with checkboxes
+
+
+```r
+nettskjema_get_data(205451, 
+                    checkbox_type = "list") %&gt;% 
+  unnest(ncourse_03) %&gt;% 
+  
+  ggplot(aes(x = ncourse_03)) + 
+  geom_bar()
+```
+]
+
+.pull-right[
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+![](index_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+]
+
+
+???
+This can be convenient when, for instance making a histogram in ggplot2, which automatically counts the number of occurrences of a variable.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+
+```r
+nettskjema_get_data(205451, checkbox_type = "columns")
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 10
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03_dolph… ncourse_03_huma…
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+## 1  205451 14353700      coffee     coffee                     0                1
+## 2  205451 14353693      food       coffee                     0                1
+## 3  205451 14353688      42         towel                      1                0
+## # … with 4 more variables: ncourse_03_mice &lt;dbl&gt;, ncourse_04 &lt;chr&gt;,
+## #   ncourse_05 &lt;chr&gt;, ncourse_06 &lt;chr&gt;
+```
+
+???
+The last checkbox type returns each answer option as its own binary column. 
+This is more similar to what the nettskjema portal does, and might be more familiar to many.
+What is great through the API is that we now have a choice in how we would prefer the data do be returned.
+
+---
+
+# Accessing the data
+### not using the codebook
+
+
+```r
+nettskjema_get_data(205451,
+                    use_codebook = FALSE)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03 ncourse_04 ncourse_05  
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;list&gt;     &lt;chr&gt;      &lt;chr&gt;       
+## 1  205451 14353700      Coffee     Coffee     &lt;chr [1]&gt;  Humans     A Short His…
+## 2  205451 14353693      Food       Coffee     &lt;chr [1]&gt;  Dolphins   I have no i…
+## 3  205451 14353688      42         A towel    &lt;chr [1]&gt;  Dolphins   A Hitchhike…
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+---
+
+# Saving the data
+
+
+
+```r
+galaxy &lt;- nettskjema_get_data(205451) %&gt;% 
+  unnest(ncourse_03)
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```r
+write.table(galaxy, "data/data_2021_06_03.tsv", sep="\t", row.names = FALSE)
+```
+
+---
+class: center, dark
+
+# Exercise
+## Give your API user access to one of your own forms and access the data from this form
+
+<div class="countdown" id="timer_60b7ad7e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Accessing other form information
+### codebooks
+
+
+```r
+nettskjema_get_codebook(205451)
+```
+
+```
+## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
+## the condition has length &gt; 1 and only the first element will be used
+```
+
+```
+## # A tibble: 20 x 12
+##    form_id element_no question  question_order question_codebo… question_mandat…
+##  *   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;            &lt;lgl&gt;           
+##  1  205451 3          What is …              1 ncourse_01       FALSE           
+##  2  205451 3          What is …              1 ncourse_01       FALSE           
+##  3  205451 3          What is …              1 ncourse_01       FALSE           
+##  4  205451 3          What is …              1 ncourse_01       FALSE           
+##  5  205451 3          What sho…              2 ncourse_02       TRUE            
+##  6  205451 3          What sho…              2 ncourse_02       TRUE            
+##  7  205451 3          What sho…              2 ncourse_02       TRUE            
+##  8  205451 3          What sho…              2 ncourse_02       TRUE            
+##  9  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 10  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 11  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 12  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 13  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 14  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
+## 15  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
+## 16  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
+## 17  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
+## 18  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
+## 19  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
+## 20  205451 6          &lt;NA&gt;                  NA ncourse_06       FALSE           
+## # … with 6 more variables: answer_order &lt;chr&gt;, answer_option &lt;chr&gt;,
+## #   answer_codebook &lt;chr&gt;, answer_preselected &lt;lgl&gt;, answer_correct &lt;lgl&gt;,
+## #   max_selected &lt;int&gt;
+```
+
+---
+
+# Accessing other form information
+### codebooks
+
+
+```r
+nettskjema_get_codebook(205451, as_is = TRUE)
+```
+
+```
+## # Nettskjema raw codebook for form 205451
+## 
+## no. questions: 6
+## no. answers: 12
+```
+
+
+---
+
+# Accessing other form information
+### codebooks
+
+
+```r
+nettskjema_get_codebook(205451, as_is = TRUE) %&gt;% 
+  nettskjema_write_codebook("data/codebook_205451.json")
+
+nettskjema_get_codebook(205451) %&gt;% 
+  nettskjema_write_codebook("data/codebook_205451.tsv")
+```
+
+```
+## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
+## the condition has length &gt; 1 and only the first element will be used
+```
+
+
+---
+
+# Accessing other form information
+### meta-data
+
+
+```r
+meta &lt;- nettskjema_get_meta(205451)
+```
+
+```
+## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
+## the condition has length &gt; 1 and only the first element will be used
+```
+
+```r
+meta
+```
+
+```
+## # Nettskjema metadata for form 205451
+## 
+## title: Test form for nettskjemar course
+## language: en
+## opened: 2021-06-01
+## respondents: ALL
+## contact: athanasm@uio.no
+## codebook: TRUE
+## personal_data: FALSE
+## sensitive_data: FALSE
+## editors: 2
+## no. elements: 6
+```
+
+---
+
+# Accessing other form information
+### meta-data
+
+
+```r
+meta &lt;- nettskjema_get_meta(205451, as_is = TRUE)
+meta
+```
+
+```
+## # Nettskjema raw metadata for form 205451
+## 
+## title: Test form for nettskjemar course
+## languageCode: en
+## createdDate: 2021-06-01T08:38:10.000+0200
+## respondentGroup: ALL
+## editorsContactEmail: athanasm@uio.no
+## codebookActivated: TRUE
+## collectsPersonalData: FALSE
+## sensitivePersonalDataCollected: FALSE
+## editors: 2
+## no. elements: 6
+```
+
+---
+
+# Accessing other form information
+### meta-data
+
+
+```r
+nettskjema_get_meta(205451, as_is = TRUE) %&gt;% 
+  nettskjema_write_meta("data/meta_205451_raw.json")
+
+nettskjema_get_meta(205451) %&gt;% 
+  nettskjema_write_meta("data/meta_205451.json")
+```
+
+```
+## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
+## the condition has length &gt; 1 and only the first element will be used
+```
+
+---
+
+# Things to improve
+
+- the linear scale element is not yet supported  
+
+--
+
+- working within TSD, requires a whole new way of working!
+
+--
+
+- pushing data/forms to nettskjema
+
+--
+
+- bug fixes that I know of
+
+--
+
+- bugs I don't know of yet
+
+    - report bugs or unexpected behaviour to me [on github](https://github.com/LCBC-UiO/nettskjemar/issues)
+    
+    - if you have some experience in package development, I'm happy for help in documentation, improvements in functionality etc. 
+
+
+---
+
+layout: false
+
+---
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[&lt;i class="fa fa-twitter fa-2x" aria-hidden="true"&gt;&lt;/i&gt; @DrMowinckels](https://twitter.com/DrMowinckels)   
+[&lt;i class="fa fa-github fa-2x" aria-hidden="true"&gt;&lt;/i&gt; Athanasiamo](https://github.com/Athanasiamo)  
+[&lt;i class="fa fa-globe fa-2x" aria-hidden="true"&gt;&lt;/i&gt; drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+
+] 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
