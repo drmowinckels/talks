@@ -202,6 +202,10 @@ class: center, dark
 ## Create an API user and add the access token to your Renviron
 ## Check your IP address on [whatismyipaddress.com](https://whatismyipaddress.com/)
 
+<div class="countdown" id="timer_60b88f1f" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
 ---
 # How do we access the data?
 
@@ -213,6 +217,29 @@ class: center, dark
 This process of having a separate API and uio user is cumbersome, but that is how the system is set up now.
 I know USIT are working on a potential other solution, but that is not available now. So we need to make sure
 our API user has access to all the forms we want it to have access to. 
+
+---
+# Get nettskjemar dev-version
+
+A bug in the code found while working on this workshop was fixed yesterday. To work with the newest version of this
+package install by
+
+
+```r
+# Enable my development universe
+options(repos = c(
+    athanasiamo = 'https://athanasiamo.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install it
+install.packages('nettskjemar')
+```
+
+---
+class: middle, center, inverse
+
+# Answer the test form!
+## [https://nettskjema.no/a/205451](https://nettskjema.no/a/205451)
 
 ---
 class: middle, center, dark
@@ -240,17 +267,43 @@ nettskjema_get_data(205451)
 
 ```
 ## # A tibble: 3 x 8
-##   form_id submission_id ncourse_01 ncourse_02 ncourse_03 ncourse_04 ncourse_05
-##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;list&gt;     &lt;chr&gt;      &lt;chr&gt;     
-## 1  205451 14353700      coffee     coffee     &lt;chr [1]&gt;  humans     2         
-## 2  205451 14353693      food       coffee     &lt;chr [1]&gt;  dolphins   5         
-## 3  205451 14353688      42         towel      &lt;chr [1]&gt;  dolphins   4         
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     humans       humans     2         
+## 2  205451 14353693      food       coffee     humans       dolphins   5         
+## 3  205451 14353688      42         towel      dolphins;mi… dolphins   4         
 ## # … with 1 more variable: ncourse_06 &lt;chr&gt;
 ```
 
 ???
 data! Notice that we have the data according to the codebook. 
-Also, this workshop has exposed a bug in my package. The checkboxes are not returned in the fashion I wanted and first developed it to. I have made a note of this and will fix it in the next release. Untill then, I'll present you with the solution to working with this bug.
+
+---
+
+# Accessing the data
+### working with checkboxes
+
+
+```r
+nettskjema_get_data(205451, checkbox_delim = "-")
+```
+
+```
+## Form 205451 has 3 responses to download.
+```
+
+```
+## # A tibble: 3 x 8
+##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
+## 1  205451 14353700      coffee     coffee     humans       humans     2         
+## 2  205451 14353693      food       coffee     humans       dolphins   5         
+## 3  205451 14353688      42         towel      dolphins-mi… dolphins   4         
+## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+```
+
+???
+This default can be altered through an extra argument.
 
 ---
 
@@ -278,64 +331,6 @@ library(tidyverse)
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
-
-```r
-nettskjema_get_data(205451) %&gt;% 
-  unnest(ncourse_03)
-```
-
-```
-## Form 205451 has 3 responses to download.
-```
-
-```
-## # A tibble: 3 x 8
-##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
-##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
-## 1  205451 14353700      coffee     coffee     humans       humans     2         
-## 2  205451 14353693      food       coffee     humans       dolphins   5         
-## 3  205451 14353688      42         towel      dolphins;mi… dolphins   4         
-## # … with 1 more variable: ncourse_06 &lt;chr&gt;
-```
-
-???
-The checkbox type of "string" is incorrectly returned as a list columns. 
-This was not my intention. It should return as a string, where each element chosen 
-for the checkboxes are delimited with a `;` by default.
-
----
-
-# Accessing the data
-### working with checkboxes
-
-
-```r
-nettskjema_get_data(205451, checkbox_delim = "-") %&gt;% 
-  unnest(ncourse_03)
-```
-
-```
-## Form 205451 has 3 responses to download.
-```
-
-```
-## # A tibble: 3 x 8
-##   form_id submission_id ncourse_01 ncourse_02 ncourse_03   ncourse_04 ncourse_05
-##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     
-## 1  205451 14353700      coffee     coffee     humans       humans     2         
-## 2  205451 14353693      food       coffee     humans       dolphins   5         
-## 3  205451 14353688      42         towel      dolphins-mi… dolphins   4         
-## # … with 1 more variable: ncourse_06 &lt;chr&gt;
-```
-
-???
-This default can be altered through an extra argument.
-
----
-
-# Accessing the data
-### working with checkboxes
-
 
 ```r
 nettskjema_get_data(205451, checkbox_type = "list") %&gt;% 
@@ -386,7 +381,7 @@ nettskjema_get_data(205451,
 ## Form 205451 has 3 responses to download.
 ```
 
-![](index_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -427,12 +422,13 @@ What is great through the API is that we now have a choice in how we would prefe
 ---
 
 # Accessing the data
-### not using the codebook
+### adding dummy codes
 
 
 ```r
-nettskjema_get_data(205451,
-                    use_codebook = FALSE)
+nettskjema_get_data(205451, 
+                    information = list(dummy = "order", 
+                                       text = "option"))
 ```
 
 ```
@@ -440,13 +436,17 @@ nettskjema_get_data(205451,
 ```
 
 ```
-## # A tibble: 3 x 8
-##   form_id submission_id ncourse_01 ncourse_02 ncourse_03 ncourse_04 ncourse_05  
-##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;list&gt;     &lt;chr&gt;      &lt;chr&gt;       
-## 1  205451 14353700      Coffee     Coffee     &lt;chr [1]&gt;  Humans     A Short His…
-## 2  205451 14353693      Food       Coffee     &lt;chr [1]&gt;  Dolphins   I have no i…
-## 3  205451 14353688      42         A towel    &lt;chr [1]&gt;  Dolphins   A Hitchhike…
-## # … with 1 more variable: ncourse_06 &lt;chr&gt;
+## # A tibble: 3 x 18
+##   form_id submission_id ncourse_01 ncourse_01_dummy ncourse_01_text ncourse_02
+##     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;     
+## 1  205451 14353700      coffee     4                Coffee          coffee    
+## 2  205451 14353693      food       1                Food            coffee    
+## 3  205451 14353688      42         2                42              towel     
+## # … with 12 more variables: ncourse_02_dummy &lt;chr&gt;, ncourse_02_text &lt;chr&gt;,
+## #   ncourse_03 &lt;chr&gt;, ncourse_03_dummy &lt;chr&gt;, ncourse_03_text &lt;chr&gt;,
+## #   ncourse_04 &lt;chr&gt;, ncourse_04_dummy &lt;chr&gt;, ncourse_04_text &lt;chr&gt;,
+## #   ncourse_05 &lt;chr&gt;, ncourse_05_dummy &lt;chr&gt;, ncourse_05_text &lt;chr&gt;,
+## #   ncourse_06 &lt;chr&gt;
 ```
 
 ---
@@ -456,8 +456,7 @@ nettskjema_get_data(205451,
 
 
 ```r
-galaxy &lt;- nettskjema_get_data(205451) %&gt;% 
-  unnest(ncourse_03)
+galaxy &lt;- nettskjema_get_data(205451)
 ```
 
 ```
@@ -474,7 +473,7 @@ class: center, dark
 # Exercise
 ## Give your API user access to one of your own forms and access the data from this form
 
-<div class="countdown" id="timer_60b7ad7e" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60b88e6b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -489,37 +488,33 @@ nettskjema_get_codebook(205451)
 ```
 
 ```
-## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
-## the condition has length &gt; 1 and only the first element will be used
-```
-
-```
-## # A tibble: 20 x 12
-##    form_id element_no question  question_order question_codebo… question_mandat…
-##  *   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;            &lt;lgl&gt;           
-##  1  205451 3          What is …              1 ncourse_01       FALSE           
-##  2  205451 3          What is …              1 ncourse_01       FALSE           
-##  3  205451 3          What is …              1 ncourse_01       FALSE           
-##  4  205451 3          What is …              1 ncourse_01       FALSE           
-##  5  205451 3          What sho…              2 ncourse_02       TRUE            
-##  6  205451 3          What sho…              2 ncourse_02       TRUE            
-##  7  205451 3          What sho…              2 ncourse_02       TRUE            
-##  8  205451 3          What sho…              2 ncourse_02       TRUE            
-##  9  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 10  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 11  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 12  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 13  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 14  205451 4          &lt;NA&gt;                  NA &lt;NA&gt;             FALSE           
-## 15  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
-## 16  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
-## 17  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
-## 18  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
-## 19  205451 5          &lt;NA&gt;                  NA ncourse_05       FALSE           
-## 20  205451 6          &lt;NA&gt;                  NA ncourse_06       FALSE           
-## # … with 6 more variables: answer_order &lt;chr&gt;, answer_option &lt;chr&gt;,
-## #   answer_codebook &lt;chr&gt;, answer_preselected &lt;lgl&gt;, answer_correct &lt;lgl&gt;,
-## #   max_selected &lt;int&gt;
+## # A tibble: 20 x 15
+##    form_id element_no question  question_descr question_codebo… question_mandat…
+##  *   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;            &lt;lgl&gt;           
+##  1  205451 3          What is … &lt;NA&gt;           ncourse_01       FALSE           
+##  2  205451 3          What is … &lt;NA&gt;           ncourse_01       FALSE           
+##  3  205451 3          What is … &lt;NA&gt;           ncourse_01       FALSE           
+##  4  205451 3          What is … &lt;NA&gt;           ncourse_01       FALSE           
+##  5  205451 3          What sho… &lt;NA&gt;           ncourse_02       TRUE            
+##  6  205451 3          What sho… &lt;NA&gt;           ncourse_02       TRUE            
+##  7  205451 3          What sho… &lt;NA&gt;           ncourse_02       TRUE            
+##  8  205451 3          What sho… &lt;NA&gt;           ncourse_02       TRUE            
+##  9  205451 4          Who are … &lt;NA&gt;           ncourse_03       FALSE           
+## 10  205451 4          Who are … &lt;NA&gt;           ncourse_03       FALSE           
+## 11  205451 4          Who are … &lt;NA&gt;           ncourse_03       FALSE           
+## 12  205451 4          Which sp… &lt;NA&gt;           ncourse_04       FALSE           
+## 13  205451 4          Which sp… &lt;NA&gt;           ncourse_04       FALSE           
+## 14  205451 4          Which sp… &lt;NA&gt;           ncourse_04       FALSE           
+## 15  205451 5          Which bo… &lt;NA&gt;           ncourse_05       FALSE           
+## 16  205451 5          Which bo… &lt;NA&gt;           ncourse_05       FALSE           
+## 17  205451 5          Which bo… &lt;NA&gt;           ncourse_05       FALSE           
+## 18  205451 5          Which bo… &lt;NA&gt;           ncourse_05       FALSE           
+## 19  205451 5          Which bo… &lt;NA&gt;           ncourse_05       FALSE           
+## 20  205451 6          Do you h… &lt;NA&gt;           ncourse_06       FALSE           
+## # … with 9 more variables: question_order &lt;int&gt;, answer_order &lt;chr&gt;,
+## #   answer_option &lt;chr&gt;, answer_codebook &lt;chr&gt;, answer_preselected &lt;lgl&gt;,
+## #   answer_correct &lt;lgl&gt;, max_selected &lt;int&gt;, question_preselected &lt;lgl&gt;,
+## #   question_rangemarks &lt;lgl&gt;
 ```
 
 ---
@@ -554,11 +549,6 @@ nettskjema_get_codebook(205451) %&gt;%
   nettskjema_write_codebook("data/codebook_205451.tsv")
 ```
 
-```
-## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
-## the condition has length &gt; 1 and only the first element will be used
-```
-
 
 ---
 
@@ -568,14 +558,6 @@ nettskjema_get_codebook(205451) %&gt;%
 
 ```r
 meta &lt;- nettskjema_get_meta(205451)
-```
-
-```
-## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
-## the condition has length &gt; 1 and only the first element will be used
-```
-
-```r
 meta
 ```
 
@@ -632,11 +614,6 @@ nettskjema_get_meta(205451, as_is = TRUE) %&gt;%
 
 nettskjema_get_meta(205451) %&gt;% 
   nettskjema_write_meta("data/meta_205451.json")
-```
-
-```
-## Warning in if (!is.na(s)) s &lt;- gsub("\\\n|\\\t", "", html_text(read_html(s))):
-## the condition has length &gt; 1 and only the first element will be used
 ```
 
 ---

@@ -198,6 +198,10 @@ class: center, dark
 ## Create an API user and add the access token to your Renviron
 ## Check your IP address on [whatismyipaddress.com](https://whatismyipaddress.com/)
 
+```{r echo = FALSE}
+countdown(minutes = 10)
+```
+
 ---
 # How do we access the data?
 
@@ -209,6 +213,28 @@ class: center, dark
 This process of having a separate API and uio user is cumbersome, but that is how the system is set up now.
 I know USIT are working on a potential other solution, but that is not available now. So we need to make sure
 our API user has access to all the forms we want it to have access to. 
+
+---
+# Get nettskjemar dev-version
+
+A bug in the code found while working on this workshop was fixed yesterday. To work with the newest version of this
+package install by
+
+```{r, eval = FALSE}
+# Enable my development universe
+options(repos = c(
+    athanasiamo = 'https://athanasiamo.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install it
+install.packages('nettskjemar')
+```
+
+---
+class: middle, center, inverse
+
+# Answer the test form!
+## [https://nettskjema.no/a/205451](https://nettskjema.no/a/205451)
 
 ---
 class: middle, center, dark
@@ -231,23 +257,6 @@ nettskjema_get_data(205451)
 
 ???
 data! Notice that we have the data according to the codebook. 
-Also, this workshop has exposed a bug in my package. The checkboxes are not returned in the fashion I wanted and first developed it to. I have made a note of this and will fix it in the next release. Untill then, I'll present you with the solution to working with this bug.
-
----
-
-# Accessing the data
-### working with checkboxes
-
-```{r "get-data2"}
-library(tidyverse)
-nettskjema_get_data(205451) %>% 
-  unnest(ncourse_03)
-```
-
-???
-The checkbox type of "string" is incorrectly returned as a list columns. 
-This was not my intention. It should return as a string, where each element chosen 
-for the checkboxes are delimited with a `;` by default.
 
 ---
 
@@ -255,8 +264,7 @@ for the checkboxes are delimited with a `;` by default.
 ### working with checkboxes
 
 ```{r "get-data2-delim"}
-nettskjema_get_data(205451, checkbox_delim = "-") %>% 
-  unnest(ncourse_03)
+nettskjema_get_data(205451, checkbox_delim = "-")
 ```
 
 ???
@@ -268,6 +276,7 @@ This default can be altered through an extra argument.
 ### working with checkboxes
 
 ```{r "get-data3"}
+library(tidyverse)
 nettskjema_get_data(205451, checkbox_type = "list") %>% 
   unnest(ncourse_03)
 ```
@@ -322,11 +331,12 @@ What is great through the API is that we now have a choice in how we would prefe
 ---
 
 # Accessing the data
-### not using the codebook
+### adding dummy codes
 
-```{r "get-data5"}
-nettskjema_get_data(205451,
-                    use_codebook = FALSE)
+```{r}
+nettskjema_get_data(205451, 
+                    information = list(dummy = "order", 
+                                       text = "option"))
 ```
 
 ---
@@ -335,8 +345,7 @@ nettskjema_get_data(205451,
 
 
 ```{r "save-data1"}
-galaxy <- nettskjema_get_data(205451) %>% 
-  unnest(ncourse_03)
+galaxy <- nettskjema_get_data(205451)
 write.table(galaxy, "data/data_2021_06_03.tsv", sep="\t", row.names = FALSE)
 ```
 
