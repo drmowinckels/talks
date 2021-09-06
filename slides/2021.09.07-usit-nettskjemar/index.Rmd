@@ -354,6 +354,21 @@ data
 ```
 
 ---
+# Distributing your package
+
+- CRAN
+  - requires diligence and patience
+  - [follow steps carefully](https://github.com/ThinkR-open/prepare-for-cran)
+- GitHub
+  - `remotes::install_github("user/repo")`
+  - will not compile for all users, can be tricky on UiO windows
+- [R-universe](https://ropensci.org/r-universe/) by [rOpenSci](https://ropensci.org/)
+  - [Jeroen Ooms keynote at UseR!2021](https://www.youtube.com/watch?v=8cv2qsZ_xZw&list=PL4IzsxWztPdmHoJwIVa4um44w2GMjctmP&index=8)
+  - Builds package binaries for easy cross-platform installs
+  - Users don't need to install extra packages
+  - Example: LCBC's [ggseg](https://ggseg.r-universe.dev/ui#builds) universe
+
+---
 # Resources
 
 - [usethis website](https://usethis.r-lib.org/)
