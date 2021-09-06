@@ -1,0 +1,386 @@
+---
+title: "Advanced use of R"
+subtitle: "- creating and distributing R packages for internal and public use -"
+author: "Athanasia Monika Mowinckel"
+date: "07.09.2021"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - lcbc-uio.css
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  out.width = "100%",
+  fig.retina = 3
+)
+```
+
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / Research Software Engineer  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+- R-Ladies Oslo & [R-Ladies Global team](www.rladies.org)
+] 
+
+---
+
+layout: true
+
+<div class="my-sidebar"></div>
+
+---
+class: dark
+
+# Why should I bother with R?
+
+.pull-left[
+## You don't have to...
+
+- None of your colleagues use R
+
+- You are happy with the software you know
+
+- You can create transparent and reproducible workflows in the tools you already know
+
+]
+
+--
+
+.pull-right[
+## But you might like to
+- create familiar ways of working in R for colleagues
+
+- help colleagues start working more transparently and reproducibly
+
+- take advantage of the huge repertoire of packages to aid in almost any statistical endeavour
+
+]
+
+---
+class: dark
+
+# But making packages sounds like a lot of work...
+
+- does require initial efforts to get into a package format
+
+--
+
+    - utilise all the packages available to help you create, test, distribute and document your package
+
+--
+
+- well-documented and stable functions reduce long-term maintenance and need of explanations to colleagues already familiar with working in R
+
+--
+
+- unit tests of package functionality can alert you to changes in R or package dependencies that break core package functionality
+
+--
+
+- [oRganization: How to make internal R packages part of your team](https://www.rstudio.com/resources/rstudioglobal-2021/organization-how-to-make-internal-r-packages-part-of-your-team/) - Emily Reider at Rstudio::Global
+
+---
+class: dark
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg"), url("https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg")
+background-position: 15%, 85%
+background-size: 40%, 20%
+
+# OK, cool, cool. How do I do that?
+
+???
+you have mainly two developer IDE's to choose from: RStudio and vscode.
+I use RStudio, it has a lot of functionality that helps develop packages and functions efficiently, and start checks and builds. 
+I've never personally used vscode for R, but have colleagues who have, but not for package dev, so I can't really say anything for or against it.
+I'll be using RStudio, and so you can see the process and how the IDE helps me be more efficient.
+
+---
+class: inverse, middle, center
+
+# Live demo
+## Open RStudio
+
+---
+
+# Notes for live demo
+
+.pull-left[
+- Create RStudio package project
+- Have a look at the files created
+- Load package (`cmd` + `l`)
+- Test function (`hello()`)
+- Run cmd check
+- Show build tools
+  - enable roxygen documentation
+- Auto-generate docs with roxygen (`cmd + d`)
+- Delete namespace
+- Auto-generate docs with roxygen (`cmd + d`)
+]
+
+.pull-right[
+- look at the man-file for `hello()`
+- manually created man-file
+- convert to roxygen2 (`cmd + opt + shift + r`)
+- Auto-generate docs with roxygen (`cmd + d`)
+- have a look at the Rd and `?hello`
+- run cmd check `cmd + e`
+]
+
+---
+
+# Notes for live demo
+
+.pull-left[
+- introduce {usethis}
+  - `usethis::use_cc0_license()`
+  - leaf through `usethis` functions
+  - helps you create and set up your package in a tidy way, making sure things end up where they need to go
+  - run cmd check `cmd + e`
+]
+
+.pull-right[
+- `usethis::use_git()`
+- set up new GitHub repo
+- follow GitHub instructions
+- `usethis::use_readme_rmd()`
+- `usethis::use_github_action_check_standard()`
+- `git status`
+- `git add .`
+- `git commit -m "setup github"`
+- follow the  instructions to fix
+- show GitHub actions checks
+]
+
+
+---
+class: dark, middle, center
+
+# OK, we made a silly package and checks are running online.
+## Let's make something less silly.
+
+---
+
+# Notes for live demo
+
+.pull-left[
+- delete `R/hello.R`
+- `usethis::use_r("api")`
+- [Create API user](https://nettskjema.no/user/api/index.html)
+]
+
+.pull-right[
+```r
+nettskjema_api <- function(...) {
+  url <- paste0("http://nettskjema.no/api/v2/",
+                "users/admin/tokens/expire-date")
+
+  resp <- httr::GET(url,
+      ...,
+      httr::add_headers(Authorization = "Bearer XXX")
+  )
+
+  httr::content(resp)
+}
+```
+
+- `cmd + l`
+- `nettskjema_api()`
+]
+
+---
+
+# Notes for live demo
+
+```r
+nettskjema_api <- function(path, ...) {
+  url <- paste0("http://nettskjema.no/api/v2/",
+                path)
+
+  resp <- httr::GET(url,
+      ...,
+      httr::add_headers(Authorization = "Bearer XXX")
+  )
+
+  httr::content(resp)
+}
+
+nettskjema_token_expiry <- function(){
+  dt <- nettskjema_api("users/admin/tokens/expire-date")
+  #dt <- as.Date(dt[[1]])
+  browser()
+  message("Token with name expires in ",
+          as.numeric(dt - Sys.Date() ),
+          " days."
+  )
+
+  invisible(dt)
+}
+```
+
+---
+
+# Notes for live demo
+
+- `cmd + l`
+- `nettskjema_token_expiry()`
+- explain the `browser()` and fix the problem
+- `cmd + l`
+- `nettskjema_token_expiry()`
+- explain `invisible()`
+- add roxygen documentation
+- `cmd + d`
+- `cmd + l`
+- `?nettskjema_token_expiry`
+- `cmd + e`
+- `usethis::use_package("httr")`
+- show DESCRIPTION & namespace
+- `cmd + d`
+- show namespace
+
+
+---
+
+# Notes for live demo
+
+```{r}
+nettskjema_api <- function(path, token_name, ...) {
+  url <- sprintf("http://nettskjema.no/api/v2/%s",
+                path)
+
+  resp <- httr::GET(
+    url,
+    ...,
+    httr::add_headers(
+      Authorization = sprintf("Bearer %s", 
+                              Sys.getenv(token_name))
+    )
+  )
+
+  httr::content(resp)
+}
+```
+
+---
+
+# Notes for live demo
+
+```{r}
+nettskjema_token_expiry <- function(token_name = "NETTSKJEMA_API_TOKEN"){
+  dt <- nettskjema_api("users/admin/tokens/expire-date",
+                       token_name)
+  dt <- as.Date(dt[[1]])
+  message("Token with name ", token_name, " expires in ",
+          as.numeric(dt - Sys.Date() ),
+          " days."
+  )
+
+  invisible(dt)
+}
+```
+
+- add roxygen documentation to the two functions
+- `usethis::use_vignette("auth_setup")`
+- notice all things outputted in the console
+- populate vignette
+
+---
+
+# Notes for live demo
+
+- `cmd + e`
+- fix issues
+- `cmd + e`
+- `git status`
+- `git add .`
+- `git commit -m "first working functions"`
+- `usethis::use_pkgdown()`
+- `usethis::use_github_action("pkgdown")`
+- `git add .`
+- `git commit -m "pkgdown setup"`
+- `git push`
+- goto github and check GHA
+- make sure gh-pages is enabled, come back after a little while to check if built
+
+---
+class: dark, center, middle
+
+# Demo
+## the full nettskjemar package
+
+
+---
+
+# Notes for demo
+
+```r
+cb_raw <- nettskjema_get_codebook(205451, as_is = TRUE, token_name = "NETTSKJEMA_TEST_TOKEN")
+cb_raw
+
+cb <- nettskjema_get_codebook(205451, token_name = "NETTSKJEMA_TEST_TOKEN")
+cb
+
+meta_raw <- meta <- nettskjema_get_meta(205451, as_is = TRUE, token_name = "NETTSKJEMA_TEST_TOKEN")
+meta_raw
+
+meta <- nettskjema_get_meta(205451, token_name = "NETTSKJEMA_TEST_TOKEN")
+meta
+
+data <- nettskjema_get_data(205451, token_name = "NETTSKJEMA_TEST_TOKEN")
+data
+```
+
+---
+# Resources
+
+- [usethis website](https://usethis.r-lib.org/)
+- [Advanced R](https://adv-r.hadley.nz/) - Hadley Wickham
+- [R packages](https://r-pkgs.org/) - Jenny Bryan & Hadley Wickham
+- [R package primer](https://kbroman.org/pkg_primer/) - Karl Broman
+- [My notes on building tidy tools from RStudio::2019](https://drmowinckels.io/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/)
+
+---
+
+layout: false
+
+---
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+- R-Ladies Oslo & [R-Ladies Global team](www.rladies.org)
+] 

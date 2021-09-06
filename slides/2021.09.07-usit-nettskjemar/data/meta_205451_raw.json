@@ -1,0 +1,270 @@
+{
+  "formId": [205451],
+  "languageCode": ["en"],
+  "title": ["Test form for nettskjemar course"],
+  "deliveryDestination": ["DATABASE"],
+  "formType": ["DEFAULT"],
+  "theme": ["DEFAULT"],
+  "createdBy": {
+    "personId": [58096],
+    "username": ["athanasm@uio.no"],
+    "fullName": ["Athanasia Monika Mowinckel"],
+    "name": ["Athanasia Monika Mowinckel"],
+    "type": ["LOCAL"]
+  },
+  "modifiedBy": {
+    "personId": [58096],
+    "username": ["athanasm@uio.no"],
+    "fullName": ["Athanasia Monika Mowinckel"],
+    "name": ["Athanasia Monika Mowinckel"],
+    "type": ["LOCAL"]
+  },
+  "createdDate": ["2021-06-01T08:38:10.000+0200"],
+  "modifiedDate": ["2021-06-02T09:18:42.000+0200"],
+  "openFrom": ["2021-06-01T10:13:29.000+0200"],
+  "respondentGroup": ["ALL"],
+  "editorsContactEmail": ["athanasm@uio.no"],
+  "editors": [
+    {
+      "personId": [616628],
+      "username": ["athanasm@api"],
+      "fullName": ["access for athanasm"],
+      "name": ["access for athanasm"],
+      "type": ["API"]
+    },
+    {
+      "personId": [58096],
+      "username": ["athanasm@uio.no"],
+      "fullName": ["Athanasia Monika Mowinckel"],
+      "name": ["Athanasia Monika Mowinckel"],
+      "type": ["LOCAL"]
+    }
+  ],
+  "collectsPersonalData": [false],
+  "maxSubmissionsPerson": [1],
+  "retainRespondentAccessAfterDelivery": [false],
+  "clientPostponable": [false],
+  "scoreResultDisplayType": ["NONE"],
+  "sensitivePersonalDataCollected": [false],
+  "codebookActivated": [true],
+  "shouldHideProgressBar": [false],
+  "shouldPreventDataManipulation": [false],
+  "shouldGetRespondentInfoFromPerson": [false],
+  "elements": [
+    {
+      "elementId": [3150253],
+      "elementType": ["HEADING"],
+      "sequence": [1],
+      "title": ["This is a test form"]
+    },
+    {
+      "elementId": [3150254],
+      "elementType": ["TEXT"],
+      "sequence": [2],
+      "description": ["<p>The survey and data from this form are non-sensical and created only to serve as an example during instruction on how to use the nettskjemar R-package for retrieval of nettskjema data. <\/p>\n\n<p><\/p>\n"]
+    },
+    {
+      "elementId": [3150255],
+      "elementType": ["MATRIX_RADIO"],
+      "sequence": [3],
+      "title": ["This is a matrix element with &#34;radio&#34; buttons"],
+      "answerOptions": [
+        {
+          "answerOptionId": [7848275],
+          "sequence": [1],
+          "text": ["Food"],
+          "externalAnswerOptionId": ["food"],
+          "preselected": [false],
+          "correct": [false]
+        },
+        {
+          "answerOptionId": [7848276],
+          "sequence": [2],
+          "text": ["42"],
+          "externalAnswerOptionId": ["42"],
+          "preselected": [false],
+          "correct": [false]
+        },
+        {
+          "answerOptionId": [7848277],
+          "sequence": [3],
+          "text": ["A towel"],
+          "externalAnswerOptionId": ["towel"],
+          "preselected": [false],
+          "correct": [false]
+        },
+        {
+          "answerOptionId": [7848278],
+          "sequence": [4],
+          "text": ["Coffee"],
+          "externalAnswerOptionId": ["coffee"],
+          "preselected": [false],
+          "correct": [false]
+        }
+      ],
+      "questions": [
+        {
+          "questionId": [3361352],
+          "sequence": [1],
+          "elementType": ["MATRIX_RADIO"],
+          "mandatory": [false],
+          "text": ["What is the meaning of life, the universe and everything?"],
+          "externalQuestionId": ["ncourse_01"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        },
+        {
+          "questionId": [3361353],
+          "sequence": [2],
+          "elementType": ["MATRIX_RADIO"],
+          "mandatory": [true],
+          "text": ["What should you have with you at all times?"],
+          "externalQuestionId": ["ncourse_02"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        }
+      ]
+    },
+    {
+      "elementId": [3150256],
+      "elementType": ["MATRIX_CHECKBOX"],
+      "sequence": [4],
+      "maxSelectedAnswerOptions": [2],
+      "title": ["This is a matrix question with multiple answers per question allowed (checkboxes)"],
+      "answerOptions": [
+        {
+          "answerOptionId": [7848279],
+          "sequence": [1],
+          "text": ["Humans"],
+          "externalAnswerOptionId": ["humans"],
+          "preselected": [false],
+          "correct": [false]
+        },
+        {
+          "answerOptionId": [7848280],
+          "sequence": [2],
+          "text": ["Mice"],
+          "externalAnswerOptionId": ["mice"],
+          "preselected": [false],
+          "correct": [false]
+        },
+        {
+          "answerOptionId": [7848281],
+          "sequence": [3],
+          "text": ["Dolphins"],
+          "externalAnswerOptionId": ["dolphins"],
+          "preselected": [false],
+          "correct": [false]
+        }
+      ],
+      "questions": [
+        {
+          "questionId": [3361354],
+          "sequence": [1],
+          "elementType": ["MATRIX_CHECKBOX"],
+          "mandatory": [false],
+          "text": ["Who are the two smartest species on earth?"],
+          "externalQuestionId": ["ncourse_03"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        },
+        {
+          "questionId": [3361355],
+          "sequence": [2],
+          "elementType": ["MATRIX_CHECKBOX"],
+          "mandatory": [false],
+          "text": ["Which species says thanks for all the fish?"],
+          "externalQuestionId": ["ncourse_04"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        }
+      ]
+    },
+    {
+      "elementId": [3150257],
+      "elementType": ["SELECT"],
+      "sequence": [5],
+      "questions": [
+        {
+          "questionId": [3361356],
+          "sequence": [1],
+          "elementType": ["SELECT"],
+          "mandatory": [false],
+          "text": ["Which book are we likely talking about?"],
+          "answerOptions": [
+            {
+              "answerOptionId": [7848282],
+              "sequence": [1],
+              "text": ["A Song of Ice and Fire - George R. R. Martin"],
+              "externalAnswerOptionId": ["1"],
+              "preselected": [false],
+              "correct": [false]
+            },
+            {
+              "answerOptionId": [7848283],
+              "sequence": [2],
+              "text": ["A Short History of Nearly Everything - Bill Bryson"],
+              "externalAnswerOptionId": ["2"],
+              "preselected": [false],
+              "correct": [false]
+            },
+            {
+              "answerOptionId": [7848284],
+              "sequence": [3],
+              "text": ["Mythos - Stephen Fry"],
+              "externalAnswerOptionId": ["3"],
+              "preselected": [false],
+              "correct": [false]
+            },
+            {
+              "answerOptionId": [7848285],
+              "sequence": [4],
+              "text": ["A Hitchhiker&#39;s Guide to the Galaxy - Douglas Adams"],
+              "externalAnswerOptionId": ["4"],
+              "preselected": [false],
+              "correct": [false]
+            },
+            {
+              "answerOptionId": [7848286],
+              "sequence": [5],
+              "text": ["I have no idea - this all sounds crazy to me."],
+              "externalAnswerOptionId": ["5"],
+              "preselected": [false],
+              "correct": [false]
+            }
+          ],
+          "externalQuestionId": ["ncourse_05"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        }
+      ]
+    },
+    {
+      "elementId": [3150258],
+      "elementType": ["QUESTION"],
+      "sequence": [6],
+      "questions": [
+        {
+          "questionId": [3361357],
+          "sequence": [1],
+          "elementType": ["QUESTION"],
+          "mandatory": [false],
+          "text": ["Do you have any further comments to the survey?"],
+          "externalQuestionId": ["ncourse_06"],
+          "sendAdditionalRecipientEmail": [false],
+          "horizontal": [false],
+          "rangeMarksShown": [false]
+        }
+      ]
+    }
+  ],
+  "newDesignEnabledSetting": ["ALWAYS"],
+  "open": [true],
+  "possibleToHaveInvitations": [false],
+  "sendingReceiptToRespondent": [false]
+}

@@ -45,6 +45,11 @@ navbar:
           href: https://rladies.github.io/meetup-presentations_oslo/2019-09-30-data_tidying_Mo/data_tidying-Mo.html#1
         - text: "23.04.2018 - Adding external images to plots"
           href: https://rladies.github.io/meetup-presentations_oslo/2018-04-23-external-images-to-plots/AddingExternalImages.html#1
+        - text: "Miscellaneous"
+        - text: "07.09.2021 - A different type of database"
+          href: slides/2021.09.07-usit-noas
+        - text: "07.09.2021 - Advanced use of R"
+          href: slides/2021.09.07-usit-nettskjemar
           
     - text: "Workshops"
       menu:
