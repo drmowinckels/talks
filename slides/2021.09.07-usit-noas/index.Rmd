@@ -121,6 +121,10 @@ background-image: url("https://images.unsplash.com/photo-1444459094717-a39f1e3e0
 background-position: right
 background-size: auto 100%
 
+
+???
+But one of the key problems were that each project had their own coding system, mostly depending on the PhD or Postdoc in charge of the current data collection, and even each round of data collection did not necessarily adhere to the last round.
+
 --
 
 .pull-left[
@@ -140,10 +144,9 @@ Different coding systems
    - Male/Female
 ]
 
-???
-But one of the key problems were that each project had their own coding system, mostly depending on the PhD or Postdoc in charge of the current data collection, and even each round of data collection did not necessarily adhere to the last round.
 
-For instance, when I started with the data harmonisation, I had at least three main types of data to work with, and a single binary variable like "Sex" I found to be coded in no less than 7 different ways.
+???
+For instance, when we started with the data harmonisation, I had at least three main types of data to work with, and a single binary variable like "Sex" I found to be coded in no less than 7 different ways.
 
 This is _not_ a jab at my colleagues, this is what naturally happens when projects evolve over time and across people. Data management and naming is a field of its own, and deciding on a single unifying coding scheme across 7 projects with up to 6 rounds of data collection in the different projects over 10 years is no laughing matter. 
 
@@ -154,18 +157,22 @@ background-image: url("https://images.unsplash.com/photo-1537202108838-e7072bad1
 background-size: cover
 class: center, bottom, inverse
 
+???
+So, every time projects pooled data, harmonisation of the data had to be done. 
+Harmonisation means making the data coding system equal (or as equal as possible) across datasets.
 
 --
+
 # Mother of all Spreadsheets
+
+???
+After some years, Anders and Kristine, the center leaders realised how much time was being spent in re-harmonising all the data, that they hired someone to start the process of harmonising everything, and create what they called "The Mother of all Spreadsheets". 
 
 --
 
 (MOAS for short)
 
-???
-So, every time projects pooled data, harmonisation of the data had to be done. 
-Harmonisation means making the data coding system equal (or as equal as possible) across datasets.
-After some years, Anders and Kristine, the center leaders realised how much time was being spent in re-harmonising all the data, that they hired someone to start the process of harmonising everything, and create what they called "The Mother of all Spreadsheets". 
+
 
 ---
 background-image: url("https://images.unsplash.com/photo-1532009877282-3340270e0529?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
@@ -213,6 +220,10 @@ background-position: left
 
 .pull-left[]
 
+
+???
+Now, the MOAS was doing its job. The data were harmonised, and people were beginning to work with the harmonised data and papers pooling data across projects were off to a better start and were being initiated much more often. But there were huge issues.
+
 --
 
 .pull-right[
@@ -232,7 +243,6 @@ background-position: left
 ]
 
 ???
-Now, the MOAS was doing its job. The data were harmonised, and people were beginning to work with the harmonised data and papers pooling data across projects were off to a better start and were being initiated much more often. But there were huge issues.
 
 I can here mention, that I was just about the only person at the whole center that understood the content of this file and how to work with it. I was the only one who could add or edit the data, and it could take me anywhere to 1 day to a week to get the pipeline running depending on where it broke. 
 
@@ -257,6 +267,11 @@ background-size: 40%, 30%, 30%
 background-position: bottom, left top, right top
 class: center
 
+
+???
+So Inge, Florian, and I sat down and started discussing how to go about this.
+What does the data look like? what do we need from the storage solution? how should people access the data? how do we document the data?
+
 --
 
 Data needs to be traceable  
@@ -275,10 +290,8 @@ an UI and programatically
 Data documentation must be  
 easily available
 
-???
-So Inge, Florian, and I sat down and started discussing how to go about this.
-What does the data look like? what do we need from the storage solution? how should people access the data? how do we document the data?
 
+???
 The benefit we had as a team, was that Florian could come in with a very structured way of working and thinking about developing tools. While Inge has his foot in both doors, having IT background and being a research psychologist, understanding systems and how scientists work. I, having no formal IT training, had full overview of the data structures and content and understood the types of hurdles people had been facing with the old MOAS.
 
 There were many decisions to be made, and at the end we decided the best was to start something, and then build it bit by bit.
@@ -356,6 +369,9 @@ class: dark
 
 ## Minimizing dependencies and bundling software
 
+???
+This meant quite some work on the part of Florian and I, who were at this point the two mainly responsible for the source code of the entire project. 
+
 --
 
 .pull-left[
@@ -365,6 +381,9 @@ R package dependencies:
  - [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html)  
  - [DBI](https://cran.r-project.org/web/packages/DBI/index.html)
 ]
+
+???
+I was stripping R dependencies as much as I could, relying only on light packages that needed no special installs (like gcc). And Florian was bumping python and flask for php, and creating the UI with HTML, CSS and javascript.
 
 --
 
@@ -377,17 +396,14 @@ UI dependencies:
 - javascript  
 ]
 
---
 
 <center>
 <br>
 <h3>postgresql</h3>
 </center>
 
-???
-This meant quite some work on the part of Florian and I, who were at this point the two mainly responsible for the source code of the entire project. 
 
-I was stripping R dependencies as much as I could, relying only on light packages that needed no special installs (like gcc). And Florian was bumping python and flask for php, and creating the UI with HTML, CSS and javascript.
+???
 
 We made sure everything we used we could bundle before porting the system into TSD. Which Florian again made a great effort with through creating Make-files that would download all necessary software, like R-packages, php, postgresql etc, and another make file that would install and setup the system within TSD.
 
@@ -428,6 +444,10 @@ core/
 ```
 ]
 
+???
+where core data is essential data on participants on projects that need to be in order for the remaining data base to be built.
+Core data is strictly monitored and only edited by data managers, while non_core data is experimental data that can be corrected and added to by others (reviewed and approved by data managers). 
+
 --
 
 .pull-right[
@@ -447,9 +467,6 @@ non_core/
 ]
 
 ???
-where core data is essential data on participants on projects that need to be in order for the remaining data base to be built.
-Core data is strictly monitored and only edited by data managers, while non_core data is experimental data that can be corrected and added to by others (reviewed and approved by data managers). 
-
 Subjects and projects are the only two tables with no dependencies in other tables. For an entry to be added to waves, the project that wave belongs to needs to exist in projects. And for any visit of a participant to be added, that participant needs to be present in subjects, and the project and wave must exist.
 
 ---
@@ -604,10 +621,9 @@ Its more computationally and humanly effective to build a dataset you need, rath
 
 ---
 
---
+## Computed or derived data
 
 .pull-left[
-## Computed or derived data
 
 ```{r, echo = FALSE}
 library(ggseg)
@@ -622,6 +638,9 @@ ggplot() +
 ```
 ]
 
+???
+At LCBC, we routinely work with derived, or computed data. That is data not in its raw form, but aggregated or derived from raw in some way. A common type of data is metrics from what we call brain atlases. That could be measures of cortical thickness or volume within distinct anatomical regions of the brain, these are nicely formatted tabular data that we _could_ have in git.
+
 --
 
 .pull-right[
@@ -632,13 +651,9 @@ ggplot() +
 - additions of more data may alter previously derived data
 
 **Solution:**
-- create a system where several historical versions of the derived data exist
+- keep several versions of the derived data
 - git the symlink to the most current one
 ]
-
-???
-At LCBC, we routinely work with derived, or computed data. That is data not in its raw form, but aggregated or derived from raw in some way. A common type of data is metrics from what we call brain atlases. That could be measures of cortical thickness or volume within distinct anatomical regions of the brain, these are nicely formatted tabular data that we _could_ have in git.
-
 
 ---
 background-image: url("https://www.uio.no/english/services/it/research/sensitive-data/pictures/tsd_logo-test-liten.png")
@@ -708,9 +723,14 @@ We are working on a separate javascript based solution towards the Gitea API for
 ---
 background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg")
 background-position: 20%
+class: dark
+
+
+???
+Now the last piece in our puzzle. Jenkins.
+We needed something that would run automated checks for us on the data. And the best automated check we have, is to literally try importing the data into a database. 
 
 --
-class: dark 
 
 .pull-left[]
 .pull-right[
@@ -728,9 +748,6 @@ class: dark
 ]
 
 ???
-Now the last piece in our puzzle. Jenkins.
-We needed something that would run automated checks for us on the data. And the best automated check we have, is to literally try importing the data into a database. 
-
 But data managers should not need to manually pull the data repo, and locally run checks. This is error prone and the lazy of us know we would get sloppy over time. We needed a butler, someone to run continuous integration for us and just run the checks and actually populate the two databases we had, live and master. 
 
 So, Florian got Jenkins running and connected to Gitea, and now we have three CI runners
@@ -764,6 +781,8 @@ Nephew of all Spreadsheets
 - database as disposable
 - robust set of software dependencies that can be bundled
 - allows multiple types of interface to data
+
+- [source code on GitHub](https://github.com/LCBC-UiO/noas)
 ]
 
 ???
