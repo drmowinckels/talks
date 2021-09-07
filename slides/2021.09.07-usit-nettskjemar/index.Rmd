@@ -367,6 +367,7 @@ data
   - Builds package binaries for easy cross-platform installs
   - Users don't need to install extra packages
   - Example: LCBC's [ggseg](https://ggseg.r-universe.dev/ui#builds) universe
+  - Subscribe to the [rOpenSci newsletter](https://ropensci.org/news/) to keep up to date with their activities
 
 ---
 # Resources
