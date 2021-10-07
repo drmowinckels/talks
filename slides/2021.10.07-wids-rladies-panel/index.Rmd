@@ -2,7 +2,7 @@
 title: "Building resources for an international organisation"
 subtitle: "- Multilingual websites & YouTube channels -"
 author: "Athanasia Mo Mowinckel"
-date: "10.03.2021"
+date: "07.10.2021"
 output:
   xaringan::moon_reader:
     css: 
