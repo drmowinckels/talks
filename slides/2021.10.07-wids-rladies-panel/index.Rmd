@@ -1,0 +1,165 @@
+---
+title: "Building resources for an international organisation"
+subtitle: "- Multilingual websites & YouTube channels -"
+author: "Athanasia Mo Mowinckel"
+date: "10.03.2021"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - rladies
+      - rladies-fonts
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    lib_dir: libs
+    nature:
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+# Here you can place global options for the entire document.
+# Mostly used for knitr settings, but can also load data etc.
+# Whatever happens here will not show in the presentation.
+knitr::opts_chunk$set(
+  echo = FALSE,
+  out.width = "100%",
+  fig.retina = 3
+)
+
+library(knitr)
+library(dplyr)
+library(kableExtra)
+```
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fab fa-twitter fa-2x"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fab fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / Research Software Engineer  
+- PhD in cognitive psychology  
+- Software Carpentry Instructor   
+- R-Ladies Oslo & [R-Ladies Global team](www.rladies.org)
+] 
+
+---
+background-image: url("img/chapters-world.png")
+background-size: 60%
+background-position: 85% 100%
+# Building a website for a global community
+
+--
+
+- That relies on volunteer effort
+
+  - of the developer
+
+  - of the translators
+
+--
+
+- That minimizes costs
+
+  - in money
+  
+  - in volunteer hours
+  
+--
+
+- That looks professional
+  
+  - user and accessibility friendly
+  
+  - can be translated
+  
+---
+class: inverse
+# Building a website for a global community
+
+.pull-left[
+## Open-source
+
+- The entire source code of the new website is on [GitHub](https://github.com/rladies/website)
+
+- The website is built using Hugo, Netlify, and GitHub actions
+
+- Allows contributions (pull-requests) from anyone, merged through code review
+
+    - allows volunteers to contribute translations
+    
+    - allows volunteers to contribute blog posts
+    
+    - allows volunteers to suggest improvements
+    
+    - gives credit to all who have contributed (through contributors list)
+]
+
+--
+
+.pull-right[
+## Higher technical bias
+
+- Means harder entry for beginners
+
+- Necessitates good documentation 
+
+- Guiding those who want to contribute through the process and technicalities if they are unfamiliar with them
+
+- Creating a community where people are comfortable asking for help, if they want to contribute
+]
+
+---
+background-image: url("img/youtube_home.png")
+background-size: 50%
+background-position: 90% 90%
+
+# Setting up a YouTube channel
+
+--
+
+## during a pandemic
+
+--
+
+### with contributors across the globe
+
+--
+
+### in many different languages
+
+--
+
+**Statistics from June 2020 to now**
+
+ - <i class="fab fa-youtube" aria-hidden="true"></i> 109 videos
+ 
+ - <i class="fas fa-language" aria-hidden="true"></i> 5 languages
+ 
+ - <i class="fa fa-users" aria-hidden="true"></i> 2 494 subscribers
+ 
+ - <i class="fa fa-eye" aria-hidden="true"></i> 37 562 views
+ 
+ - <i class="fa fa-clock" aria-hidden="true"></i> 4 024.5 watch hours
+
+
+---
+
+class: inverse, middle, center
+
+# [Subscribe to our YouTube channel by clicking here!](https://www.youtube.com/rladies-global)
+Don' miss out on any of the R-fun!
+
+
+
