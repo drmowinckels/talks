@@ -35,6 +35,8 @@ navbar:
           href: https://athanasiamo.github.io/CPH_presentation/
         - text: "---"
         - text: "R-Ladies"
+        - text: "07.10.2021 - Building resources for an international organisation"
+          href: slides/2021.10.07-wids-rladies-panel/
         - text: "12.05.2021 - Zhoosh up your ggplots! - Edinburgh"
           href: slides/2021.05.12-rladies-edinburgh-ggplot/
         - text: "10.03.2021 - Make something random - learn something useful - Helsinki"
