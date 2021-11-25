@@ -1,0 +1,123 @@
+---
+title: "LCBC Wiki"
+subtitle: "- What, When & How -"
+author: "Athanasia Monika Mowinckel"
+date: "25.11.2021"
+output:
+  xaringan::moon_reader:
+    css: [lcbc-uio.css, lcbc-uio-fonts.css, default]
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+layout: true
+    
+<div class="my-sidebar"></div> 
+
+
+```{r setup, include=FALSE}
+# Here you can place global options for the entire document.
+# Mostly used for knitr settings, but can also load data etc.
+# Whatever happens here will not show in the presentation.
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+---
+class: middle, center, dark
+
+# WHAT
+
+> ### A wiki (/ˈwɪki/ WIK-ee) 
+
+> is a hypertext publication collaboratively edited and managed by its own audience directly using a web browser. A typical wiki contains multiple pages for the subjects or scope of the project and could be either open to the public or limited to use within an organization for maintaining its internal knowledge base.
+
+[source](https://www.wikiwand.com/en/Wiki)
+
+---
+class: middle, center, dark
+
+# WHAT
+
+> ### A wiki (/ˈwɪki/ WIK-ee) 
+
+> is a hypertext publication **collaboratively** edited and managed by its own audience directly using a web browser. A typical wiki contains multiple pages for the subjects or scope of the project and could be either open to the public or limited to use within an organization for maintaining its **internal knowledge base**.
+
+[source](https://www.wikiwand.com/en/Wiki)
+
+---
+
+# WHAT
+
+.pull-left[
+## Intent
+
+- To have collect documentation about activities at LCBC
+
+- Make it easier for anyone how needs information about how we organise ourselves/data/analyses to find what they need
+
+- Document for posterity and reproducibility
+
+- Make it less reliant on a single person giving the **exact** same information to all without forgetting important details
+
+]
+
+.pull-right[
+## Types
+- **projects**
+  - participant explucion/inclusion
+  - protocols
+  - ID naming schemas
+  - general purpose of project
+- **analysis pipelines**
+  - MRI pipelines details
+  - PET pipeline details
+- **User "how to's"**
+  - How to connect to LH/TSD
+  - How to work on TSD
+  - How to secure your computer
+etc
+]
+
+
+---
+class: middle, center, dark
+
+# WHEN
+
+---
+# WHEN
+
+.pull-left[
+## Who
+
+- **EVERYONE!**
+
+- Be mindful when changing something someone else has written
+
+- When in doubt, ask on slack/in person your colleagues
+
+]
+
+
+.pull-right[
+## Changes
+- Improve wording & inaccuracies
+
+- Update when procedures have changed
+
+- Add new pages and sections when needed
+]
+
+---
+class: middle, center, dark
+
+# HOW
+
+### [Go to wiki](https://wiki.lcbc.uiocloud.no/doku.php?id=start)
+
