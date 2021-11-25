@@ -67,6 +67,8 @@ class: middle, center, dark
 
 ]
 
+--
+
 .pull-right[
 ## Types
 - **projects**
@@ -81,6 +83,7 @@ class: middle, center, dark
   - How to connect to LH/TSD
   - How to work on TSD
   - How to secure your computer
+  
 etc
 ]
 
@@ -104,6 +107,7 @@ class: middle, center, dark
 
 ]
 
+--
 
 .pull-right[
 ## Changes
