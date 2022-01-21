@@ -52,6 +52,8 @@ navbar:
           href: slides/2021.09.07-usit-noas
         - text: "07.09.2021 - Advanced use of R"
           href: slides/2021.09.07-usit-nettskjemar
+        - text: "20.01.2022 - R package development"
+          href: slides/2022.01.20-rse-pgk
           
     - text: "Workshops"
       menu:

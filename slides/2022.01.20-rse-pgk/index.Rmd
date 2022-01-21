@@ -1,0 +1,248 @@
+---
+title: "R package development"
+subtitle: "- creating and distributing -"
+author: "Athanasia Monika Mowinckel"
+date: "20.01.2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - lcbc-uio.css
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  out.width = "100%",
+  fig.retina = 3
+)
+```
+
+
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / <br>
+   Research Software Engineer  
+- PhD in cognitive psychology  
+- Software Carpentry & <br>
+  RStudio tidyverse Instructor   
+- R-Ladies Oslo & <br>
+  [R-Ladies Global team](www.rladies.org)
+] 
+
+---
+
+layout: true
+
+<div class="my-sidebar"></div>
+
+---
+class: dark
+
+# Why should you bother with R?
+
+--
+
+.pull-left[
+## You don't have to...
+
+- None of your colleagues use R
+
+- You are happy with the software you know
+
+- You can create transparent and reproducible workflows in the tools you already know
+
+]
+
+--
+
+.pull-right[
+## But you might like to
+- create familiar ways of working in R for colleagues
+
+- help colleagues start working more transparently and reproducibly
+
+- take advantage of the huge repertoire of packages to aid in almost any statistical endeavour
+
+]
+
+???
+And R can these days do much more than statistics, though it is fast becoming a very popular tool with data scientist.
+R is often quite popular in the social sciences, and in my opinion better options that Stata or SPSS, which are usually taught.
+
+---
+class: dark
+
+# It sounds like lots of work...
+
+--
+
+- does require initial efforts to get into a package format
+    - utilise all the packages available to help you create, test, distribute and document your package
+
+--
+
+- well-documented and stable functions reduce long-term maintenance and need of explanations to colleagues already familiar with working in R
+
+--
+
+- unit tests of package functionality can alert you to changes in R or package dependencies that break core package functionality
+    - or to protect from future you making breaking changes
+
+--
+
+- [oRganization: How to make internal R packages part of your team](https://www.rstudio.com/resources/rstudioglobal-2021/organization-how-to-make-internal-r-packages-part-of-your-team/) - Emily Reiderer at Rstudio::Global 2021
+
+
+---
+
+# Talk outline
+
+- Identify and assess staff needs
+- Key helper packages
+- Take a look at an in-house package
+- Distributing packages
+   - locally
+   - online
+
+---
+
+# Identify and assess staff needs
+
+--
+
+.pull-left[
+## Identify
+- What are the things they often ask you for help on?
+
+- What are the things you observe them doing in very manual and tedious ways?
+
+- What operations require customised handling for your data/tasks?
+]
+
+--
+
+.pull-right[
+## Assess
+- Is R the best tool to deal with this?
+
+- What is the user level proficiency?
+
+- What operating systems are people working on?
+
+- How are people used to working in R?
+]
+
+---
+class: dark
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg"), url("https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg")
+background-position: 15%, 85%
+background-size: 40%, 20%
+
+# OK, cool, cool. How do I develop?
+
+???
+you have mainly two developer IDE's to choose from: RStudio and vscode.
+I use RStudio, it has a lot of functionality that helps develop packages and functions efficiently, and start checks and builds. 
+I've never personally used vscode for R, but have colleagues who have for general R use, but not for package dev, so I can't really say anything for or against it.
+I'll be using RStudio, and so you can see the process and how the IDE helps me be more efficient.
+
+---
+
+# Key helper packages
+
+- [usethis](https://usethis.r-lib.org/) to help set-up pacakge
+  - licences, github actions, online documentation
+- [roxygen2](https://roxygen2.r-lib.org/) inline function documentation
+- [devtools](https://devtools.r-lib.org/) package loading, checking, building
+- [testthat](https://testthat.r-lib.org/) unit testing
+- [rmarkdown](https://github.com/rstudio/rmarkdown) package documentation as vignettes/tutorials
+
+
+---
+class: inverse, middle, center
+
+# Example package
+## [Questionnaires](https://lcbc-uio.github.io/Questionnaires/index.html)
+
+---
+
+# Distributing packages
+
+.pull-left[
+
+ - CRAN
+  - requires diligence and patience
+  - [follow steps carefully](https://github.com/ThinkR-open/prepare-for-cran)
+- GitHub
+  - `remotes::install_github("user/repo")`
+  - will not compile for all users, can be tricky on networked windows
+]
+
+.pull-right[
+
+- [R-universe](https://ropensci.org/r-universe/) by [rOpenSci](https://ropensci.org/)
+  - [Jeroen Ooms keynote at UseR!2021](https://www.youtube.com/watch?v=8cv2qsZ_xZw&list=PL4IzsxWztPdmHoJwIVa4um44w2GMjctmP&index=8)
+  - Builds package binaries, no need to install extra packages
+  - Example: LCBC's [ggseg](https://ggseg.r-universe.dev/ui#builds) universe
+  - Subscribe to the [rOpenSci newsletter](https://ropensci.org/news/)
+]
+
+- locally
+  - building a package creates a `tar.gz` file that can be used to install.
+  
+---
+# Resources
+
+- [usethis website](https://usethis.r-lib.org/)
+- [Advanced R](https://adv-r.hadley.nz/) - Hadley Wickham
+- [R packages](https://r-pkgs.org/) - Jenny Bryan & Hadley Wickham
+- [R package primer](https://kbroman.org/pkg_primer/) - Karl Broman
+- [My notes on building tidy tools from RStudio::2019](https://drmowinckels.io/blog/2019-02-02-building-tidy-tools-a-quick-recap-of-rstudio-conf-2019-workshop/)
+- [My talk at the UiO IT conference demoing package creation](https://www.uio.no/for-ansatte/enhetssider/arrangement/it-konferansen/2021/) (look for the 13:00 talk on the 7th of Sept.)
+
+---
+
+layout: false
+
+---
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: right bottom
+background-size: auto 100%
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fa fa-twitter fa-2x" aria-hidden="true"></i> @DrMowinckels](https://twitter.com/DrMowinckels)   
+[<i class="fa fa-github fa-2x" aria-hidden="true"></i> Athanasiamo](https://github.com/Athanasiamo)  
+[<i class="fa fa-globe fa-2x" aria-hidden="true"></i> drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / <br>
+   Research Software Engineer  
+- PhD in cognitive psychology  
+- Software Carpentry & <br>
+  RStudio tidyverse Instructor   
+- R-Ladies Oslo & <br>
+  [R-Ladies Global team](www.rladies.org)
+] 
