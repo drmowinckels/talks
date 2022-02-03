@@ -1,0 +1,351 @@
+---
+title: "Part I: RStudio projects"
+subtitle: "- R project management series -"
+author: "Athanasia Monika Mowinckel"
+date: "03.02.2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - lcbc-uio.css
+      - lcbc-uio-fonts.css
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    lib_dir: libs
+    nature:
+      titleSlideClass: [middle, right]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false 
+      ratio: "16:9"
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  out.width = "100%",
+  fig.retina = 3
+)
+```
+
+
+layout: true
+
+<div class="my-sidebar"></div>
+
+---
+class: dark
+# Series inspiration
+
+ways of working I see, make
+- it hard for me to help
+- loosing track of the work easy
+- loosing vital project files or output easy
+
+
+<br>
+
+Great rOpenSci community call on reproducible research
+  - see [video and materials](https://ropensci.org/commcalls/2019-07-30/)
+  - see it when you can, its 50minutes with lots of great perspectives
+
+
+---
+class: dark
+
+# Series inspiration
+
+[Jenny Bryan](https://twitter.com/JennyBryan)'s blogpost on [workflow vs. scripts](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/) in R
+> If the first line of your R script is  
+> `setwd("C:\Users\jenny\path\that\only\I\have")`  
+> I will come into your office and SET YOUR COMPUTER ON FIRE 🔥.  
+> 
+> If the first line of your R script is  
+> `rm(list = ls())`  
+> I will come into your office and SET YOUR COMPUTER ON FIRE 🔥.  
+]
+
+---
+class: dark, middle, center
+
+# Recording of the talk can be found on [YouTube](https://youtu.be/qmIn2C5WJxE)
+
+---
+
+# Why do we care about project management (in R)?
+
+--
+
+.pull-left[
+**Portability**  
+_The ability to move the project without breaking code or needing adapting_
+  - you will change computers
+  - you will reorganise your file structure
+  - you will share your code with others
+]
+
+--
+
+.pull-right[
+**Reproducibility**  
+_The ability to rerun the entire process from scratch_
+  - not just for reviews
+  - not just for best-practice science
+  - also for future (or even present) you
+  - and for your collaborators/helpers
+]
+
+---
+class: dark, middle
+
+.center[
+# Series talks
+]
+
+&nbsp; _Part I_   &nbsp; RStudio projects  
+&nbsp; _Part II_  &nbsp; Organising your files and workflow  
+&nbsp; _Part III_ &nbsp; Package / Library management  
+&nbsp; _Part IV_  &nbsp; git & GitHub crash course!  
+
+---
+
+# Self-contained projects
+
+--
+
+.pull-left[
+Contains all necessary files for an analysis/paper
+  - data
+  - results
+  - documentation
+  - scripts
+  - even manuscript!
+  
+Does not have to be an RStudio project, though that is what we are covering here.
+]
+
+--
+
+.pull-right[
+Does not use
+  - `setwd()`
+    - all paths are relative
+  - `rm(list = ls())`
+    - all files are created to be run in a fresh R session
+  - `install.packages()`
+    - does not automatically install packages on behalf of the user
+  - R behaviour set to:
+    - never save environment on exit
+    - never load previous environment when opening R
+]
+
+---
+
+## Portability
+### What’s wrong with `setwd()`?
+
+- It will only ever work for the user creating the file
+  - TSD is an exception here, but we won't delve into that now
+
+--
+
+- It is not portable
+  - Moving the folder/file will break the code
+  - Collaborators will need to change any `setwd` path
+
+--
+
+- Increases likelihood that work from other R processes leaks into current work
+
+
+---
+background-image: url("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png")
+background-size: 50%
+background-position: right
+
+.pull-left[
+## Portability - The [here package](https://here.r-lib.org/)
+- If all files are contained in the project folder
+- reference files with the `here()` function from the here-package
+  - creates relative paths from project root
+  - allows several ways to indicate project root folder if not working with RStudio
+]
+
+.footnote[
+Illustration by [Allison Horst](https://github.com/allisonhorst)
+]
+
+---
+
+## Portability - example My talks project
+
+**Project root**
+```{r}
+library(here)
+here()
+```
+
+**Build path to the slide file**
+```{r}
+here("slides/2022.02.03-rproj/index.Rmd")
+```
+
+**List all files in project root**
+```{r}
+list.files(here())
+```
+
+---
+
+## Portability - Folder/File structure
+
+.pull-left[
+- data
+  - all raw data files, organised in meaningful ways
+  - never, ever write _back_ to this folder, read only
+  - if using git, never commit to history, place in `.gitignore`
+- results
+  - write all analysis etc. results to
+  - treat as disposable, can be overwritten
+  - may also include figures etc if wanted
+]
+
+.pull-right[
+- docs
+  - documentation
+  - Rmarkdown files
+- R
+  - if you write functions that are used in several places
+  - this is the standard R folder for keeping these files that might be called with `source()` calls
+- scripts/analysis
+  - files with full analysis pipelines
+  - might have `source` calls to files in R
+]
+
+---
+
+## Portability - Folder/File structure
+
+.pull-left[
+- README.Rmd/README.md
+   - markdown file describing the project content and intent
+   - maybe also explains which files to look in for what
+   - ideal to have if saving the folder to github
+- DESCRIPTION
+  - R specific file with information about the project
+  - can be created with `rrtools::use_compendium()`
+  - covered later in the series
+]
+
+--
+
+.pull-right[
+**if you plan on putting it online (github)**
+- LICENCE
+  - dictates how code can be reused
+  - not covering that in this series, ask me at need
+- CITATION
+  - gives users/readers a clear instruction on how to cite if they use the code
+  - not covering that in this series, ask me at need, or read on [GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+]
+
+---
+
+## Reproducibility
+### What's wrong with `rm(list = ls())`?
+
+--
+- only removes _visible_ objects in the R environment
+--
+
+- all libraries remain loaded
+  - i.e. you loaded a library without writing the library call in your script, you cannot rerun the process from scratch
+  - libraries need to be loaded in the same sequence to avoid unintended masking of functions
+--
+
+- all hidden objects remain loaded
+  - all objects starting with a `.` like `.data` remain
+--
+
+- any R options that might have been changed remain changed
+  - options changed through `options()` like `options(straingsAsFactors = FALSE)` will remain. If this is not documented in the script, then it wont run in a fresh instance
+
+---
+
+## Reproducibility - Things should be run in fresh R sessions
+
+- User-level setup
+  - Don't save `.RData`on exit, or load it on startup
+  - `Tools` -> `Global options` -> `General`
+  - Running R from command line   
+    save in `.bashrc` `alias R='R --no-save --no-restore-data'`
+- Don't put things in `.Rprofile` that affect how R code runs
+- Work habits
+  - Restart R often (I do it almost every 10 minutes)
+  - From RStudio: `Session` -> `Restart R` OR `ctrl/cmd + shift + F10`
+  - In shell: `ctrl + D` to exit R, then restart R
+  
+---
+class: dark, middle, center
+
+## Reproducibility
+# The source code is real
+
+Everything in your working environment _at all times_ should be made by the source code. 
+
+--
+
+You ensure this by restarting the R sessions often, to catch when you might have made changes that stop you from reproducing the environment.
+
+--
+
+You remember what you did 5 minutes ago, but you wont remember it in 2 days.
+
+
+---
+
+## Reproducibility
+
+### What about output that takes a long time to create?
+
+--
+
+- Should be isolated to their own scripts and run on demand/need
+- Should write files to the `results` folder, either as text files or `.rds`/`.RData` files
+- Then other files can access this output data for further use, rather than need to rerun it every time
+
+---
+
+## Reproducibility
+### What's wrong with `install.packages`?
+
+- Don't force the person running your script to install packages without their expressed intent
+- Some might have strictly curated libraries and need versions to remain stable
+- You can include `install.packages` in scripts as long as you have a hash/comment in front of it `# install.packages()`
+- we will later in the series discuss alternate ways of dealing with package dependencies of your project
+
+---
+class: dark, bottom, center
+
+# Project workflows
+
+- All necessary files contained in the project and referenced relatively
+
+--
+
+- All necessary outputs are created by code in the project
+
+--
+
+- All code can be run in fresh sessions and produce the same output
+
+--
+
+- Does not force other users to alter their own work setup
+
+
+---
+class: middle, center, inverse
+
+# RStudio demo
+
+

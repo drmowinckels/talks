@@ -61,6 +61,9 @@ navbar:
           href: https://athanasiamo.github.io/LME_introduction_workshop/
         - text: "Tidyverse quick intro"
           href: https://athanasiamo.github.io/tidyquintro/
+        - text: "LCBC workshops"
+        - text: "03.02.2022 - Project worklflow (in R)"
+          href: slides/2022.02.03-rproj
     
     - text: "Videos"
       menu:
