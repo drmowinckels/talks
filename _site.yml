@@ -65,7 +65,7 @@ navbar:
         - text: "03.02.2022 - Project worklflow (in R)"
           href: slides/2022.02.03-rproj
         - text: "03.03.2022 - Organising your files and workflow"
-          href: slides/2022.02.03-fileorg
+          href: slides/2022.03.03-fileorg
     
     - text: "Videos"
       menu:
