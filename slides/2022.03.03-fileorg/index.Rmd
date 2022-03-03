@@ -105,23 +105,6 @@ class: dark, middle
 &nbsp; _Part III_ &nbsp; Package / Library management  
 &nbsp; _Part IV_  &nbsp; git & GitHub crash course!  
 
----
-background-image: url("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png")
-background-size: 50%
-background-position: right
-
-.pull-left[
-## Portability - The [here package](https://here.r-lib.org/)
-- If all files are contained in the project folder
-- reference files with the `here()` function from the here-package
-- creates relative paths from project root
-- allows several ways to indicate project root folder if not working with RStudio
-]
-
-.footnote[
-Illustration by [Allison Horst](https://github.com/allisonhorst)
-]
-
 
 ---
 
