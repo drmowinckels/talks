@@ -112,25 +112,25 @@ class: dark, middle
 
 .pull-left[
 - **data**
-- all raw data files, organised in meaningful ways
-- never, ever write _back_ to this folder, read only
-- if using git, never commit to history, place in `.gitignore`
+  - all raw data files, organised in meaningful ways
+  - never, ever write _back_ to this folder, read only
+  - if using git, never commit to history, place in `.gitignore`
 - **results**
-- write all analysis etc. results to
-- treat as disposable, can be overwritten
-- may also include figures etc if wanted
+  - write all analysis etc. results to
+  - treat as disposable, can be overwritten
+  - may also include figures etc if wanted
 ]
 
 .pull-right[
 - **docs**
-- documentation
-- Rmarkdown files
+  - documentation
+  - Rmarkdown files
 - **R (advanced)**
-- if you write functions that are used in several places
-- this is the standard R folder for keeping these files that might be called with `source()` calls
+  - if you write functions that are used in several places
+  - this is the standard R folder for keeping these files that might be called with `source()` calls
 - **scripts/analysis**
-- files with full analysis pipelines
-- might have `source` calls to files in R
+  - files with full analysis pipelines
+  - might have `source` calls to files in R
 ]
 
 ---
@@ -139,14 +139,14 @@ class: dark, middle
 
 .pull-left[
 - **README.Rmd/README.md**
-- markdown file describing the project content and intent
-- maybe also explains which files to look in for what
-- ideal if storing on GitHub
-- `usethis::use_readme_rmd()`
+  - markdown file describing the project content and intent
+  - maybe also explains which files to look in for what
+  - ideal if storing on GitHub
+  - `usethis::use_readme_rmd()`
 - **DESCRIPTION**
-- R specific file with information about the project
-- can be created with `lcbcr::create_paper_project()` or
-with the project wizard from the [lcbcr-package](https://github.com/LCBC-UiO/lcbcr)
+  - R specific file with information about the project
+  - can be created with `lcbcr::create_paper_project()` or
+  with the project wizard from the [lcbcr-package](https://github.com/LCBC-UiO/lcbcr)
 ]
 
 --
@@ -154,11 +154,11 @@ with the project wizard from the [lcbcr-package](https://github.com/LCBC-UiO/lcb
 .pull-right[
 **if you plan on putting it online (GitHub or equivalent)**
 - **LICENCE**
-- dictates how project content can be reused
-- ask me at need, or check out [Choose a license](https://choosealicense.com/) 
+  - dictates how project content can be reused
+  - ask me at need, or check out [Choose a license](https://choosealicense.com/) 
 - **CITATION**
-- gives users/readers a clear instruction on how to cite if they use the project content
-- ask me at need, or read on [GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+  - gives users/readers a clear instruction on how to cite if they use the project content
+  - ask me at need, or read on [GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
 ]
 
 ---
@@ -195,13 +195,13 @@ Some machines are more clever than others, so name files in a way that the "dumb
 
 .pull-right[
 - **don't use white space in file names**
-- decide on a separator and use consistently
-- recommend the dash `-`
+  - decide on a separator and use consistently
+  - recommend the dash `-`
 - **use small case letters** 
-- certain machines care about capitalization
+  - certain machines care about capitalization
 - **use numbers smartly** 
-- numbers are awesome to use and can help organise files meaningfully
-- but needs some thinking about before implementing
+  - numbers are awesome to use and can help organise files meaningfully
+  - but needs some thinking about before implementing
 ]
 
 ---
