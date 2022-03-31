@@ -66,6 +66,8 @@ navbar:
           href: slides/2022.02.03-rproj
         - text: "03.03.2022 - Organising your files and workflow"
           href: slides/2022.03.03-fileorg
+        - text: "31.03.2022 - Package management"
+          href: slides/2022.03.31-pkg-management
     
     - text: "Videos"
       menu:
