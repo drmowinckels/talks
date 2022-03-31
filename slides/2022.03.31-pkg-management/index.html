@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Part III: Package management</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Athanasia Monika Mowinckel" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="lcbc-uio.css" type="text/css" />
+    <link rel="stylesheet" href="lcbc-uio-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, right, title-slide
+
+# Part III: Package management
+## - R project management series -
+### Athanasia Monika Mowinckel
+### 31.03.2022
+
+---
+
+
+
+
+
+layout: true
+
+&lt;div class="my-sidebar"&gt;&lt;/div&gt;
+
+
+---
+
+# Part I- recap
+## Project workflows
+
+- All necessary files contained in the project and referenced relatively
+
+- All necessary outputs are created by code in the project
+
+- All code can be run in fresh sessions and produce the same output
+
+- Does not force other users to alter their own work setup
+
+---
+
+# Part II- recap
+## Organising your files and workflow
+
+.pull-left[
+- Which files are meaningful to have in an R-project  
+- How to name files
+   - easy machine reading
+   - easy human reading
+   - easy understanding of file content
+   - choosing the correct type of file to store
+]
+
+.pull-right[
+```
+final-results.csv
+22-02-28_finalfinal-results.txt
+3-1-22_finished-results.dat
+```
+
+vs.
+
+```
+2021-11-13_first-submission-results.tsv
+2022-02-28_revision-round1-results.tsv
+2022-03-01_revision-round2-results.tsv
+2022-03-01_revision-round2-no-sex-results.tsv
+```
+]
+
+---
+class: dark, middle
+
+.center[
+# Series talks
+]
+
+&amp;nbsp; _Part I_   &amp;nbsp; RStudio projects  
+&amp;nbsp; _Part II_  &amp;nbsp; Organising your files and workflow  
+&amp;nbsp; _Part III_ &amp;nbsp; Package / Library management  
+&amp;nbsp; _Part IV_  &amp;nbsp; git &amp; GitHub crash course!  
+
+---
+background-image: url(https://jiayiwu.me/images/r_packages-040bc896.jpeg)
+background-position: 85% 55%
+
+# What are packages / libraries in R?
+
+.pull-left[
+- Extensions to the programming language  
+  - contains functions &amp; documentation of these  
+  - standardised for easier install and use across users  
+- Often written by other users to solve specific tasks in R  
+  - solving particular statistical problems
+  - new types of data visualisation
+]
+
+---
+
+# Examples of LCBC created packages
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+
+]
+
+.pull-right[
+- [ggseg-universe](https://ggseg.r-universe.dev/ui#builds)
+  - a set of packages to visualise brain segmentations from R
+- [questionnaires](https://github.com/LCBC-UiO/questionnaires)
+  - functions to calculate components of common questionnaires we use
+- [galamm](https://github.com/LCBC-UiO/galamm)
+  - fitting generalized additive latent and mixed models
+- [nettskjemar](https://github.com/LCBC-UiO/nettskjemar)
+  - accessing nettskjema data from R
+]
+
+---
+
+# Common package issues in pipelines
+
+** A package masks the function of another package I use**
+- example: `select()` from {dplyr} being masked by `select()` from {MASS}
+
+--
+
+- solution 1: load libraries in reverse order of importance
+    - i.e. load {dplyr} last, and its `select()` will be prioritised over the one from {MASS}
+    - `library(MASS); library(dplyr)`
+
+--
+
+- solution 2: if you only need a single function from another package, call the function directly, rather than loading the entire library.
+    - i.e. run `MASS::lm.gls()` rather than `library(MASS); lm.gls()`
+    - the double colon `::` enables you to access a library's functions without loading the entire library.
+
+
+---
+
+# Common package issues in pipelines
+
+.pull-left[
+**Preventative measures:**
+- load all libraries you need at the top of your scripts
+  - this helps you control the order things are loaded and possible function masking
+  - makes it clear to anyone else running the script what the dependencies are
+]
+
+--
+
+.pull-right[
+- When introducing a new package to your script
+  - add it to the top of the script
+  - restart your R session so it is clean
+  - start re-running your code to make sure everything still works as expected
+  - if it doesn't, make sure its the first library to be loaded, and try again in a fresh R session
+]
+
+---
+class: dark, bottom, center
+# Common package issues in pipelines
+
+**The package I used 1 year ago no longer exists**
+
+--
+
+Damn!
+
+--
+
+There are archives of packages, like [MRAN](https://mran.microsoft.com/), that will likely help you.
+But you'll need to know which version you used, etc.
+
+--
+
+Can be tricky!
+
+---
+
+# Why do we care about package management in R?
+
+.pull-left[
+R package versions change over time, and your code might run differently.
+
+We collaborate, and ensuring we all use the same package versions improves reproducibility
+]
+
+--
+
+.pull-right[
+- a bug was fixed  
+- a bug was introduced  
+- another library the package depends on changed  
+- the package no longer contains the function you needed
+- the package now collides with other packages you use
+- the package is no longer maintained and you cannot install it
+]
+
+---
+
+# R package managers
+
+- [RStudio package manager](https://www.rstudio.com/products/package-manager/)
+  - RStudio enterprise solution
+- [packrat](https://rstudio.github.io/packrat/walkthrough.html)
+  - one of the first
+  - a little complicated to use, requiring some knowledge of package paths etc.
+- [checkpoint](https://github.com/RevolutionAnalytics/checkpoint)
+  - I have no experience with it, but it looks decent
+- [renv](https://rstudio.github.io/renv/articles/renv.html)
+  - new and widely used
+  - developed by RStudio
+  - creates fairly simple procedures to follow
+
+---
+class: dark
+background-image: url(https://rstudio.github.io/renv/logo.svg)
+background-position: 97% 60%
+background-size: 20%
+
+# Use renv to make your R projects more:
+
+- **Isolated**
+  - installing or updating a package for one project won’t break other projects
+  - gives each project its own private package library.
+
+- **Portable**
+  - transport your projects from one computer to another
+  - makes it easy to install the packages your project depends on.
+
+- **Reproducible**
+  - records the exact package versions you depend on
+  - ensures those exact versions are the ones that get installed wherever you go.
+
+---
+
+# Using {renv}
+
+&gt; renv should be used in projects. 
+&gt; If you initiate renv when your note in a project, it will create one for you.
+
+To initiate renv:
+
+```r
+renv::init()
+```
+
+---
+
+## Example in my own talks project.
+
+```r
+# Checking the path my libraries are currently saved to and loaded from
+.libPaths()
+```
+```
+[1] "/Library/Frameworks/R.framework/Versions/4.1/Resources/library"
+```
+
+```r
+# initialize renv
+renv::init()
+```
+```
+Initializing project ...
+Discovering package dependencies ... Done!
+Copying packages into the cache ... [3/3] Done!
+The following package(s) will be updated in the lockfile:
+
+# CRAN ===============================
+- DBI            [* -&gt; 1.1.2]
+- KernSmooth     [* -&gt; 2.23-20]
+- MASS           [* -&gt; 7.3-54]
+```
+
+---
+## Example in my own talks project.
+
+```r
+# Checking the path my libraries are currently saved to and loaded from
+.libPaths()
+```
+```r
+[1] "/Users/athanasm/workspace/r-stuff/talks/renv/library/R-4.1/x86_64-apple-darwin17.0"
+[2] "/Library/Frameworks/R.framework/Versions/4.1/Resources/library"     
+```
+
+&gt; The project now has its own folder to store packages in and load them from. 
+&gt; This means other projects you are working on will not use _these_ packages,
+&gt; so your other work remains undisturbed.
+
+---
+
+## Example in my own talks project.
+
+.pull-left[
+renv.lock file
+
+```json
+{
+  "R": {
+    "Version": "4.1.2",
+    "Repositories": [
+      {
+        "Name": "ggseg",
+        "URL": "https://ggseg.r-universe.dev"
+      },
+      {
+        "Name": "lcbc",
+        "URL": "https://lcbc-uio.r-universe.dev"
+      }
+    ]
+  },
+```
+]
+
+.pull-right[
+```json
+  "Packages": {
+    "DBI": {
+      "Package": "DBI",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "dcd1743af4336156873e3ce3c950b8b9",
+      "Requirements": []
+    },
+    "KernSmooth": {
+      "Package": "KernSmooth",
+      "Version": "2.23-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8dcfa99b14c296bc9f1fd64d52fd3ce7",
+      "Requirements": []
+    },
+    "MASS": {
+      "Package": "MASS",
+      "Version": "7.3-54",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0e59129db205112e3963904db67fd0dc",
+      "Requirements": []
+    }
+  }
+}
+```
+]
+
+???
+The packages used in your project will be recorded into a lockfile, called renv.lock.
+
+As you work in your project, you may need to install or upgrade different packages. As these packages are installed, renv will automatically write renv.lock for you. The renv.lock lockfile records the state of your project’s private library, and can be used to restore the state of that library as required.
+
+---
+
+# How did it find these packages?
+
+It looks in all project files for:
+
+- `library(package)`
+- `require(package)`
+- `requireNamespace("package")`
+- `package::method()`
+
+Will also look for packages listed in the `DESCRIPTON` file, as "Depends",  or "Imports".
+---
+
+# Using {renv}
+
+When:
+
+- a collaborator wants to run your project
+- when you switch machines
+
+
+```r
+renv::restore()
+```
+
+```
+## * The library is already synchronized with the lockfile.
+```
+
+will read the lock.file, and start setting up the project according to it.
+
+---
+class: middle, center, dark
+
+# I’m returning to an older renv project. What do I do?
+
+&gt; Do you want to treat it as a “time capsule”, with dependencies frozen in time?   
+ 
+ OR  
+ 
+&gt; are the dependencies in this project fluid, and you are primarily using renv just for isolation of project dependencies?
+
+---
+
+# I’m returning to an older renv project. What do I do?
+
+## Time capsules
+
+The solution is to use `renv::restore()` to reinstall the exact packages as declared in the project lockfile renv.lock. 
+
+You may also need to find and install the older version of R used previously with that project, unless your intention is to upgrade R.
+
+
+---
+# I’m returning to an older renv project. What do I do?
+
+## fluid dependencies
+
+```r
+renv::init()
+```
+```
+This project already has a lockfile. What would you like to do?
+1: Restore the project from the lockfile.
+2: Discard the lockfile and re-initialize the project.
+3: Activate the project without snapshotting or installing any packages.
+4: Abort project initialization.
+```
+
+You can select option (2) to instruct renv to re-initialize the project, effectively discarding the old lockfile and initializing the project with a new project library. You may also want to call renv::upgrade() to ensure all packages in the new project library are updated to the latest-available versions, as well.
+
+---
+class: dark, center, bottom
+
+# Up in the air
+
+--
+
+How does it work on shared networked drives, like the lagringshotel?
+
+--
+
+I don't know, but lets find out!
+
+---
+class: inverse, center, middle
+
+# Open RStudio
+
+---
+
+# Notes
+
+- Get everyone to restore their previous project, or create a new one.
+- check .libPaths()
+- renv::init()
+- check .libPaths()
+- explore files and folders created
+- 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

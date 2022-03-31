@@ -1,0 +1,269 @@
+{
+  "title": ["Test form for nettskjemar course"],
+  "language": ["en"],
+  "created": ["2021-06-01"],
+  "modified": ["2021-06-02"],
+  "opened": ["2021-06-01"],
+  "respondents": ["ALL"],
+  "contact": ["athanasm@uio.no"],
+  "codebook": [true],
+  "personal_data": [false],
+  "sensitive_data": [false],
+  "editors": [
+    {
+      "username": "athanasm@api",
+      "name": "access for athanasm"
+    },
+    {
+      "username": "athanasm@uio.no",
+      "name": "Athanasia Monika Mowinckel"
+    }
+  ],
+  "elements": {
+    "type": ["HEADING", "TEXT", "MATRIX_RADIO", "MATRIX_CHECKBOX", "SELECT", "QUESTION"],
+    "order": [1, 2, 3, 4, 5, 6],
+    "details": [
+      ["unknown element class"],
+      ["The survey and data from this form are non-sensical and created only to serve as an example during instruction on how to use the nettskjemar R-package for retrieval of nettskjema data. "],
+      [
+        {
+          "question": "What is the meaning of life, the universe and everything?",
+          "question_codebook": "ncourse_01",
+          "question_mandatory": false,
+          "question_order": 1,
+          "answer_order": "1",
+          "answer_option": "Food",
+          "answer_codebook": "food",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What is the meaning of life, the universe and everything?",
+          "question_codebook": "ncourse_01",
+          "question_mandatory": false,
+          "question_order": 1,
+          "answer_order": "2",
+          "answer_option": "42",
+          "answer_codebook": "42",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What is the meaning of life, the universe and everything?",
+          "question_codebook": "ncourse_01",
+          "question_mandatory": false,
+          "question_order": 1,
+          "answer_order": "3",
+          "answer_option": "A towel",
+          "answer_codebook": "towel",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What is the meaning of life, the universe and everything?",
+          "question_codebook": "ncourse_01",
+          "question_mandatory": false,
+          "question_order": 1,
+          "answer_order": "4",
+          "answer_option": "Coffee",
+          "answer_codebook": "coffee",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What should you have with you at all times?",
+          "question_codebook": "ncourse_02",
+          "question_mandatory": true,
+          "question_order": 2,
+          "answer_order": "1",
+          "answer_option": "Food",
+          "answer_codebook": "food",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What should you have with you at all times?",
+          "question_codebook": "ncourse_02",
+          "question_mandatory": true,
+          "question_order": 2,
+          "answer_order": "2",
+          "answer_option": "42",
+          "answer_codebook": "42",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What should you have with you at all times?",
+          "question_codebook": "ncourse_02",
+          "question_mandatory": true,
+          "question_order": 2,
+          "answer_order": "3",
+          "answer_option": "A towel",
+          "answer_codebook": "towel",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "What should you have with you at all times?",
+          "question_codebook": "ncourse_02",
+          "question_mandatory": true,
+          "question_order": 2,
+          "answer_order": "4",
+          "answer_option": "Coffee",
+          "answer_codebook": "coffee",
+          "answer_preselected": false,
+          "answer_correct": false
+        }
+      ],
+      [
+        {
+          "question": "Who are the two smartest species on earth?",
+          "question_codebook": "ncourse_03",
+          "question_mandatory": false,
+          "question_order": 1,
+          "max_selected": 2,
+          "answer_order": "1",
+          "answer_option": "Humans",
+          "answer_codebook": "humans",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Who are the two smartest species on earth?",
+          "question_codebook": "ncourse_03",
+          "question_mandatory": false,
+          "question_order": 1,
+          "max_selected": 2,
+          "answer_order": "2",
+          "answer_option": "Mice",
+          "answer_codebook": "mice",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Who are the two smartest species on earth?",
+          "question_codebook": "ncourse_03",
+          "question_mandatory": false,
+          "question_order": 1,
+          "max_selected": 2,
+          "answer_order": "3",
+          "answer_option": "Dolphins",
+          "answer_codebook": "dolphins",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which species says thanks for all the fish?",
+          "question_codebook": "ncourse_04",
+          "question_mandatory": false,
+          "question_order": 2,
+          "max_selected": 2,
+          "answer_order": "1",
+          "answer_option": "Humans",
+          "answer_codebook": "humans",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which species says thanks for all the fish?",
+          "question_codebook": "ncourse_04",
+          "question_mandatory": false,
+          "question_order": 2,
+          "max_selected": 2,
+          "answer_order": "2",
+          "answer_option": "Mice",
+          "answer_codebook": "mice",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which species says thanks for all the fish?",
+          "question_codebook": "ncourse_04",
+          "question_mandatory": false,
+          "question_order": 2,
+          "max_selected": 2,
+          "answer_order": "3",
+          "answer_option": "Dolphins",
+          "answer_codebook": "dolphins",
+          "answer_preselected": false,
+          "answer_correct": false
+        }
+      ],
+      [
+        {
+          "question": "Which book are we likely talking about?",
+          "question_codebook": "ncourse_05",
+          "question_mandatory": false,
+          "question_order": 1,
+          "question_preselected": false,
+          "question_rangemarks": false,
+          "answer_order": "1",
+          "answer_option": "A Song of Ice and Fire - George R. R. Martin",
+          "answer_codebook": "1",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which book are we likely talking about?",
+          "question_codebook": "ncourse_05",
+          "question_mandatory": false,
+          "question_order": 1,
+          "question_preselected": false,
+          "question_rangemarks": false,
+          "answer_order": "2",
+          "answer_option": "A Short History of Nearly Everything - Bill Bryson",
+          "answer_codebook": "2",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which book are we likely talking about?",
+          "question_codebook": "ncourse_05",
+          "question_mandatory": false,
+          "question_order": 1,
+          "question_preselected": false,
+          "question_rangemarks": false,
+          "answer_order": "3",
+          "answer_option": "Mythos - Stephen Fry",
+          "answer_codebook": "3",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which book are we likely talking about?",
+          "question_codebook": "ncourse_05",
+          "question_mandatory": false,
+          "question_order": 1,
+          "question_preselected": false,
+          "question_rangemarks": false,
+          "answer_order": "4",
+          "answer_option": "A Hitchhiker&#39;s Guide to the Galaxy - Douglas Adams",
+          "answer_codebook": "4",
+          "answer_preselected": false,
+          "answer_correct": false
+        },
+        {
+          "question": "Which book are we likely talking about?",
+          "question_codebook": "ncourse_05",
+          "question_mandatory": false,
+          "question_order": 1,
+          "question_preselected": false,
+          "question_rangemarks": false,
+          "answer_order": "5",
+          "answer_option": "I have no idea - this all sounds crazy to me.",
+          "answer_codebook": "5",
+          "answer_preselected": false,
+          "answer_correct": false
+        }
+      ],
+      [
+        {
+          "question": "Do you have any further comments to the survey?",
+          "question_codebook": "ncourse_06",
+          "question_mandatory": false
+        }
+      ]
+    ]
+  },
+  "form_id": [205451]
+}
