@@ -1,0 +1,140 @@
+---
+title: "Part IV: git and GitHub"
+subtitle: "- R project management series -"
+author: "Athanasia Monika Mowinckel"
+date: "31.03.2022"
+format: revealjs
+editor: visual
+---
+
+# What is `git`?
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+:::: {.incremental}
+
+-   version control system
+
+-   tracks changes in files and folders
+
+-   tracks changes to text in text files
+
+-   command line based
+
+::::
+:::
+
+::: {.column width="20%"}
+
+![](img/Git_icon.svg.png){width="200"}
+:::
+
+::::
+
+# Why `git`?
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+:::: {.incremental}
+
+-   tracks all changes to files
+
+-   with comments
+
+-   with information on who did the change
+
+-   with timestamp
+
+::::
+:::
+
+::: {.column width="20%"}
+
+![](img/Git_icon.svg.png){width="200"}
+:::
+
+::::\
+
+# Why `git`?
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+:::: {.incremental}
+
+-   changes can be undone, without loosing history
+
+-   changes from different users that "collide" need human interaction to resolve
+
+-   only changes are saved, so storage space needed is small
+
+::::
+:::
+
+::: {.column width="20%"}
+
+![](img/Git_icon.svg.png){width="200"}
+:::
+
+::::
+
+# What is GitHub?
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+:::: {.incremental}
+
+-   cloud storage system
+
+-   storage of git data
+
+-   online git collaboration platform
+
+::::
+:::
+
+::: {.column width="20%"}
+
+![](img/github.svg){width="200"}
+:::
+
+::::
+
+# Why GitHub?
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+:::: {.incremental}
+
+-   could be any of many such services:
+
+    -   [GitLab](https://about.gitlab.com/)
+
+    -   [Bitbucket](https://bitbucket.org/)
+
+    -   Gitea (we have this on TSD)
+
+-   [LCBC uses GitHub](https://github.com/LCBC-UiO)
+
+::::
+:::
+
+::: {.column width="20%"}
+
+![](img/github.svg){width="200"}
+:::
+
+::::
+
+# Workflow
+
+![](img/git-github.png){fig-alt="Working locally with git, and storing on GitHub for collab" fig-align="center"}
