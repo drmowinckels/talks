@@ -206,3 +206,11 @@ Use the `.gitignore`\` file to make sure things never are added to git history
     .DS_Store
 :::
 :::
+
+# More resources
+
+-   [Happy git with R](https://happygitwithr.com/index.html)
+
+-   [RStudio essentials](https://www.rstudio.com/resources/webinars/managing-part-2-github-and-rstudio/)
+
+-   [Best practices for git and GitHub with R](https://r-pkgs.org/git.html#git-rstudio)
