@@ -336,8 +336,22 @@
   <p class="date">31.03.2022</p>
 </section>
 
-<section id="what-is-git" class="title-slide slide level1 center">
-<h1>What is <code>git</code>?</h1>
+<section id="this-is-a-crash-course" class="title-slide slide level1 center">
+<h1>This is a crash course</h1>
+
+</section>
+
+<section id="series-talks" class="title-slide slide level1 center">
+<h1>Series talks</h1>
+<p><em>Part I</em> - RStudio projects<br>
+<em>Part II</em> - Organising your files and workflow<br>
+<em>Part III</em> - Package / Library management<br>
+<em>Part IV</em> - git &amp; GitHub crash course!<br>
+<em>Part V</em> - quarto / Rmarkdown</p>
+</section>
+
+<section id="git---what" class="title-slide slide level1 center">
+<h1><code>git</code> - what?</h1>
 <div class="columns">
 <div class="column" style="width:70%;">
 <div>
@@ -354,9 +368,9 @@
 </div>
 </section>
 
-<section id="why-git" class="title-slide slide level1 center">
-<h1>Why <code>git</code>?</h1>
-<p>:::: {.columns}</p>
+<section id="git---why" class="title-slide slide level1 center">
+<h1><code>git</code> - why?</h1>
+<div class="columns">
 <div class="column" style="width:70%;">
 <div>
 <ul>
@@ -366,16 +380,14 @@
 <li class="fragment"><p>with timestamp</p></li>
 </ul>
 </div>
-</div>
-<div class="column" style="width:20%;">
+</div><div class="column" style="width:20%;">
 <p><img data-src="img/Git_icon.svg.png" width="200"></p>
 </div>
-<p>::::<br>
-</p>
+</div>
 </section>
 
-<section id="why-git-1" class="title-slide slide level1 center">
-<h1>Why <code>git</code>?</h1>
+<section id="git---why-1" class="title-slide slide level1 center">
+<h1><code>git</code> - why?</h1>
 <div class="columns">
 <div class="column" style="width:70%;">
 <div>
@@ -391,8 +403,13 @@
 </div>
 </section>
 
-<section id="what-is-github" class="title-slide slide level1 center">
-<h1>What is GitHub?</h1>
+<section id="git---workflow" class="title-slide slide level1 center">
+<h1>git - workflow</h1>
+
+<img data-src="img/git-branch.png" class="r-stretch quarto-figure-center"></section>
+
+<section id="github---what" class="title-slide slide level1 center">
+<h1>GitHub - what?</h1>
 <div class="columns">
 <div class="column" style="width:70%;">
 <div>
@@ -408,8 +425,8 @@
 </div>
 </section>
 
-<section id="why-github" class="title-slide slide level1 center">
-<h1>Why GitHub?</h1>
+<section id="github---why" class="title-slide slide level1 center">
+<h1>GitHub - why?</h1>
 <div class="columns">
 <div class="column" style="width:70%;">
 <div>
@@ -429,10 +446,177 @@
 </div>
 </section>
 
-<section id="workflow" class="title-slide slide level1 center">
-<h1>Workflow</h1>
+<section id="github---workflow" class="title-slide slide level1 center">
+<h1>GitHub - workflow</h1>
 
-<img data-src="img/git-github.png" alt="Working locally with git, and storing on GitHub for collab" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="img/git-github.png" alt="Working locally with git, and storing on GitHub for collab" class="r-stretch quarto-figure-center"></section>
+
+<section id="git-github-branching" class="title-slide slide level1 dark center">
+<h1>git &amp; GitHub branching</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/git-branch.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/git-github.png"></p>
+</div>
+</div>
+</section>
+
+<section id="git-gitea-example---noas" class="title-slide slide level1 center">
+<h1>git / Gitea example - NOAS</h1>
+
+<img data-src="img/git-branch-noas.png" class="r-stretch"></section>
+
+<section id="git-lingo" class="title-slide slide level1 center">
+<h1>git lingo</h1>
+<table>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 26%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>command</th>
+<th>where</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>repository / repo</td>
+<td></td>
+<td>a git project, has a .git folder with all information about the files and history of files.</td>
+</tr>
+<tr class="even">
+<td>clone</td>
+<td>repo copy</td>
+<td>Create a local copy of entire repo, with all history and files.</td>
+</tr>
+<tr class="odd">
+<td>fork</td>
+<td>repo copy on GitHub</td>
+<td>A copy of the entire repo, with all history and files, on GitHub</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="git-lingo-1" class="title-slide slide level1 center">
+<h1>git lingo</h1>
+<table>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 26%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>command</th>
+<th>where</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pull / fetch</td>
+<td>local to GitHub</td>
+<td>get update from GitHub on new files and changes</td>
+</tr>
+<tr class="even">
+<td>push</td>
+<td>local to GitHub</td>
+<td>send local changes to GitHub</td>
+</tr>
+<tr class="odd">
+<td>pull request (PR)</td>
+<td>GitHub</td>
+<td>a request to merge a branch’s into another branch</td>
+</tr>
+<tr class="even">
+<td>branch</td>
+<td></td>
+<td>a deviation from a main history line to isolate work on specific tasks</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="git-lingo-2" class="title-slide slide level1 center">
+<h1>git lingo</h1>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>command</th>
+<th>where</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>add</td>
+<td>local</td>
+<td>add changes/files to temporary cache</td>
+</tr>
+<tr class="even">
+<td>cache/stage</td>
+<td>uncommitted storage</td>
+<td>files and changes added to git, but not yet committed to memory. Temporary, forgettable storage</td>
+</tr>
+<tr class="odd">
+<td>commit</td>
+<td>commit cache to history</td>
+<td>commit everything in cache to git history with a message</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="gitignore" class="title-slide slide level1 center">
+<h1>.gitignore</h1>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Make sure that files/folders that contain certiain information does not end up in your repository</p>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<p>Use the <code>.gitignore</code>` file to make sure things never are added to git history</p>
+</div>
+</div>
+</section>
+
+<section id="gitignore-1" class="title-slide slide level1 center">
+<h1>gitignore</h1>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li>any data connected to single individuals<br>
+</li>
+<li>comments connected to single identifiable data points<br>
+</li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
+<pre><code>&gt; cat .gitignore
+data/
+my_file.txt
+
+# R stuff to ignore
+.Rhistory
+.Rproj.user
+
+# Mac hidden storage
+.DS_Store</code></pre>
+</div>
+</div>
+
+<img src="img/lcbc.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
 </div>
 </section>

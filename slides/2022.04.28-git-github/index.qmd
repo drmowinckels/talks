@@ -3,18 +3,28 @@ title: "Part IV: git and GitHub"
 subtitle: "- R project management series -"
 author: "Athanasia Monika Mowinckel"
 date: "31.03.2022"
-format: revealjs
+format:
+  revealjs: 
+    logo: img/lcbc.png
+    theme: [default, lcbc.scss]
 editor: visual
 ---
 
-# What is `git`?
+# This is a crash course
 
-:::: {.columns}
+# Series talks
 
+*Part I*  - RStudio projects \
+*Part II* - Organising your files and workflow \
+*Part III* - Package / Library management \
+*Part IV*  - git & GitHub crash course!\
+*Part V*  - quarto / Rmarkdown
+
+# `git` - what?
+
+::: columns
 ::: {.column width="70%"}
-
-:::: {.incremental}
-
+::: incremental
 -   version control system
 
 -   tracks changes in files and folders
@@ -22,25 +32,19 @@ editor: visual
 -   tracks changes to text in text files
 
 -   command line based
-
-::::
+:::
 :::
 
 ::: {.column width="20%"}
-
 ![](img/Git_icon.svg.png){width="200"}
 :::
+:::
 
-::::
+# `git` - why?
 
-# Why `git`?
-
-:::: {.columns}
-
+::: columns
 ::: {.column width="70%"}
-
-:::: {.incremental}
-
+::: incremental
 -   tracks all changes to files
 
 -   with comments
@@ -48,73 +52,59 @@ editor: visual
 -   with information on who did the change
 
 -   with timestamp
-
-::::
+:::
 :::
 
 ::: {.column width="20%"}
-
 ![](img/Git_icon.svg.png){width="200"}
 :::
+:::
 
-::::\
+# `git` - why?
 
-# Why `git`?
-
-:::: {.columns}
-
+::: columns
 ::: {.column width="70%"}
-
-:::: {.incremental}
-
+::: incremental
 -   changes can be undone, without loosing history
 
 -   changes from different users that "collide" need human interaction to resolve
 
 -   only changes are saved, so storage space needed is small
-
-::::
+:::
 :::
 
 ::: {.column width="20%"}
-
 ![](img/Git_icon.svg.png){width="200"}
 :::
+:::
 
-::::
+# git - workflow
 
-# What is GitHub?
+![](img/git-branch.png){fig-align="center"}
 
-:::: {.columns}
+# GitHub - what?
 
+::: columns
 ::: {.column width="70%"}
-
-:::: {.incremental}
-
+::: incremental
 -   cloud storage system
 
 -   storage of git data
 
 -   online git collaboration platform
-
-::::
+:::
 :::
 
 ::: {.column width="20%"}
-
 ![](img/github.svg){width="200"}
 :::
+:::
 
-::::
+# GitHub - why?
 
-# Why GitHub?
-
-:::: {.columns}
-
+::: columns
 ::: {.column width="70%"}
-
-:::: {.incremental}
-
+::: incremental
 -   could be any of many such services:
 
     -   [GitLab](https://about.gitlab.com/)
@@ -124,17 +114,95 @@ editor: visual
     -   Gitea (we have this on TSD)
 
 -   [LCBC uses GitHub](https://github.com/LCBC-UiO)
-
-::::
+:::
 :::
 
 ::: {.column width="20%"}
-
 ![](img/github.svg){width="200"}
 :::
+:::
 
-::::
-
-# Workflow
+# GitHub - workflow
 
 ![](img/git-github.png){fig-alt="Working locally with git, and storing on GitHub for collab" fig-align="center"}
+
+# git & GitHub branching {.dark}
+
+::: columns
+::: {.column width="50%"}
+![](img/git-branch.png)
+:::
+
+::: {.column width="50%"}
+![](img/git-github.png)
+:::
+:::
+
+# git / Gitea example - NOAS
+
+![](img/git-branch-noas.png)
+
+# git lingo
+
+| command           | where               | meaning                                                                                     |
+|----------------------|-------------------|--------------------------------|
+| repository / repo |                     | a git project, has a .git folder with all information about the files and history of files. |
+| clone             | repo copy           | Create a local copy of entire repo, with all history and files.                             |
+| fork              | repo copy on GitHub | A copy of the entire repo, with all history and files, on GitHub                            |
+
+# git lingo
+
+| command           | where           | meaning                                                                |
+|----------------------|-------------------|--------------------------------|
+| pull / fetch      | local to GitHub | get update from GitHub on new files and changes                        |
+| push              | local to GitHub | send local changes to GitHub                                           |
+| pull request (PR) | GitHub          | a request to merge a branch's into another branch                      |
+| branch            |                 | a deviation from a main history line to isolate work on specific tasks |
+
+# git lingo
+
+| command     | where                   | meaning                                                                                         |
+|------------------|------------------|------------------------------------|
+| add         | local                   | add changes/files to temporary cache                                                            |
+| cache/stage | uncommitted storage     | files and changes added to git, but not yet committed to memory. Temporary, forgettable storage |
+| commit      | commit cache to history | commit everything in cache to git history with a message                                        |
+
+# .gitignore
+
+::: columns
+::: {.column width="45%"}
+Make sure that files/folders that contain certiain information does not end up in your repository
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+Use the `.gitignore`\` file to make sure things never are added to git history
+:::
+:::
+
+# gitignore
+
+::: columns
+::: {.column width="45%"}
+-   any data connected to single individuals\
+-   comments connected to single identifiable data points\
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+    > cat .gitignore
+    data/
+    my_file.txt
+
+    # R stuff to ignore
+    .Rhistory
+    .Rproj.user
+
+    # Mac hidden storage
+    .DS_Store
+:::
+:::

@@ -1,0 +1,39 @@
+/*-- scss:lcbc --*/
+$lcbc-light-blue:  #66bfdd;
+$lcbc-dark-blue:   #009fe3;
+$lcbc-light-green: #c5da84;
+$lcbc-dark-green:  #94c11f;
+$lcbc-black:       #222;
+$lcbc-white:       #fff;
+$lcbc-light-grey:  #94c11f;
+$lcbc-dark-grey:   #94c11f;
+
+
+$gradient-lcbc: $lcbc-light-blue, $lcbc-dark-blue, $lcbc-white, $lcbc-light-green, $lcbc-dark-green; 
+
+$gradient-lcbc-blue: $lcbc-white 0%,$lcbc-light-blue 50%,$lcbc-dark-blue 100%; 
+
+/*-- scss:mixins --*/
+@mixin gradient($direction, $list) { 
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);  
+};
+
+/*-- scss:defaults --*/
+$link-color: $lcbc-light-blue !default;
+$code-block-bg: lighten($lcbc-light-blue, 34%);
+$code-block-border-color: $lcbc-dark-blue;
+$border-color: $lcbc-light-green;
+$tabset-border-color: $lcbc-light-blue;
+$text-muted: $lcbc-light-grey;
+
+$dark-bg-link-color:	$link-color;
+$dark-bg-code-color: $link-color;
+
+.bg-gradient {
+  background-color: gradient(left, $gradient-lcbc);
+};
+
+
