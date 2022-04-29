@@ -14,11 +14,11 @@ editor: visual
 
 # Series talks
 
-*Part I*  - RStudio projects \
-*Part II* - Organising your files and workflow \
-*Part III* - Package / Library management \
-*Part IV*  - git & GitHub crash course!\
-*Part V*  - quarto / Rmarkdown
+*Part I* - RStudio projects\
+*Part II* - Organising your files and workflow\
+*Part III* - Package / Library management\
+*Part IV* - git & GitHub crash course!\
+*Part V* - quarto / Rmarkdown
 
 # `git` - what?
 
@@ -145,7 +145,7 @@ editor: visual
 # git lingo
 
 | command           | where               | meaning                                                                                     |
-|----------------------|-------------------|--------------------------------|
+|----------------------|-------------------|-------------------------------|
 | repository / repo |                     | a git project, has a .git folder with all information about the files and history of files. |
 | clone             | repo copy           | Create a local copy of entire repo, with all history and files.                             |
 | fork              | repo copy on GitHub | A copy of the entire repo, with all history and files, on GitHub                            |
@@ -153,8 +153,8 @@ editor: visual
 # git lingo
 
 | command           | where           | meaning                                                                |
-|----------------------|-------------------|--------------------------------|
-| pull / fetch      | local to GitHub | get update from GitHub on new files and changes                        |
+|----------------------|-------------------|-------------------------------|
+| pull / fetch      | GitHub to local | get update from GitHub on new files and changes                        |
 | push              | local to GitHub | send local changes to GitHub                                           |
 | pull request (PR) | GitHub          | a request to merge a branch's into another branch                      |
 | branch            |                 | a deviation from a main history line to isolate work on specific tasks |
@@ -162,7 +162,7 @@ editor: visual
 # git lingo
 
 | command     | where                   | meaning                                                                                         |
-|------------------|------------------|------------------------------------|
+|------------------|------------------|-----------------------------------|
 | add         | local                   | add changes/files to temporary cache                                                            |
 | cache/stage | uncommitted storage     | files and changes added to git, but not yet committed to memory. Temporary, forgettable storage |
 | commit      | commit cache to history | commit everything in cache to git history with a message                                        |
