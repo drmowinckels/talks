@@ -54,6 +54,8 @@ navbar:
           href: slides/2021.09.07-usit-nettskjemar
         - text: "20.01.2022 - R package development"
           href: slides/2022.01.20-rse-pgk
+        - text: "02.06.2022 - Nettskjema pipeline"
+          href: slides/2022.06.02-nettskjema_pipeline/index.html
           
     - text: "Workshops"
       menu:

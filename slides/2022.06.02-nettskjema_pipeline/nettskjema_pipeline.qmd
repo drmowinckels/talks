@@ -1,0 +1,194 @@
+---
+title: "Nettskjema TSD Pipeline"
+author: "Athanasia M. Mowinckel"
+format: revealjs
+editor: visual
+---
+
+## What do we collect?
+
+-   questionnaires answered by participants themselves
+
+-   data punched by our staff (like from cognitive testing)
+
+-   logs entered by our staff (like logs from MRI, EEG, VR etc)
+
+-   computer tasks (mirror tracing task sends data to TSD via nettskjema)
+
+-   files uploaded by our partners (Vitas send results from DBS through nettskjema)
+
+## Why do we use it?
+
+-   anyone with a smartphone and internet can access forms to input data (i.e. we can use it "on the go", for instance at the scanner)
+
+-   data entry can be standardised, so that there is less possibility to enter incorrect or impossible data
+
+-   data is sent directly to TSD, so the data is always secure and is not easily lost
+
+-   we dont have issues with multiple people working on the same local file, locking it for editing by others
+
+## Where do they go?
+
+-   Almost all are connected directly to TSD, and are sent to p23 in encrypted safe form on a per response basis.
+
+-   The encrypted data is stored at `/tsd/p23/data/durable/nettskjema-submissions/5xxx/` , where each form has its own subfolder
+
+    -   We need to decrypt and store the data elsewhere for further use
+
+## How can I access the data?
+
+There are two basic ways of interacting with the incoming nettskjema data:
+
+::: columns
+::: {.column width="70%"}
+**Nettquick**
+
+-   Makes the form data available almost immediately
+
+-   Makes no changes to the data
+
+-   Data stored in a temporary database
+:::
+
+::: {.column width="30%"}
+![](img/nettquick.png)
+:::
+:::
+
+## How can I access the data?
+
+There are two basic ways of interacting with the incoming nettskjema data:
+
+::: columns
+::: {.column width="70%"}
+**Nettskjema pipeline**
+
+-   Slower (runs every couple of hours)
+
+-   Replaces hash-keys with IDs and has a system for correcting errors
+
+-   Data stored in files
+:::
+
+::: {.column width="30%"}
+![](img/nettskjema.png)
+:::
+:::
+
+## Pipeline in short
+
+-   Single response data come in encrypted to TSD
+
+-   Files are copied to a new safe location
+
+    -   `/tsd/p23/data/durable/nettskjema-submissions/cleaned`
+
+-   Data are decrypted
+
+-   Single responses are combined into larger data set
+
+-   Ids replace the SHA hash keys (suffix `wids)`
+
+-   Edits are applied from `edits-xxxxx.json` (suffix `ed` )
+
+## Pipeline is run as services
+
+::: columns
+::: {.column width="70%"}
+LCBC nettskjema services
+
+-   run on timers
+
+-   All based in R
+
+-   services run:
+
+    -   nettskjema_decrypt
+
+    -   nettskjema_flag_depression
+
+    -   nettskjema_ids2consent
+
+    -   nettskjema_merge\_\[project\]
+:::
+
+::: {.column width="30%"}
+![](img/services.png)
+:::
+:::
+
+## What are these merge things?
+
+-   Each project (and wave in most cases) get their own merge script
+
+-   These merge all nettskjemas for that project to a large file
+
+    -   for error and data incompatibility checks
+
+    -   These also produce the overview and inconsistent files found in the data inspector
+
+-   This data forms the basis of all data that get entered into the NOAS from nettskjema
+
+## What is the data inspector?
+
+::: columns
+::: {.column width="30%"}
+![](img/datainspector.png)
+:::
+
+::: {.column width="70%"}
+![](img/datainspector_table.png)
+:::
+:::
+
+## What if there are problems with the nettskjema data?
+
+::: columns
+::: {.column width="30%"}
+![](img/nettfix.png)
+:::
+
+::: {.column width="70%"}
+-   An application to alter nettskjema data that are incorrect
+    -   usually only used for correcting Ids, Birthdates and sex
+-   If data is already in the NOAS, then fixing it on Nettfix will not fix the data
+    -   we are working on another application for that
+    -   Currently, notify Mo of errors for a manual fix for NOAS
+:::
+:::
+
+## So, what happens then?
+
+-   Any correction in a nettskjema, is stored in an edits file for that specific nettskjema
+
+    -   edits-xxxx.json
+
+-   It logs the change, a comment and the timestamp of the change
+
+-   If the same element is changed multiple times, a history log of the changes is also created.
+
+-   The nettskjema decrypt service will apply the changes next time it runs
+
+## How does nettskjema data end up in NOAS?
+
+-   Happens with human interaction
+
+    -   this cannot be fully automated, all data entering the NOAS has a human making sure the data is OK to enter there
+
+-   The process may depend on the project, but in general, a script is made to split up the data into NOAS-compatible tables
+
+## Pipeline in short
+
+-   Single response data come in encrypted to TSD
+
+-   Files are copied to a new safe location
+
+    -   `/tsd/p23/data/durable/nettskjema-submissions/cleaned`
+
+-   Data are decrypted
+
+-   Single responses are combined into larger data set
+
+-   Ids replace the SHA hash keys (suffix `wids)`
+
+-   Edits are applied from `edits-xxxxx.json` (suffix `ed` )
