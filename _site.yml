@@ -56,6 +56,8 @@ navbar:
           href: slides/2022.01.20-rse-pgk
         - text: "02.06.2022 - Nettskjema pipeline"
           href: slides/2022.06.02-nettskjema_pipeline/index.html
+        - text: "14.10.2022 - Working on TSD"
+          href: slides/2022.10.14-lcbc-tsd/index.html
           
     - text: "Workshops"
       menu:

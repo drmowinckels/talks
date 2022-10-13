@@ -1,0 +1,234 @@
+---
+title: "Working on TSD"
+subtitle: "-- LCBC general TSD tools --"
+author: "Athanasia M. Mowinckel"
+format:
+  revealjs: 
+    theme: [default, lcbc-revealjs.scss]
+    slide-number: c/t
+editor: visual
+---
+
+## Why do we use TSD?
+
+::: incremental
+-   The only Norwegian service that provide storage of black (sensitive) data
+
+-   Also connected to a computing cluster for heavy computational loads
+
+-   Service is affordable, compared to other possible cloud computing and storage systems
+:::
+
+## What are the challenges?
+
+::: incremental
+-   Staff are unfamiliar with Linux
+
+-   The general file structure and navigation is unfamiliar
+
+-   The lack of "simple" UI tools makes it hard for junior staff to do certain tasks
+
+-   Access is slow and laggy
+
+-   Keyboard mappings are not always correct/as expected
+
+-   Old operating systems makes some tools hard to get working
+:::
+
+::: notes
+-   We spend lots of time to get even the most "basic" analysis pipelines going, as we need to custom build many of them
+
+-   Containers are great to work around these things, but updating containers is also a challenge and are especially unfamiliar territory for almost all staff
+:::
+
+## What do we use TSD for?
+
+::: incremental
+Almost everything
+
+-   data storage
+
+-   analysis/computing
+
+-   data validation / quality assertion
+
+-   data logging
+
+-   software development
+:::
+
+# Getting data in to TSD
+
+## How does data get into TSD?
+
+::: columns
+::: {.column width="45%"}
+::: incremental
+-   [**Nettskjema**](https://nettskjema.no/)
+
+    -   Telephone interviews
+
+    -   Questionnaires
+
+    -   Data entered by our staff
+
+    -   Logs entered by our staff
+
+    -   Computer tasks
+
+    -   File uploads
+:::
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+::: incremental
+-   [**S3 bucket**](https://www.uio.no/english/services/it/research/sensitive-data/help/import-export.html#import-export-via-command-line-through-API)
+
+    -   Larger files, like MRI / genetics etc
+
+-   [**Data portal**](https://data.tsd.usit.no/)
+
+    -   Most day-to-day imports of smaller files
+:::
+:::
+:::
+
+## Why do we use Nettskjema so actively?
+
+::: incremental
+-   anyone with a smartphone and internet can access forms to input data (i.e. we can use it "on the go")
+-   data entry can be standardised, so that there is less possibility to enter incorrect or impossible data
+-   data is sent directly to TSD, so the data is always secure and is not easily lost
+-   we don't have issues with multiple people working on the same local file, locking it for editing by others
+-   data can enter TSD by staff/partners without TSD access
+:::
+
+# Working inside TSD
+
+## 
+
+## [TSD userland services](https://github.com/f-krull/tuls) (TULS)
+
+::: columns
+::: {.column width="50%"}
+::: incremental
+-   All users like to have UI components to work with
+
+-   Admin team set up tools:
+
+    -   **service-user**: for general tools or run pipelines for general purpose
+
+    -   **service-machine**: services run on dedicated VM
+:::
+:::
+
+::: {.column width="50%"}
+![Screenshot of TULS running in TSD](images/paste-8B1E9E23.png){fig-alt="Screenshot of TULS running in TSD"}
+:::
+:::
+
+## Service status
+
+![](images/paste-FA3B5AFD.png)
+
+## [**Gitea**](https://gitea.io/en-us/) **- Git with a cup of tea**
+
+::: columns
+::: {.column width="25%"}
+-   GitHub/GitLab like server inside TSD
+
+-   Having a git server inside TSD aids clean collaboration
+
+-   Syncing repos between GitHub/Gitea is cleaner
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="70%"}
+![Gitea](https://gitea.io/images/screenshot.png)
+:::
+:::
+
+## [Nettskjema](https://nettskjema.no/) services
+
+::: columns
+::: {.column width="25%"}
+![](images/nettquick.png){width="173"}
+:::
+
+::: {.column width="25%"}
+![](images/datainspector.png){width="163"}
+:::
+
+::: {.column width="25%"}
+![](images/nettfix.png){width="170"}
+:::
+
+::: {.column width="25%"}
+![](images/paste-510A0315.png)
+:::
+:::
+
+## Our data-base
+
+<video data-autoplay src="noas.mov" height="600px">
+
+</video>
+
+## Example of MRI data checking tool
+
+<video data-autoplay src="mri.mov" height="600px">
+
+</video>
+
+## Tools
+
+-   Admins/Managers install various tools in common user folders
+
+-   Set up distinct alias'es for accessing these tools & path shortcuts
+
+-   Users are recommended to source aliases into their `.barshrc` for easy access
+
+    -   Can at times collide with system set-ups by USIT or the Colossus `module` system
+
+    -   Needs to be done sparingly
+
+# What can TSD improve for the end users?
+
+::: incremental
+-   Development focus on user experience
+
+-   An online user forum to connect users
+
+-   [RStudio Package Manager](https://www.rstudio.com/products/package-manager/) for R and python
+:::
+
+::: notes
+-   Development focus on user experience
+
+    -   New tools/infrastructure for TSD are being developed
+
+    -   Little funding/flash in improving existing infrastructure and user experience
+
+    -   We have never received a survey on user experience of TSD
+
+-   A user forum to connect users
+
+    -   Currently, there is no way to chat/report issues on TSD-use other than the UiO IT ticket system
+
+    -   An online user forum could get users in touch with each other and help each other solve issues in a more transparent way
+
+    -   IT tickets of the same kind are likely being solved over and over again, while an online forum could have the solution once, and users could find it
+
+    -   Users find quicker answers, IT get less ticket burden
+
+-   RStudio package manager could ease access to R packages inside TSD, both for R and python.
+
+    -   our experience is that R package installs and python environments are extremely tricky get working as the users expect, and both our admin team, staff, and USIT spend a lot of time getting these things working.
+:::
+
+## End
