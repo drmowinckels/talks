@@ -200,7 +200,7 @@ Almost everything
 # What can TSD improve for the end users?
 
 ::: incremental
--   Development focus on user experience
+-   Increased communication with users to inform development
 
 -   An online user forum to connect users
 

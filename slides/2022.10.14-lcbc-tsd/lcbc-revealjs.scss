@@ -5,6 +5,7 @@ $lcbc-green-d: #94c11e;
 $lcbc-green-l: #c6d984;
 $lcbc-grey-l: #b2b2b2;
 $lcbc-grey-d: #666666;
+$col-size: 20%;
 
 /*-- scss:defaults --*/
 
@@ -17,29 +18,28 @@ $link-color-hover: $lcbc-blue-d;
 /*-- scss:rules --*/
 .reveal ul li::marker {
   color: $lcbc-green-l;
-}
+};
 
 .reveal code {
   color: $lcbc-green-d;
-}
+};
 
 
-.slide-background .level2,
-.slide-background .level3{
+.slide-background {
   background: 
-    url(lcbc_logo_wide.png) no-repeat 90% 98% / 20%,
-    linear-gradient(-45deg, lighten($lcbc-blue-l, 30%) 20%, #fff 20%),
-    linear-gradient(-135deg, lighten($lcbc-green-l, 30%) 20%, #fff 20%);
-}
+    url(lcbc_logo_wide.png) no-repeat 92% 98% / 15%,
+    linear-gradient(-45deg, lighten($lcbc-blue-l, 25%) $col-size, transparentize(#fff, 1) $col-size),
+    linear-gradient(-135deg, lighten($lcbc-green-l, 25%) $col-size, transparentize(#fff, 1) $col-size),
+};
 
 .slide-background:first-child,
 .slide-background .level1,
 .reveal #end .slide  {
-  background-image: none;
+  background-image: none !important;
   background: 
-    url(lcbc_logo_wide.png) no-repeat 10% 3% / 40%,
-    linear-gradient(-45deg, lighten($lcbc-blue-l, 10%) 20%, #fff 20%),
-    linear-gradient(-135deg, lighten($lcbc-green-l, 10%) 20%, #fff 20%);
-}
+    url(lcbc_logo_wide.png) no-repeat 25px 25px / 300px,
+    linear-gradient(-45deg, lighten($lcbc-blue-l, 10%) $col-size, transparentize(#fff, 1) $col-size),
+    linear-gradient(-135deg, lighten($lcbc-green-l, 10%) $col-size, transparentize(#fff, 1) $col-size) !important
+};
 
 
