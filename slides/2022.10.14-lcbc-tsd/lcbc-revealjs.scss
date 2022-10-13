@@ -6,6 +6,7 @@ $lcbc-green-l: #c6d984;
 $lcbc-grey-l: #b2b2b2;
 $lcbc-grey-d: #666666;
 $col-size: 20%;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,400&display=swap');
 
 /*-- scss:defaults --*/
 
@@ -13,6 +14,9 @@ $body-bg: #fff;
 $body-color: darken($lcbc-grey-d, 25%);
 $link-color: $lcbc-blue-l;
 $link-color-hover: $lcbc-blue-d;
+$font-family-sans-serif: 'Montserrat', sans-serif;
+$presentation-font-size-root: 35px;
+
 
 
 /*-- scss:rules --*/
