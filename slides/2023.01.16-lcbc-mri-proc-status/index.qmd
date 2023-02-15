@@ -1,0 +1,325 @@
+---
+title: "Custom MRI processing status overview"
+subtitle: "-- Keeping track of LCBC's MRI pipeline --"
+author: "Athanasia M. Mowinckel"
+format:
+  revealjs: 
+    theme: [default, lcbc-revealjs.scss]
+    slide-number: c/t
+    incremental: true
+editor: visual
+---
+
+## When a colleague asks for help. ![](images/image-484952062.png){width="50%"} 
+
+## You jump
+
+::: columns
+::: {.column width="50%"}
+![](images/image-1344052424.png)
+:::
+
+::: {.column width="50%"}
+![](images/image-1294012275.png)
+:::
+:::
+
+## What is the issue?
+
+::: incremental
+-   How do we keep track of the MRI data?
+
+    -   What is the expected processing pipeline for a specific dataset?
+
+-   How do we know what are possible issues with an MRI dataset?
+
+-   Where do we look for this information?
+
+    -   How easily can new and existing staff find the information they are after?
+
+-   How can we update this information?
+:::
+
+## How do we keep track?
+
+::: columns
+::: {.column width="50%"}
+**Problem**
+
+MRI has many processing steps
+
+-   Many steps must be done in a serial fashion.
+
+-   Knowing which step is next can be difficult
+
+-   Knowing if any steps have failed and why is difficult
+:::
+
+::: {.column width="50%"}
+**Need**
+
+A system that:
+
+-   tracks step progression
+
+<!-- -->
+
+-   indicates expected pipeline to follow
+:::
+:::
+
+## How do we know possible issues with a dataset?
+
+::: columns
+::: {.column width="50%"}
+**Problem**
+
+MRI data are highly annotated
+
+-   Issues at scanner
+
+-   Issues in import
+
+-   Issues in processing
+
+-   Stored project-wise in spreadsheets
+
+    -   Can only be edited by one person at the time
+:::
+
+::: {.column width="50%"}
+**Need**
+
+A system that:
+
+-   Gathers all annotations to the same place
+
+-   Classifies them into meaningful categories
+
+    -   i.e. belonging to certain modularities
+
+-   Makes it possible to edit annotations
+:::
+:::
+
+## Where is this information?
+
+::: columns
+::: {.column width="50%"}
+**Problem**
+
+-   Project-specific logging
+
+    -   distributed in many files
+
+    -   no logic in location
+
+-   Stored in spreadsheets
+
+    -   Only one can edit
+
+    -   Gets locked and then copied
+
+    -   Each has unique organisation
+:::
+
+::: {.column width="50%"}
+**Need**
+
+A system that:
+
+-   Collects all logs for all projects
+
+-   Has a standardised way of storing data
+
+    -   also allowing for project specific setups
+
+-   Allows multiple users to interact with it
+:::
+:::
+
+## How do we update?
+
+::: columns
+::: {.column width="50%"}
+**Problem**
+
+Updates to the logs are 100% manual
+
+-   Who does it?
+
+-   Who has the newest information?
+
+-   How do they do it?
+
+-   What is the newest information?
+:::
+
+::: {.column width="50%"}
+**Need**
+
+A system that:
+
+-   allows manual and automatic update of information
+
+-   creates easy visual representations to check what has been done
+
+-   is the single source of needed information
+:::
+:::
+
+------------------------------------------------------------------------
+
+## ![](images/image-676945535.png)
+
+## Video of the UI
+
+<video data-autoplay src="mov/ui.mov" height="80%">
+
+</video>
+
+## Video of the API
+
+<video data-autoplay src="mov/api.mov" height="80%">
+
+</video>
+
+## The underlying data - Manual editing
+
+::: columns
+::: {.column width="35%"}
+#### process.json
+
+```{json}
+{
+  "project_id": "array",
+  "wave_code": "asis",
+  "sorted": "icons",
+  "bids": "icons",
+  "t1_rating": "numeric",
+  "anat": "sum",
+  "func": "sum",
+  "perf": "sum",
+  "eeg": "sum"
+}
+```
+:::
+
+::: {.column width="65%"}
+#### shown on the webui main table
+
+![](images/image-1135983159.png)
+:::
+:::
+
+## The underlying data - Manual editing
+
+::: columns
+::: {.column width="35%"}
+#### tasks.json
+
+```{json}
+{
+  "project_id": {
+    "value": ["MemP", "S2C", "MemC"]
+  },
+  "wave_code": {
+    "value": "numeric"
+  },
+  "sorted": {
+    "comments": "yes",
+    "value": "icons",
+    "url": null
+  },
+  "anat_fs_recon": {
+    "comments": "yes",
+    "value": "icons",
+    "url": null
+  },
+  "anat_fs_samseg": {
+    "comments": "yes",
+    "value": "icons",
+    "url": null
+  }
+}
+```
+:::
+
+::: {.column width="65%"}
+#### shown on the webui pop-up
+
+![](images/image-1543621704.png)
+:::
+:::
+
+## The underlying data - Manual editing
+
+::: columns
+::: {.column width="35%"}
+#### protocol.json
+
+```{json}
+{
+  "S2C": {
+    "1": [
+      "project_id",
+      "wave_code",
+      "sorted",
+      "anat_fs_recon",
+      "anat_fs_samseg"
+      ],
+    "2": [
+      "project_id",
+      "wave_code",
+      "sorted",
+      "anat_fs_recon",
+      "anat_fs_mriqc"
+      ]
+    }
+  }
+}
+```
+:::
+
+::: {.column width="65%"}
+#### Dictates which tasks are expected for a given dataset
+
+![](images/image-1268272295.png)
+:::
+:::
+
+## Future work
+
+::: columns
+::: {.column width="50%"}
+**Application**
+
+-   API endpoints
+
+    -    task.json
+
+    -   protocol.json
+
+-   Streamline code more
+
+-   Switch from GET to POST where appropriate
+:::
+
+::: {.column width="50%"}
+**Pipeline integration**
+
+-   Get comments and ratings from nettskjema
+
+-   Integrate with MRI rating application
+
+-   Have pipelines update the jsons when tasks finish/fail
+
+-   Populate for all legacy data
+:::
+:::
+
+::: footer
+All these and more listed on [GitHub](https://github.com/LCBC-UiO/js_mri_proc_status/issues)
+:::
+
+## Live demo if time allows  {.title-slide}
