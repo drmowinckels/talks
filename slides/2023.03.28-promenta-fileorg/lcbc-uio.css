@@ -2,7 +2,7 @@
 
 .remark-slide-content {
   background-color: #fff;
-  font-size: 30px;
+  font-size: 26px;
 }
 .remark-code-line {
   font-size: 22px;
@@ -26,7 +26,7 @@ div.my-sidebar {
     transform: rotate(-90deg);
 }
 
-.inverse {
+.inverse { 
   background-color:  #66bfdd;
   text-shadow: none;
 }
