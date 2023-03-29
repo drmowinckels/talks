@@ -55,12 +55,13 @@ navbar:
         - text: "20.01.2022 - R package development"
           href: slides/2022.01.20-rse-pgk
         - text: "02.06.2022 - Nettskjema pipeline"
-          href: slides/2022.06.02-nettskjema_pipeline/index.html
+          href: slides/2022.06.02-nettskjema_pipeline
         - text: "14.10.2022 - Working on TSD"
-          href: slides/2022.10.14-lcbc-tsd/index.html
+          href: slides/2022.10.14-lcbc-tsd
         - text: "16.01.2023 - Custom MRI processing overview"
-          href: slides/2023.01.16-lcbc-mri-proc-status/index.html
-          
+          href: slides/2023.01.16-lcbc-mri-proc-status
+        - text: "29.03.2023 - Mind your data - Organising your files"
+          href: slides/2023.03.28-promenta-fileorg
     - text: "Workshops"
       menu:
         - text: "Linear mixed models"
