@@ -38,15 +38,15 @@ class: dark
 
 ways of working I see, make
 - it hard for me to help
-- loosing track of the work easy
-- loosing vital project files or output easy
+- loosing track of the work easily
+- loosing vital project files or output easily
 
 
 <br>
 
 Great rOpenSci community call on reproducible research
   - see [video and materials](https://ropensci.org/commcalls/2019-07-30/)
-  - see it when you can, its 50minutes with lots of great perspectives
+  - see it when you can, it's 50 minutes with lots of great perspectives
 
 
 ---

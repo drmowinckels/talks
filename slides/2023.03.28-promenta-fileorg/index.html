@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mind your data</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Athanasia Monika Mowinckel" />
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="lcbc-uio.css" type="text/css" />
+    <link rel="stylesheet" href="lcbc-uio-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, right, title-slide
+
+.title[
+# Mind your data
+]
+.subtitle[
+## - Creating Organised Research Projects -
+]
+.author[
+### Athanasia Monika Mowinckel
+]
+.date[
+### 29.03.2023
+]
+
+---
+
+
+
+
+background-image: url(tube_real.png)
+
+---
+background-image: url(tube_structured.png)
+
+---
+
+layout: true
+
+&lt;div class="my-sidebar"&gt;&lt;/div&gt;
+
+
+---
+class: dark
+# Series inspiration
+
+ways of working I see, make
+- it hard for me to help
+- loosing track of the work easy
+- loosing vital project files or output easy
+
+
+&lt;br&gt;
+
+Great rOpenSci community call on reproducible research
+  - see [video and materials](https://ropensci.org/commcalls/2019-07-30/)
+  - see it when you can, it's 50 minutes with lots of great perspectives
+
+---
+class: dark
+
+# Series inspiration
+
+[Jenny Bryan](https://twitter.com/JennyBryan)'s blogpost on [workflow vs. scripts](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/) in R
+&gt; If the first line of your R script is  
+&gt; `setwd("C:\Users\jenny\path\that\only\I\have")`  
+&gt; I will come into your office and SET YOUR COMPUTER ON FIRE 🔥.  
+&gt; 
+&gt; If the first line of your R script is  
+&gt; `rm(list = ls())`  
+&gt; I will come into your office and SET YOUR COMPUTER ON FIRE 🔥.  
+
+---
+class: dark, middle
+
+.center[
+# Series talks
+]
+
+&amp;nbsp; _Part I_   &amp;nbsp; RStudio projects  
+&amp;nbsp; _Part II_  &amp;nbsp; Organising your files and workflow  
+&amp;nbsp; _Part III_ &amp;nbsp; Package / Library management  
+&amp;nbsp; _Part IV_  &amp;nbsp; git &amp; GitHub crash course!  
+
+---
+
+## Why do we care about project management?
+
+--
+
+.pull-left[
+**Portability**  
+_The ability to move the project without breaking code or needing adapting_
+- you will change computers
+- you will reorganise your file structure
+- you will share your code with others
+]
+
+--
+
+.pull-right[
+**Reproducibility**  
+_The ability to rerun the entire process from scratch_
+- not just for reviews
+- not just for best-practice science
+- also for future (or even present) you
+- for your collaborators/helpers
+]
+
+---
+
+## Project workflows
+
+.pull-left[
+**Portability**
+
+- All necessary files should be contained in the project and referenced relatively
+
+- All necessary outputs are created by code in the project and stored in the project
+
+]
+
+.pull-right[
+**Reproducibility**
+
+- All code can be run in fresh sessions and produce the same output
+
+- Does not force other users to alter their own work setup
+]
+
+---
+
+## Folder structure
+
+.pull-left[
+- **data**
+  - all raw data files, organised in meaningful ways
+  - never, ever write _back_ to this folder, read only
+  - if using git, never commit to history, place in `.gitignore`
+- **results/outputs**
+  - write all analysis etc. results to
+  - treat as disposable, can be overwritten
+  - may also include figures etc if wanted
+]
+
+.pull-right[
+- **docs**
+  - documentation
+  - Rmarkdown files
+- **R (advanced)**
+  - if you write functions that are used in several places
+  - this is the standard R folder for keeping these files that might be called with `source()` calls
+- **scripts/analysis**
+  - files with full analysis pipelines
+  - might have `source` calls to files in `R/`
+]
+
+---
+
+## Files
+
+.pull-left[
+- **README.Rmd/README.md**
+  - markdown file describing the project content and intent
+  - maybe also explains which files to look in for what
+  - ideal if storing on GitHub
+  - `usethis::use_readme_rmd()`
+- **DESCRIPTION**
+  - R specific file with information about the project
+  - can be created with `lcbcr::create_paper_project()` or
+  with the project wizard from the [lcbcr-package](https://github.com/LCBC-UiO/lcbcr)
+]
+
+--
+
+.pull-right[
+**if you plan on putting it online (GitHub or equivalent)**
+- **LICENCE**
+  - dictates how project content can be reused
+  - ask me at need, or check out [Choose a license](https://choosealicense.com/) 
+- **CITATION**
+  - gives users/readers a clear instruction on how to cite if they use the project content
+  - ask me at need, or read on [GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+]
+
+---
+
+## File naming
+
+.pull-left[
+Organising files in `data/`, `results/`, `docs/`, and `scripts/` require some ideas of how to name files for:
+- easy machine reading
+- easy human reading
+- easy understanding of file content
+- choosing the correct type of file to store
+]
+
+--
+
+.pull-right[
+If you are using the `R/` folder to store R-functions, these might need somewhat different naming conventions than the other folders, as these are functions you can use across the other files. 
+
+Here, naming should be particularly thought in terms of **content** rather than structural organisation.
+]
+
+---
+
+## File naming - Machine reading
+
+.pull-left[
+Machines are clever, but extremely pedantic.
+
+Be consistent, be meticulous.
+
+Some machines are more clever than others, so name files in a way that the "dumbest" of them can deal with.
+]
+
+--
+
+.pull-right[
+- **don't use white space**
+  - decide on a separator and use consistently
+  - recommend the dash `-`
+- **use small case letters** 
+  - certain machines care about capitalization
+- **use numbers smartly** 
+  - numbers are awesome to use and can help organise files meaningfully
+  - but needs some thinking about before implementing
+]
+
+---
+
+## File naming - Machine reading
+
+.pull-left[
+- Machines list files in numeric-alphabetic order.
+- they'll first list files starting with numbers (ascdendingly)
+- then in alphabetic order.
+
+```
+1_file.txt
+2_file.txt
+file_one.txt
+file_three.txt
+file_two.txt
+```
+]
+
+--
+
+.pull-right[
+- But they wont understand the difference between 1 and 10 when sorting
+
+```
+10_file.txt
+1_file.txt
+2_file.txt
+file_1.txt
+file_10.txt
+file_2.txt
+```
+]
+
+---
+
+## File naming - Machine reading
+
+.pull-left[
+- 'zero-padding' is a way of preserving file order
+
+```
+01_file.txt
+02_file.txt
+10_file.txt
+file_01.txt
+file_02.txt
+file_10.txt
+```
+]
+
+--
+
+.pull-right[
+- using dates in file names may also ensure decent organisation
+- but be consistent. Recommend using YYYY-MM-DD formatting
+
+```
+13-11-21_initial-submission-results.txt
+22-01-03_revised-results.txt
+2022-02-28_results.txt
+```
+
+vs.
+
+```
+2021-11-13_initial-submission-results.txt
+2022-02-28_results.txt
+2022-03-01_revised-results.txt
+```
+]
+
+---
+
+## File naming - Machine reading
+
+- Consider using different space separators for different parts of the file name
+- This way you can use the file name it self, programatically, if needed
+
+
+```
+2021-11-13_initial_submission_results.txt
+2022-02-28_results.txt
+2022-03-01_revised_results.txt
+```
+
+---
+
+
+```r
+file_names &lt;- c(
+  "2021-11-13_initial_submission_results.txt",
+  "2022-02-28_results.txt",
+  "2022-03-01_revised_results.txt")
+
+stringr::str_split(file_names, "_")
+```
+
+```
+## [[1]]
+## [1] "2021-11-13"  "initial"     "submission"  "results.txt"
+## 
+## [[2]]
+## [1] "2022-02-28"  "results.txt"
+## 
+## [[3]]
+## [1] "2022-03-01"  "revised"     "results.txt"
+```
+
+---
+
+## File naming - Machine reading
+
+- Consider using different space separators for different parts of the file name
+- This way you can use the file name it self, programatically, if needed
+
+
+```
+2021-11-13_initial-submission-results.txt
+2022-02-28_results.txt
+2022-03-01_revised-results.txt
+```
+
+---
+
+
+```r
+file_names &lt;- c(
+  "2021-11-13_initial-submission-results.txt",
+  "2022-02-28_results.txt",
+  "2022-03-01_revised-results.txt")
+
+stringr::str_split(file_names, "_")
+```
+
+```
+## [[1]]
+## [1] "2021-11-13"                    
+## [2] "initial-submission-results.txt"
+## 
+## [[2]]
+## [1] "2022-02-28"  "results.txt"
+## 
+## [[3]]
+## [1] "2022-03-01"          "revised-results.txt"
+```
+
+---
+
+## File naming - Human reading &amp; understanding
+
+Optimising file names for computers is great, but ultimately its us humans that need to choose files to work with.
+Naming files in a way that makes the file content obvious (or at least give an idea of content) by the file name is good for such interactions. 
+
+--
+
+.pull-left[
+```
+2021-11-13_final-results.txt
+2022-02-28_finalfinal-results.txt
+2022-03-01_finished-results.txt
+```
+]
+
+--
+
+.pull-right[
+```
+2021-11-13_first-submission-results.txt
+2022-02-28_revision-round1-results.txt
+2022-03-01_revision-round2-results.txt
+2022-03-01_revision-round2-no-sex-results.txt
+```
+]
+
+---
+
+## File naming - Human &amp; machine
+
+--
+
+.pull-left[
+If you are saving data tables (columns and rows): text-files
+
+common file extensions for tables:
+- `.tab`/`.tsv` : tabulation separated (`\t`)
+- `.csv` - comma (`,`) or semicolon (`;`) separated
+- `.dat` - fixed-width (quite uncommon type)
+- `.txt` - space (` `) separated
+]
+
+--
+
+.pull-right[
+Other formats can be saved on need.
+From R, we can sometimes want to save entire
+R-objects or environments as `.rda`, `.rds` or `.RData`
+
+**But be careful!** If you are saving output from a statistical model,
+the R-object also contains the data used, and you will have
+exposed raw data!
+]
+
+---
+
+## File naming - Human &amp; machine
+
+--
+
+.pull-left[
+Images from plots should use png or svg
+
+- `.png` - supports transparency and has no quality loss upon re-saving
+- `.svg` - can rescale to infinity without getting grainy
+- `.jpg` - best for photos, quality loss on rescale, blurry edges and poor text rendering
+]
+
+--
+
+.pull-right[
+Images can also some times be saved in pdf, but pdf while a vector format, cannot support transparency. 
+
+Tiff has fallen out of favour due to high file sizes, but are preferable to jpeg for photos.
+]
+
+
+---
+background-image: url(montreal2.png)
+
+---
+
+layout: false
+
+---
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: 95% center
+background-size: 50% auto
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;  @DrMowinckels](https://twitter.com/DrMowinckels)  
+[&lt;i class="fab fa-mastodon"&gt;&lt;/i&gt; @Drmowinckels@fosstodon.org](https://fosstodon.org/@Drmowinckels)  
+[&lt;i class="fab fa-github" aria-hidden="true"&gt;&lt;/i&gt;  drmowinckels](https://github.com/drmowinckels)  
+[&lt;i class="fa fa-globe" aria-hidden="true"&gt;&lt;/i&gt;  drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / Research Software Engineer   
+- PhD in cognitive psychology  
+- Software Carpentry &amp; Posit Tidyverse Instructor   
+- [R-Ladies Leadership](www.rladies.org)
+] 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
