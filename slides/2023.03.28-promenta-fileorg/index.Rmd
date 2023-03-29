@@ -28,6 +28,26 @@ knitr::opts_chunk$set(
 )
 ```
 
+background-image: url("https://drmowinckels.io/about/profile.png")
+background-position: 95% center
+background-size: 50% auto
+class: middle, dark
+
+.pull-left[
+## Athanasia Monika Mowinckel
+
+[<i class="fab fa-twitter"></i>  @DrMowinckels](https://twitter.com/DrMowinckels)  
+[<i class="fab fa-mastodon"></i> @Drmowinckels@fosstodon.org](https://fosstodon.org/@Drmowinckels)  
+[<i class="fab fa-github" aria-hidden="true"></i>  drmowinckels](https://github.com/drmowinckels)  
+[<i class="fa fa-globe" aria-hidden="true"></i>  drmowinckels.io/](https://drmowinckels.io/)  
+
+- Staff scientist / Research Software Engineer   
+- PhD in cognitive psychology  
+- Software Carpentry & Posit Tidyverse Instructor   
+- [R-Ladies Leadership](www.rladies.org)
+] 
+---
+
 background-image: url(tube_real.png)
 
 ---
@@ -433,26 +453,3 @@ Tiff has fallen out of favour due to high file sizes, but are preferable to jpeg
 ---
 background-image: url(montreal2.png)
 
----
-
-layout: false
-
----
-background-image: url("https://drmowinckels.io/about/profile.png")
-background-position: 95% center
-background-size: 50% auto
-class: middle, dark
-
-.pull-left[
-## Athanasia Monika Mowinckel
-
-[<i class="fab fa-twitter"></i>  @DrMowinckels](https://twitter.com/DrMowinckels)  
-[<i class="fab fa-mastodon"></i> @Drmowinckels@fosstodon.org](https://fosstodon.org/@Drmowinckels)  
-[<i class="fab fa-github" aria-hidden="true"></i>  drmowinckels](https://github.com/drmowinckels)  
-[<i class="fa fa-globe" aria-hidden="true"></i>  drmowinckels.io/](https://drmowinckels.io/)  
-
-- Staff scientist / Research Software Engineer   
-- PhD in cognitive psychology  
-- Software Carpentry & Posit Tidyverse Instructor   
-- [R-Ladies Leadership](www.rladies.org)
-] 
