@@ -25,6 +25,8 @@ navbar:
           href: slides/2020.11.27-norment-ggseg/index.html  
         - text: "10.11.2020 - NHS-R Conf"
           href: https://athanasiamo.github.io/nhsr-2020/#1 
+        - text: "25.08.2023 - ggseg updates: Vectorising brain maps"
+          href: slides/2023.08.25-intpart-ggseg/
         - text: "---"
         - text: "Psychology Talks"
         - text: "03.06.2021 - nettskjemar R-package"
