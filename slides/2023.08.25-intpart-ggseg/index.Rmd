@@ -17,7 +17,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false 
-      ratio: "16:9"
+      ratio: "4:3"
 ---
 
 ```{r setup, include=FALSE}
@@ -122,6 +122,7 @@ plot(dk, show.legend = FALSE)
 ]
 
 ---
+
 ## ggseg - 2d polygons
 
 .pull-left[
@@ -216,20 +217,22 @@ background-position: 50% 10%
 ---
 
 ## Atlases
-```{r, echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+```{r, include=FALSE}
 library(ggsegExtra, quietly = TRUE)
 
-ggseg_atlas_repos() |> 
+atlases <- ggseg_atlas_repos() |> 
   filter(!Package %in% c("ggseg", "ggsegExtra", "ggseg3d", "freesurfer")) |> 
   mutate(
     img = sprintf(
-      '<img src="%s/raw/HEAD/man/figures/logo.png" align="right" alt="%s logo" width="120"/>',
+      '<img src="%s/raw/HEAD/man/figures/logo.png" align="right" alt="%s logo" width="100"/>',
             RemoteUrl, Package)
   ) |> 
-  pull(img) |> 
-  cat()
+  pull(img)
 ```
 
+```{r, echo = FALSE, results='asis'}
+cat(atlases)
+```
 
 ---
 
