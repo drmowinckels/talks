@@ -64,6 +64,8 @@ navbar:
           href: slides/2023.01.16-lcbc-mri-proc-status
         - text: "29.03.2023 - Mind your data - Organising your files"
           href: slides/2023.03.28-promenta-fileorg
+        - text: "03.10.2023 - cli - Helpers for Developing Command Line Interfaces"
+          href: slides/2023.10.03-ropensci-cli
     - text: "Workshops"
       menu:
         - text: "Linear mixed models"
