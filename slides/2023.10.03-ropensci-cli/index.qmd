@@ -1,0 +1,128 @@
+---
+title: "cli - Helpers for Developing Command Line Interfaces"
+subtitle: "- rOpenSci co-working session  -"
+author: "Athanasia Monika Mowinckel"
+date: "2023.10.03"
+format: revealjs
+execute:
+  echo: true
+  message: true
+---
+
+```{r setup, include=FALSE}
+library(cli)
+```
+
+# What is cli & why use it?
+
+
+# Prettify console output
+
+::: columns
+::: {.column width="50%"}
+
+```{r echo=FALSE}
+cat("Running analysis 1")
+cat("- subsetting data")
+cat("- submitting job #746")
+cat("Finish 1")
+cat("- outputing data")
+cat("/path/to/file")
+```
+:::
+
+::: {.column width="50%"}
+```{r echo = FALSE, message=TRUE}
+cli_h1("Running analysis 1")
+cli_alert_success("subsetting data")
+cli_alert_success("submitting job #746")
+cli_h2("Finishing up")
+cli_inform("outputing data to:")
+cli_text("/path/to/file")
+```
+:::
+:::
+
+
+# Organise output
+
+```{r echo=FALSE, message = TRUE}
+cli::cli_sitrep()
+```
+
+
+# Clear messages
+
+```{r error=TRUE}
+n <- "boo"
+cli_abort(c(
+        "{.var n} must be a numeric vector",
+  "x" = "You've supplied a {.cls {class(n)}} vector."
+))
+```
+
+# Clear messages
+
+```{r error=TRUE}
+len <- 26
+idx <- 100
+cli_abort(c(
+        "Must index an existing element:",
+  "i" = "There {?is/are} {len} element{?s}.",
+  "x" = "You've tried to subset element {idx}."
+))
+```
+
+
+
+# Errors users can't understand
+
+```{r 'closure', error=TRUE}
+subset <- function(df = data){
+  if(missing(df))
+    df <- data
+  df$hello
+}
+subset()
+```
+
+
+# Errors users can understand, but are ugly
+
+```{r 'closure2', error=TRUE}
+subset <- function(df = data){
+  if(missing(df))
+    df <- data
+  if(!"hello" %in% names(df))
+    stop("Column 'hello' not in the data")
+  df$hello
+}
+subset()
+```
+
+
+# Errors users can understand, but are ugly
+
+```{r 'closure3', error=TRUE}
+subset <- function(df, column){
+  if(!column %in% names(df))
+    stop(sprintf("Column '%s' not in the data",
+                 column))
+  df[, column]
+}
+subset(mtcars, column = "bla")
+```
+
+
+
+# Errors users can understand, and are pretty
+
+```{r 'closure4', error=TRUE}
+subset <- function(df, column){
+  if(!column %in% names(df))
+    cli::cli_abort("Column '{column}' not in the data")
+  df[, column]
+}
+subset(mtcars, column = "bla")
+```
+
