@@ -27,7 +27,7 @@ navbar:
           href: https://athanasiamo.github.io/nhsr-2020/#1 
         - text: "25.08.2023 - ggseg updates: Vectorising brain maps"
           href: slides/2023.08.25-intpart-ggseg/
-        - text: "01.12.2023 - Visualizing brain data in R"
+        - text: "01.12.2023 - Visualizing brain data in R -PIA"
           href: slides/2023-12-01-ggseg-pia/
         - text: "---"
         - text: "Psychology Talks"
