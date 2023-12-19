@@ -8,6 +8,7 @@ format:
     logo: img/lcbc.png
     theme: [default, lcbc.scss]
 editor: visual
+image: img/Git_icon.svg.png
 ---
 
 # This is a crash course
@@ -162,7 +163,7 @@ editor: visual
 # git lingo
 
 | command     | where                   | meaning                                                                                         |
-|------------------|------------------|-----------------------------------|
+|-------------------|-------------------|-----------------------------------|
 | add         | local                   | add changes/files to temporary cache                                                            |
 | cache/stage | uncommitted storage     | files and changes added to git, but not yet committed to memory. Temporary, forgettable storage |
 | commit      | commit cache to history | commit everything in cache to git history with a message                                        |
@@ -194,16 +195,18 @@ Use the `.gitignore`\` file to make sure things never are added to git history
 :::
 
 ::: {.column width="45%"}
-    > cat .gitignore
-    data/
-    my_file.txt
+```         
+> cat .gitignore
+data/
+my_file.txt
 
-    # R stuff to ignore
-    .Rhistory
-    .Rproj.user
+# R stuff to ignore
+.Rhistory
+.Rproj.user
 
-    # Mac hidden storage
-    .DS_Store
+# Mac hidden storage
+.DS_Store
+```
 :::
 :::
 

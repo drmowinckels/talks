@@ -18,6 +18,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
+image: img/noas_ark.png
 ---
 
 ```{r include = FALSE}

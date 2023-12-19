@@ -13,6 +13,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
+image: img/ggplot2.png
 ---
 
 ```{r setup, include=FALSE}

@@ -8,9 +8,10 @@ format:
     slide-number: c/t
     incremental: true
 editor: visual
+image: images/image-676945535.png
 ---
 
-## When a colleague asks for help. ![](images/image-484952062.png){width="50%"} 
+## When a colleague asks for help. ![](images/image-484952062.png){width="50%"}
 
 ## You jump
 
@@ -168,7 +169,7 @@ A system that:
 :::
 :::
 
-# The current solution  {.title-slide}
+# The current solution {.title-slide}
 
 ------------------------------------------------------------------------
 
@@ -298,7 +299,7 @@ A system that:
 
 -   API endpoints
 
-    -    task.json
+    -   task.json
 
     -   protocol.json
 
@@ -324,4 +325,4 @@ A system that:
 All these and more listed on [GitHub](https://github.com/LCBC-UiO/js_mri_proc_status/issues)
 :::
 
-## Live demo if time allows  {.title-slide}
+## Live demo if time allows {.title-slide}

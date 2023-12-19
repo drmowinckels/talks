@@ -3,6 +3,7 @@ title: "Nettskjema TSD Pipeline"
 author: "Athanasia M. Mowinckel"
 format: revealjs
 editor: visual
+image: img/nettquick.png
 ---
 
 ## What do we collect?
