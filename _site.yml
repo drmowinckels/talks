@@ -24,7 +24,7 @@ navbar:
         - text: "27.11.2020 - NORMENT Early Reaserchers"
           href: slides/2020.11.27-norment-ggseg/index.html  
         - text: "10.11.2020 - NHS-R Conf"
-          href: https://athanasiamo.github.io/nhsr-2020/#1 
+          href: https://drmowinckels.github.io/nhsr-2020/#1 
         - text: "25.08.2023 - ggseg updates: Vectorising brain maps"
           href: slides/2023.08.25-intpart-ggseg/
         - text: "01.12.2023 - Visualizing brain data in R -PIA"
@@ -36,7 +36,7 @@ navbar:
         - text: "19.04.2021 - MRI introduction"
           href: slides/2021.04.19-princeton-mri-overview
         - text: "20.01.2020 - Mixed models for longitudinal Lifespan research"
-          href: https://athanasiamo.github.io/CPH_presentation/
+          href: https://drmowinckels.github.io/CPH_presentation/
         - text: "---"
         - text: "R-Ladies"
         - text: "07.10.2021 - Building resources for an international organisation"
@@ -71,9 +71,9 @@ navbar:
     - text: "Workshops"
       menu:
         - text: "Linear mixed models"
-          href: https://athanasiamo.github.io/LME_introduction_workshop/
+          href: https://drmowinckels.github.io/LME_introduction_workshop/
         - text: "Tidyverse quick intro"
-          href: https://athanasiamo.github.io/tidyquintro/
+          href: https://drmowinckels.github.io/tidyquintro/
         - text: "LCBC workshops"
         - text: "03.02.2022 - Project worklflow (in R)"
           href: slides/2022.02.03-rproj
@@ -100,7 +100,7 @@ navbar:
     - icon: fa fa-globe
       href: https://drmowinckels.io/blog/
     - icon: fab fa-github
-      href: https://github.com/athanasiamo
+      href: https://github.com/drmowinckels
     - icon: fab fa-twitter
       href: https://twitter.com/DrMowinckels
       
