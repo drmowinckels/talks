@@ -1,0 +1,11 @@
+---
+title: "Reports to impress your boss"
+subtitle: "Rmarkdown magic"
+date: 2020-11-10
+tags:
+  - R
+  - Rmarkdown
+  - R-Ladies
+link: https://rladies.org/meetup-presentations_oslo/2020-05-11-rmarkdown_like_a_boss/presentation.html#1
+image: https://img.locationscout.net/images/2019-04/oslo-opera-house-norway_l.jpeg
+---

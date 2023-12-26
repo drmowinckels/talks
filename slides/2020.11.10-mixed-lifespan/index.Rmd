@@ -1,0 +1,9 @@
+---
+title: "NHS-R: Visualizing brain data"
+date: 2020-11-10
+tags:
+  - visualisation
+  - ggseg
+link: https://drmowinckels.io/nhsr-2020/#1
+image: https://www.lifebrain.uio.no/vrtx/decorating/resources/images/logo.png
+---

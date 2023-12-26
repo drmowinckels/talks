@@ -19,6 +19,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/noas_with_software_trimmed.png
+tags:
+  - data management
+  - dev
 ---
 
 ```{r include = FALSE}

@@ -21,6 +21,10 @@ output:
       output: 
       beforeInit: "https://platform.twitter.com/widgets.js"
 image: index_files/figure-html/plot31-output2-1.png
+tags:
+  - visualization
+  - R
+  - R-Ladies
 ---
 
 ```{r setup, include=FALSE}

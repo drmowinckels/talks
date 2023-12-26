@@ -9,6 +9,10 @@ format:
     incremental: true
 editor: visual
 image: images/image-676945535.png
+tags:
+  - MRI
+  - LCBC
+  - psych
 ---
 
 ## When a colleague asks for help. ![](images/image-484952062.png){width="50%"}

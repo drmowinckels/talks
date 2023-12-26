@@ -19,6 +19,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: index_files/figure-html/yeo.out-2.png
+tags:
+  - ggseg
+  - visualization
 ---
 
 ```{r setup, include=FALSE}

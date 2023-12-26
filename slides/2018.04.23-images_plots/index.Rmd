@@ -1,0 +1,9 @@
+---
+title: "Adding external images to plots"
+date: 2018-04-23
+tags:
+  - visualization
+  - R
+link: https://rladies.org/meetup-presentations_oslo/2018-04-23-external-images-to-plots/AddingExternalImages.html
+image: https://rladies.org/meetup-presentations_oslo/2018-04-23-external-images-to-plots/AddingExternalImages_files/figure-html/unnamed-chunk-38-1.png
+---

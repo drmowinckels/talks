@@ -1,0 +1,10 @@
+---
+title: "Data tidying"
+subtitle: "with dplyr and tidyr"
+date: 2019-09-30
+tags:
+  - R
+  - data science
+link: https://rladies.org/meetup-presentations_oslo/2019-09-30-data_tidying_Mo/data_tidying-Mo.html#1
+image: https://d33wubrfki0l68.cloudfront.net/071952491ec4a6a532a3f70ecfa2507af4d341f9/c167c/images/hex-dplyr.png
+---

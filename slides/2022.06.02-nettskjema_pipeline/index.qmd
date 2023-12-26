@@ -4,6 +4,10 @@ author: "Athanasia M. Mowinckel"
 format: revealjs
 editor: visual
 image: img/nettquick.png
+tags:
+  - Nettskjema
+  - TSD
+  - LCBC
 ---
 
 ## What do we collect?

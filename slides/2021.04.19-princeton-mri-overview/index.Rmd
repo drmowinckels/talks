@@ -19,6 +19,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/mri_oven.png
+tags:
+  - MRI
+  - psych
 ---
 
 ```{r setup, include=FALSE}

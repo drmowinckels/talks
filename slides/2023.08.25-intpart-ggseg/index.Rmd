@@ -19,6 +19,10 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/ggseg.png
+tags:
+  - ggseg
+  - visualization
+  - psych
 ---
 
 ```{r setup, include=FALSE}

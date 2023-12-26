@@ -20,6 +20,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: index_files/figure-html/unnamed-chunk-5-1.png
+tags:
+  - R projects
+  - R
 ---
 
 ```{r include = FALSE}

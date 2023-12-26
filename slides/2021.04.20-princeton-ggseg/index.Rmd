@@ -18,6 +18,9 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
+tags:
+  - ggseg
+  - visualization
 ---
 
 ```{r setup, include=FALSE}

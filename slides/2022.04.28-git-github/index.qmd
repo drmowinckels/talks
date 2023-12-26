@@ -9,6 +9,10 @@ format:
     theme: [default, lcbc.scss]
 editor: visual
 image: img/Git_icon.svg.png
+tags:
+  - git
+  - R projects
+  - LCBC
 ---
 
 # This is a crash course

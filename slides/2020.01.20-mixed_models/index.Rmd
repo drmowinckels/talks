@@ -1,0 +1,9 @@
+---
+title: "Longitudinal mixed models"
+date: 2020-11-10
+tags:
+  - visualisation
+  - ggseg
+link: https://drmowinckels.io/CPH_presentation/
+image: https://www.lifebrain.uio.no/vrtx/decorating/resources/images/logo.png
+---

@@ -14,6 +14,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/ggplot2.png
+tags:
+  - visualisation
+  - psych
 ---
 
 ```{r setup, include=FALSE}

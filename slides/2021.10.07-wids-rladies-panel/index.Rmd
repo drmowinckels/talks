@@ -20,6 +20,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/chapters-world.png
+tags:
+  - R-Ladies
+  - Community
 ---
 
 ```{r setup, include=FALSE}

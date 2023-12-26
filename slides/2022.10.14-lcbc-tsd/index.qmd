@@ -8,6 +8,9 @@ format:
     slide-number: c/t
 editor: visual
 image: images/paste-8B1E9E23.png
+tags:
+    - TSD
+    - LCBC
 ---
 
 ## Why do we use TSD?

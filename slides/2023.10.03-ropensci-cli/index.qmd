@@ -7,6 +7,9 @@ format: revealjs
 execute:
   echo: true
   message: true
+tags:
+  - R
+  - R dev
 ---
 
 ```{r setup, include=FALSE}

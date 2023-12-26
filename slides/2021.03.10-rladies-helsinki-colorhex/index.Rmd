@@ -15,6 +15,10 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: img/david-tip-u_yzZGO1WeY-unsplash.jpg
+tags:
+  - R
+  - R-Ladies
+  - R-dev
 ---
 
 background-image: url('img/david-tip-u_yzZGO1WeY-unsplash.jpg')

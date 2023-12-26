@@ -14,6 +14,9 @@ output:
       countIncrementalSlides: false 
       ratio: "16:9"
 image: aseg_new.png
+tags:
+  - ggseg
+  - visualization
 ---
 
 ```{r setup, include=FALSE}
