@@ -18,10 +18,10 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-image: img/mri_oven.png
 tags:
   - MRI
   - psych
+image: img/mri_oven.png
 ---
 
 ```{r setup, include=FALSE}

@@ -18,10 +18,10 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-image: index_files/figure-html/yeo.out-2.png
 tags:
   - ggseg
   - visualization
+image: index_files/figure-html/yeo.out-2.png
 ---
 
 ```{r setup, include=FALSE}

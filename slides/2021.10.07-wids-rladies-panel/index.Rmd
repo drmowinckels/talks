@@ -19,10 +19,10 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-image: img/chapters-world.png
 tags:
   - R-Ladies
   - Community
+image: img/chapters-world.png
 ---
 
 ```{r setup, include=FALSE}

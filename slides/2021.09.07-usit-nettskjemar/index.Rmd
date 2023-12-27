@@ -3,6 +3,9 @@ title: "Advanced use of R"
 subtitle: "- creating and distributing R packages for internal and public use -"
 author: "Athanasia Monika Mowinckel"
 date: "07.09.2021"
+tags:
+  - R
+  - R-dev
 output:
   xaringan::moon_reader:
     css: 
@@ -18,9 +21,6 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-tags:
-  - R
-  - R-dev
 ---
 
 ```{r include = FALSE}

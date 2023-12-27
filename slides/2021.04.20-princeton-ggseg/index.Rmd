@@ -3,6 +3,9 @@ title: "Visualizing brain data"
 subtitle: "- the ggseg-suite of R-packages  -"
 author: "Athanasia Monika Mowinckel"
 date: "27.11.2020"
+tags:
+  - ggseg
+  - visualization
 output:
   xaringan::moon_reader:
     css: 
@@ -18,9 +21,6 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-tags:
-  - ggseg
-  - visualization
 ---
 
 ```{r setup, include=FALSE}

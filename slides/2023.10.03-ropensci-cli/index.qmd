@@ -4,13 +4,14 @@ subtitle: "- rOpenSci co-working session  -"
 author: "Athanasia Monika Mowinckel"
 date: "2023.10.03"
 format: revealjs
-execute:
-  echo: true
-  message: true
 tags:
   - R
   - R dev
+execute:
+  echo: true
+  message: true
 ---
+
 
 ```{r setup, include=FALSE}
 library(cli)

@@ -7,10 +7,10 @@ format:
     theme: [default, lcbc-revealjs.scss]
     slide-number: c/t
 editor: visual
-image: images/paste-8B1E9E23.png
 tags:
     - TSD
     - LCBC
+image: images/paste-8B1E9E23.png
 ---
 
 ## Why do we use TSD?

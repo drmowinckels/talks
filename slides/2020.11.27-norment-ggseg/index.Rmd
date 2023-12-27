@@ -13,10 +13,10 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-image: aseg_new.png
 tags:
   - ggseg
   - visualization
+image: aseg_new.png
 ---
 
 ```{r setup, include=FALSE}

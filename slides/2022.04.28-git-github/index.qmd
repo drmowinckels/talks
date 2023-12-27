@@ -8,11 +8,11 @@ format:
     logo: img/lcbc.png
     theme: [default, lcbc.scss]
 editor: visual
-image: img/Git_icon.svg.png
 tags:
   - git
   - R projects
   - LCBC
+image: img/Git_icon.svg.png
 ---
 
 # This is a crash course

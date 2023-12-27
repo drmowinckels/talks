@@ -3,6 +3,9 @@ title: "R package development"
 subtitle: "- creating and distributing -"
 author: "Athanasia Monika Mowinckel"
 date: "20.01.2022"
+tags:
+  - R-dev
+  - R
 output:
   xaringan::moon_reader:
     css: 
@@ -18,9 +21,6 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-tags:
-  - R-dev
-  - R
 ---
 
 ```{r include = FALSE}

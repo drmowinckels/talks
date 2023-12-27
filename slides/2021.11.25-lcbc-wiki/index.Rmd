@@ -3,6 +3,9 @@ title: "LCBC Wiki"
 subtitle: "- What, When & How -"
 author: "Athanasia Monika Mowinckel"
 date: "25.11.2021"
+tags:
+  - LCBC
+  - Wiki
 output:
   xaringan::moon_reader:
     css: [lcbc-uio.css, lcbc-uio-fonts.css, default]
@@ -13,9 +16,6 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-tags:
-  - LCBC
-  - Wiki
 ---
 
 layout: true

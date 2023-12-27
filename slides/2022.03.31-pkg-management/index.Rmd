@@ -18,11 +18,11 @@ output:
       highlightLines: true
       countIncrementalSlides: false 
       ratio: "16:9"
-image: index_files/figure-html/unnamed-chunk-3-1.png
 tags:
   - R
   - R projects
   - LCBC
+image: index_files/figure-html/unnamed-chunk-3-1.png
 ---
 
 ```{r include = FALSE}
