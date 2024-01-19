@@ -1,0 +1,13 @@
+---
+title: "CRAN-ial Expansion"
+subtitle: "- Taking Your R Package Development to New Frontiers with R-Universe -"
+author: "Athanasia Monika Mowinckel"
+date: "2023.09.20"
+tags:
+  - R
+  - R dev
+  - r-universe
+link: https://www.youtube.com/watch?v=XDiyAvpo2uk&list=PL9HYL-VRX0oRFZslRGHwHuwea7SvAATHp&index=72
+image: https://github.com/drmowinckels/talks/blob/main/slides/2023.08.25-positconf_runiverse/thumb.png?raw=true
+button: "Video"
+---
