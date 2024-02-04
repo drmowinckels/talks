@@ -1,6 +1,6 @@
 ---
 title: "Part II: Organising your files and workflow"
-subtitle: "- R project management series -"
+subtitle: "R project management series"
 author: "Athanasia Monika Mowinckel"
 date: "03.03.2022"
 output:

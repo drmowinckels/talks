@@ -1,6 +1,6 @@
 ---
 title: "Using nettskjemar"
-subtitle: "- for transparent data flows -"
+subtitle: "for transparent data flows"
 author: "Athanasia Monika Mowinckel"
 date: "03.06.2021"
 output:

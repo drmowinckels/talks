@@ -1,6 +1,6 @@
 ---
 title: "Part I: RStudio projects"
-subtitle: "- R project management series -"
+subtitle: "R project management series"
 author: "Athanasia Monika Mowinckel"
 date: "03.02.2022"
 output:

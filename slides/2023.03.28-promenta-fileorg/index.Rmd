@@ -1,6 +1,6 @@
 ---
 title: "Mind your data"
-subtitle: "- Creating Organised Research Projects -"
+subtitle: "Creating Organised Research Projects"
 author: "Athanasia Monika Mowinckel"
 date: "29.03.2023"
 output:

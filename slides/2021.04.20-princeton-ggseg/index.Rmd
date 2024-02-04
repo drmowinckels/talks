@@ -1,8 +1,9 @@
 ---
 title: "Visualizing brain data"
-subtitle: "- the ggseg-suite of R-packages  -"
+subtitle: "the ggseg-suite of R-packages "
 author: "Athanasia Monika Mowinckel"
 date: "27.11.2020"
+image: dkt3d.png
 tags:
   - ggseg
   - visualization

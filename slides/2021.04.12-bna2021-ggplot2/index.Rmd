@@ -1,6 +1,6 @@
 ---
 title: "R for visualisation"
-subtitle: "- the ggplot2 way  -"
+subtitle: "the ggplot2 way "
 author: "Athanasia Monika Mowinckel"
 date: "12.04.2021"
 output:

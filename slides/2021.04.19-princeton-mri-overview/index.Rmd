@@ -1,6 +1,6 @@
 ---
 title: "MRI"
-subtitle: "- a quick introduction  -"
+subtitle: "a quick introduction "
 author: "Athanasia Monika Mowinckel"
 date: "19.04.2021"
 output:

@@ -1,11 +1,12 @@
 ---
 title: "R package development"
-subtitle: "- creating and distributing -"
+subtitle: "creating and distributing"
 author: "Athanasia Monika Mowinckel"
 date: "20.01.2022"
 tags:
   - R-dev
   - R
+image: thumb.png
 output:
   xaringan::moon_reader:
     css: 

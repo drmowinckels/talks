@@ -1,8 +1,9 @@
 ---
 title: "LCBC Wiki"
-subtitle: "- What, When & How -"
+subtitle: "What, When & How"
 author: "Athanasia Monika Mowinckel"
 date: "25.11.2021"
+image: lcbc_logo_wide.png
 tags:
   - LCBC
   - Wiki

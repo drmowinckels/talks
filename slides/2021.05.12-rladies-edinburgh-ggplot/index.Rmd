@@ -1,6 +1,6 @@
 ---
 title: "Zhoozh up your ggplots!"
-subtitle: "- customizing your plots  -"
+subtitle: "customizing your plots "
 author: "Athanasia Monika Mowinckel"
 date: "12.05.2021"
 output:

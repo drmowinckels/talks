@@ -1,6 +1,6 @@
 ---
 title: "A different kind of data base"
-subtitle: "- creating a custom data storage, management and user export tool for a research lab -"
+subtitle: "creating a custom data storage, management and user export tool for a research lab"
 author: "Athanasia Monika Mowinckel"
 date: "07.09.2021"
 output:

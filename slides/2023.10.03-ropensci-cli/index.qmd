@@ -1,9 +1,10 @@
 ---
 title: "cli - Helpers for Developing Command Line Interfaces"
-subtitle: "- rOpenSci co-working session  -"
+subtitle: "rOpenSci co-working session "
 author: "Athanasia Monika Mowinckel"
 date: "2023.10.03"
 format: revealjs
+image: cli-bracelet.png
 tags:
   - R
   - R dev
@@ -27,10 +28,10 @@ library(cli)
 
 ```{r echo=FALSE}
 cat("Running analysis 1")
-cat("- subsetting data")
-cat("- submitting job #746")
+cat("subsetting data")
+cat("submitting job #746")
 cat("Finish 1")
-cat("- outputing data")
+cat("outputing data")
 cat("/path/to/file")
 ```
 :::

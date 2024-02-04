@@ -1,6 +1,6 @@
 ---
 title: "Part IV: git and GitHub"
-subtitle: "- R project management series -"
+subtitle: "R project management series"
 author: "Athanasia Monika Mowinckel"
 date: "31.03.2022"
 format:

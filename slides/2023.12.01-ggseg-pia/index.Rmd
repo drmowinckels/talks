@@ -1,6 +1,6 @@
 ---
 title: "Visualizing brain data"
-subtitle: "- the ggseg-suite of R-packages  -"
+subtitle: "the ggseg-suite of R-packages "
 author: "Athanasia Monika Mowinckel"
 date: "2023-12-01"
 output:

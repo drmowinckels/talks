@@ -1,6 +1,6 @@
 ---
 title: "Make something random"
-subtitle: "- learn something useful  -"
+subtitle: "learn something useful "
 author: "Athanasia Mo Mowinckel"
 date: "10.03.2021"
 output:

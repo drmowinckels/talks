@@ -1,6 +1,6 @@
 ---
 title: "Visualizing brain data"
-subtitle: "- Improving speed and flexibility of the ggseg-suite  -"
+subtitle: "Improving speed and flexibility of the ggseg-suite "
 author: "Athanasia Monika Mowinckel"
 date: "24.08.2023"
 output:
